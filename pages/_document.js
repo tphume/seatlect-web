@@ -10,14 +10,14 @@ class MyDocument extends Document {
     // Wrap App in Material server side stylesheet
     ctx.renderPage = () =>
       originalRenderPage({
-        enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
+        enhanceApp: (App) => (props) => sheets.collect(<App {...props} />)
       });
 
     const initialProps = await Document.getInitialProps(ctx);
 
     return {
       ...initialProps,
-      styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()],
+      styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()]
     };
   }
 
