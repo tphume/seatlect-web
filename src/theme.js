@@ -1,4 +1,5 @@
 import { createMuiTheme } from '@material-ui/core';
+import 'fontsource-dm-sans';
 
 const theme = createMuiTheme({
   palette: {
