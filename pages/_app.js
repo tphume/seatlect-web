@@ -21,4 +21,15 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
+MyApp.getInitialProps = async ({ ctx }) => {
+  if (typeof window === 'undefined' && ctx.res.writeHead) {
+    if (ctx.req.cookies.token == undefined && ctx.req.url !== '/login') {
+      ctx.res.writeHead(302, { Location: '/login' });
+      ctx.res.end();
+    }
+  }
+
+  return {};
+};
+
 export default MyApp;
