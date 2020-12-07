@@ -20,6 +20,9 @@ const useStyles = makeStyles({
   loginButton: {
     marginTop: `1rem`,
     padding: `12px 22px`
+  },
+  createButton: {
+    fontWeight: `700`
   }
 });
 
@@ -69,6 +72,12 @@ export default function Login() {
             Sign in
           </Button>
         </form>
+        <p style={{ marginTop: `2rem` }}>
+          Don't have an account yet?
+          <Button size="small" color="secondary" classes={{ root: classes.createButton }}>
+            Create account
+          </Button>
+        </p>
       </Grid>
     </Grid>
   );
