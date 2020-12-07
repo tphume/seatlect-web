@@ -5,16 +5,21 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
   root: {
     height: `100vh`
   },
   loginRoot: {
-    padding: `10vh 10% 10vh 10%`
+    padding: `10vh 12.5% 10vh 12.5%`
   },
   loginSubtitle: {
     color: `#BDBDBD`
+  },
+  loginButton: {
+    marginTop: `1rem`,
+    padding: `12px 22px`
   }
 });
 
@@ -53,6 +58,16 @@ export default function Login() {
             InputLabelProps={{ shrink: true }}
             type="password"
           />
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            disableElevation
+            fullWidth
+            classes={{ root: classes.loginButton }}
+          >
+            Sign in
+          </Button>
         </form>
       </Grid>
     </Grid>
