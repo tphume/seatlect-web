@@ -82,3 +82,12 @@ export default function Login() {
     </Grid>
   );
 }
+
+export async function getServerSideProps(ctx) {
+  // If already logged in - redirect to homepage
+  if (ctx.req.cookies.token != undefined) {
+    return { redirect: { destination: '/', permanent: false } };
+  }
+
+  return { props: {} };
+}
