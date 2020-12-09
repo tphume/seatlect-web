@@ -18,7 +18,10 @@ const theme = createMuiTheme({
     }
   },
   typography: {
-    fontFamily: 'DM Sans'
+    fontFamily: 'DM Sans',
+    button: {
+      textTransform: `none`
+    }
   },
   props: {
     MuiAppBar: {
