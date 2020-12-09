@@ -5,12 +5,16 @@ class UserRepo {
     this.endpoint = endpoint;
   }
 
-  async login({ username, password }) { }
+  async login({ username, password }) {}
 }
 
 class MockUserRepo {
   async login({ username, password }) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // Uncomment the following if you want to test error
+    // throw 'Fake error';
+
     document.cookie = 'token=fakeToken';
   }
 }

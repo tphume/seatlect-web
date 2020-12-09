@@ -9,6 +9,8 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles({
   root: {
@@ -39,15 +41,32 @@ export default function Login({ env }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  // Presentation state
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  // Handlers
   async function handleLogin(e) {
     e.preventDefault();
+    setLoading(true);
 
     try {
       await userRepo.login({ username, password });
       router.push('/');
     } catch (e) {
       console.log(e);
+      setError(true);
     }
+
+    setLoading(false);
+  }
+
+  function closeError(event, reason) {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setError(false);
   }
 
   return (
@@ -68,6 +87,7 @@ export default function Login({ env }) {
             variant="outlined"
             fullWidth
             margin="normal"
+            disabled={loading}
             label="Username"
             placeholder="Jiaroach"
             InputLabelProps={{ shrink: true }}
@@ -79,6 +99,7 @@ export default function Login({ env }) {
             variant="outlined"
             fullWidth
             margin="normal"
+            disabled={loading}
             label="Password"
             placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
             InputLabelProps={{ shrink: true }}
@@ -90,6 +111,7 @@ export default function Login({ env }) {
             variant="contained"
             color="primary"
             size="large"
+            disabled={loading}
             disableElevation
             fullWidth
             classes={{ root: classes.loginButton }}
@@ -104,6 +126,11 @@ export default function Login({ env }) {
             Create account
           </Button>
         </p>
+        <Snackbar open={error} autoHideDuration={3000} onClose={closeError}>
+          <Alert onClose={closeError} severity="error">
+            Authentication error
+          </Alert>
+        </Snackbar>
       </Grid>
     </Grid>
   );
@@ -116,4 +143,9 @@ export async function getServerSideProps(ctx) {
   }
 
   return { props: { env: process.env.NODE_ENV } };
+}
+
+// Helper function
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
