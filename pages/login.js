@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Grid from '@material-ui/core/Grid';
@@ -29,6 +29,9 @@ const useStyles = makeStyles({
 export default function Login() {
   const classes = useStyles();
 
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <Grid container component="main" spacing={0} className={classes.root}>
       <Grid item component="div" sm={6}></Grid>
@@ -50,6 +53,8 @@ export default function Login() {
             label="Username"
             placeholder="Jiaroach"
             InputLabelProps={{ shrink: true }}
+            value={username}
+            onChange={(e) => setUsername(e.value)}
           />
           <TextField
             required
@@ -60,6 +65,8 @@ export default function Login() {
             placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
             InputLabelProps={{ shrink: true }}
             type="password"
+            value={password}
+            onChange={(e) => setPassword(e.value)}
           />
           <Button
             variant="contained"
