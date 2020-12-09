@@ -54,7 +54,6 @@ export default function Login({ env }) {
       await userRepo.login({ username, password });
       router.push('/');
     } catch (e) {
-      console.log(e);
       setError(true);
     }
 

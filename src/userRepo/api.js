@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 class UserRepo {
   constructor({ url, endpoint = '/users/login' }) {
     // Must pass in url and endpoint - will be used as default when calling api
@@ -5,7 +7,14 @@ class UserRepo {
     this.endpoint = endpoint;
   }
 
-  async login({ username, password }) {}
+  async login({ username, password }) {
+    try {
+      await axios.post(this.url + this.endpoint, { username, password });
+    } catch (e) {
+      // TODO add better error handling
+      throw 'Authentication error';
+    }
+  }
 }
 
 class MockUserRepo {
