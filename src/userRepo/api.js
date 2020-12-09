@@ -5,16 +5,22 @@ class UserRepo {
     this.endpoint = endpoint;
   }
 
-  async login({ username, password }) {}
+  async login({ username, password }) { }
 }
 
 class MockUserRepo {
   async login({ username, password }) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    return {
-      token: 'fakeToken'
-    };
+    document.cookie = 'token=fakeToken';
   }
 }
 
-export { UserRepo, MockUserRepo };
+function getUserRepo(env) {
+  if (env === 'development') {
+    return new MockUserRepo();
+  }
+
+  return new UserRepo({ url: process.env.URL });
+}
+
+export { UserRepo, MockUserRepo, getUserRepo };

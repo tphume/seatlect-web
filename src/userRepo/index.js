@@ -1,1 +1,1 @@
-export { UserRepo, MockUserRepo } from './api.js';
+export { UserRepo, MockUserRepo, getUserRepo } from './api.js';

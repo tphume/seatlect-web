@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+
+import { getUserRepo } from 'src/userRepo';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Grid from '@material-ui/core/Grid';
@@ -26,11 +29,26 @@ const useStyles = makeStyles({
   }
 });
 
-export default function Login() {
+export default function Login({ env }) {
   const classes = useStyles();
+  const router = useRouter();
 
+  const userRepo = getUserRepo(env);
+
+  // Input state
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  async function handleLogin(e) {
+    e.preventDefault();
+
+    try {
+      await userRepo.login({ username, password });
+      router.push('/');
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <Grid container component="main" spacing={0} className={classes.root}>
@@ -75,6 +93,7 @@ export default function Login() {
             disableElevation
             fullWidth
             classes={{ root: classes.loginButton }}
+            onClick={handleLogin}
           >
             Sign in
           </Button>
@@ -96,5 +115,5 @@ export async function getServerSideProps(ctx) {
     return { redirect: { destination: '/', permanent: false } };
   }
 
-  return { props: {} };
+  return { props: { env: process.env.NODE_ENV } };
 }
