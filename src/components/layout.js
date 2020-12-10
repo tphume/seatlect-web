@@ -15,6 +15,7 @@ import Home from '@material-ui/icons/Home';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import Edit from '@material-ui/icons/Edit';
 import MenuBook from '@material-ui/icons/MenuBook';
+import ExitToApp from '@material-ui/icons/ExitToApp';
 
 const drawerWidth = 240;
 
@@ -50,6 +51,11 @@ const useStyles = makeStyles((theme) => ({
   item: {
     '&.Mui-selected, &.Mui-selected:hover': {
       backgroundColor: 'white'
+    }
+  },
+  logoutButton: {
+    '&.MuiListItem-button': {
+      backgroundColor: theme.palette.error.main
     }
   }
 }));
@@ -151,6 +157,23 @@ export default function Layout({ children }) {
                 <MenuBook style={setIconColor('/menu')} />
               </ListItemIcon>
               <ListItemText primary="Menu" classes={{ root: setTextColor('/menu') }} />
+            </ListItem>
+          </List>
+          <Divider />
+          <List>
+            <ListItem
+              button
+              dense
+              className={classes.logoutButton}
+              onClick={() => {
+                document.cookie = 'token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT';
+                router.push('/login');
+              }}
+            >
+              <ListItemIcon>
+                <ExitToApp style={{ color: 'white' }} />
+              </ListItemIcon>
+              <ListItemText primary="Logout" style={{ color: 'white' }} />
             </ListItem>
           </List>
         </div>
