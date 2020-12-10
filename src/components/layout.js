@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -10,6 +11,10 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Home from '@material-ui/icons/Home';
+import CalendarToday from '@material-ui/icons/CalendarToday';
+import Edit from '@material-ui/icons/Edit';
+import MenuBook from '@material-ui/icons/MenuBook';
 
 const drawerWidth = 240;
 
@@ -26,7 +31,8 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.primary.main,
+    padding: `1rem`
   },
   drawerContainer: {
     overflow: 'auto'
@@ -34,11 +40,37 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3)
+  },
+  whiteColor: {
+    color: `white`
+  },
+  primaryColor: {
+    color: theme.palette.primary.main
   }
 }));
 
 export default function Layout({ children }) {
   const classes = useStyles();
+  const router = useRouter();
+
+  // Helper function for list items
+  const setTextColor = (route) => {
+    if (route === router.pathname) {
+      return classes.primaryColor;
+    }
+
+    return classes.whiteColor;
+  };
+
+  const setIconColor = (route) => {
+    if (route === router.pathname) {
+      return {
+        color: '#5D55B4'
+      };
+    }
+
+    return { color: 'white' };
+  };
 
   return (
     <div className={classes.root}>
@@ -58,7 +90,40 @@ export default function Layout({ children }) {
       >
         <Toolbar />
         <div className={classes.drawerContainer}>
-          <List></List>
+          <List>
+            <ListItem button dense className={classes.item} selected={'/' === router.pathname}>
+              <ListItemIcon>
+                <Home style={setIconColor('/')} />
+              </ListItemIcon>
+              <ListItemText primary="Home" classes={{ root: setTextColor('/') }} />
+            </ListItem>
+            <ListItem button dense selected={'/schedule' === router.pathname}>
+              <ListItemIcon>
+                <CalendarToday style={setIconColor('/schedule')} />
+              </ListItemIcon>
+              <ListItemText
+                primary="Schedule"
+                classes={{ root: setTextColor('/schedule') }}
+                selected={'/' === router.pathname}
+              />
+            </ListItem>
+            <ListItem button dense selected={'/floorplan' === router.pathname}>
+              <ListItemIcon>
+                <Edit style={setIconColor('/floorplan')} />
+              </ListItemIcon>
+              <ListItemText
+                primary="Floor Plan"
+                classes={{ root: setTextColor('/floorplan') }}
+                selected={'/' === router.pathname}
+              />
+            </ListItem>
+            <ListItem button dense selected={'/menu' === router.pathname}>
+              <ListItemIcon>
+                <MenuBook style={setIconColor('/menu')} />
+              </ListItemIcon>
+              <ListItemText primary="Menu" classes={{ root: setTextColor('/menu') }} />
+            </ListItem>
+          </List>
         </div>
       </Drawer>
       <main className={classes.content}>
