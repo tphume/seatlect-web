@@ -96,13 +96,25 @@ export default function Layout({ children }) {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            <ListItem button dense selected={'/' === router.pathname} className={classes.item}>
+            <ListItem
+              button
+              dense
+              selected={'/' === router.pathname}
+              className={classes.item}
+              onClick={() => router.push('/')}
+            >
               <ListItemIcon>
                 <Home style={setIconColor('/')} />
               </ListItemIcon>
               <ListItemText primary="Home" classes={{ root: setTextColor('/') }} />
             </ListItem>
-            <ListItem button dense selected={'/schedule' === router.pathname}>
+            <ListItem
+              button
+              dense
+              selected={'/schedule' === router.pathname}
+              className={classes.item}
+              onClick={() => router.push('/schedule')}
+            >
               <ListItemIcon>
                 <CalendarToday style={setIconColor('/schedule')} />
               </ListItemIcon>
@@ -112,7 +124,13 @@ export default function Layout({ children }) {
                 selected={'/' === router.pathname}
               />
             </ListItem>
-            <ListItem button dense selected={'/floorplan' === router.pathname}>
+            <ListItem
+              button
+              dense
+              selected={'/floorplan' === router.pathname}
+              className={classes.item}
+              onClick={() => router.push('/floorplan')}
+            >
               <ListItemIcon>
                 <Edit style={setIconColor('/floorplan')} />
               </ListItemIcon>
@@ -122,7 +140,13 @@ export default function Layout({ children }) {
                 selected={'/' === router.pathname}
               />
             </ListItem>
-            <ListItem button dense selected={'/menu' === router.pathname}>
+            <ListItem
+              button
+              dense
+              selected={'/menu' === router.pathname}
+              className={classes.item}
+              onClick={() => router.push('/menu')}
+            >
               <ListItemIcon>
                 <MenuBook style={setIconColor('/menu')} />
               </ListItemIcon>
