@@ -46,6 +46,11 @@ const useStyles = makeStyles((theme) => ({
   },
   primaryColor: {
     color: theme.palette.primary.main
+  },
+  item: {
+    '&.Mui-selected, &.Mui-selected:hover': {
+      backgroundColor: 'white'
+    }
   }
 }));
 
@@ -91,7 +96,7 @@ export default function Layout({ children }) {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            <ListItem button dense className={classes.item} selected={'/' === router.pathname}>
+            <ListItem button dense selected={'/' === router.pathname} className={classes.item}>
               <ListItemIcon>
                 <Home style={setIconColor('/')} />
               </ListItemIcon>
