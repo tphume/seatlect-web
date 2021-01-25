@@ -167,6 +167,7 @@ export default function Layout({ children }) {
               className={classes.logoutButton}
               onClick={() => {
                 document.cookie = 'token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT';
+                localStorage.clear();
                 router.push('/login');
               }}
             >

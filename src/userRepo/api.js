@@ -25,6 +25,7 @@ class MockUserRepo {
     // throw 'Fake error';
 
     document.cookie = 'token=fakeToken';
+    localStorage.setItem('_id', "placeholder");
   }
 }
 
