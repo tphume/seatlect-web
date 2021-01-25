@@ -31,11 +31,11 @@ const useStyles = makeStyles({
   }
 });
 
-export default function Login({ env }) {
+export default function Login({ env, url }) {
   const classes = useStyles();
   const router = useRouter();
 
-  const userRepo = getUserRepo(env);
+  const userRepo = getUserRepo({ env, url });
 
   // Input state
   const [username, setUsername] = useState('');
@@ -141,7 +141,7 @@ export async function getServerSideProps(ctx) {
     return { redirect: { destination: '/', permanent: false } };
   }
 
-  return { props: { env: process.env.NODE_ENV } };
+  return { props: { env: process.env.NODE_ENV, url: process.env.URL ? process.env.URL : '' } };
 }
 
 // Helper function

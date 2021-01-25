@@ -28,12 +28,13 @@ class MockUserRepo {
   }
 }
 
-function getUserRepo(env) {
+// Construct UserRepo
+function getUserRepo({ env, url }) {
   if (env === 'development') {
     return new MockUserRepo();
   }
 
-  return new UserRepo({ url: process.env.URL });
+  return new UserRepo({ url });
 }
 
 export { UserRepo, MockUserRepo, getUserRepo };
