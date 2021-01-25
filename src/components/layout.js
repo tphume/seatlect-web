@@ -133,16 +133,16 @@ export default function Layout({ children }) {
             <ListItem
               button
               dense
-              selected={'/floorplan' === router.pathname}
+              selected={'/placement' === router.pathname}
               className={classes.item}
-              onClick={() => router.push('/floorplan')}
+              onClick={() => router.push('/placement')}
             >
               <ListItemIcon>
-                <Edit style={setIconColor('/floorplan')} />
+                <Edit style={setIconColor('/placement')} />
               </ListItemIcon>
               <ListItemText
-                primary="Floor Plan"
-                classes={{ root: setTextColor('/floorplan') }}
+                primary="Placement"
+                classes={{ root: setTextColor('/placement') }}
                 selected={'/' === router.pathname}
               />
             </ListItem>
