@@ -2,7 +2,7 @@ import axios from 'axios';
 
 class UserRepo {
   constructor({ url, endpoint = '/users/login' }) {
-    // Must pass in url and endpoint - will be used as default when calling api
+    // Must pass in url
     this.url = url;
     this.endpoint = endpoint;
   }
