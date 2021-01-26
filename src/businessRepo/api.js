@@ -7,11 +7,19 @@ class BusinessRepo {
     this.endpoint = `${endpoint}/${id}`;
   }
 
-  async getBusiness() {}
+  async getBusiness() {
+    try {
+      const response = await axios.get(this.url + endpoint);
+      return response;
+    } catch (e) {
+      // TODO add better error handling
+      throw 'Network error';
+    }
+  }
 }
 
-class BusinessMockRepo {}
+class BusinessMockRepo { }
 
-function getBusinessRepo() {}
+function getBusinessRepo() { }
 
 export { BusinessRepo, BusinessMockRepo, getBusinessRepo };
