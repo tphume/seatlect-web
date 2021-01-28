@@ -52,7 +52,7 @@ export default function Login({ env, url }) {
 
     try {
       await userRepo.login({ username, password });
-      router.push('/');
+      router.push('/home/' + localStorage.getItem('_id'));
     } catch (e) {
       setError(true);
     }

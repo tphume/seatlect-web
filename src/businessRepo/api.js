@@ -40,6 +40,6 @@ class BusinessMockRepo {
   }
 }
 
-function getBusinessRepo() { }
+function getBusinessRepo() {}
 
 export { BusinessRepo, BusinessMockRepo, getBusinessRepo };

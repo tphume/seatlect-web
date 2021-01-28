@@ -60,13 +60,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Layout({ children }) {
+export default function Layout({ children, id }) {
   const classes = useStyles();
   const router = useRouter();
 
   // Helper function for list items
   const setTextColor = (route) => {
-    if (route === router.pathname) {
+    if (route + '[id]' === router.pathname) {
       return classes.primaryColor;
     }
 
@@ -74,7 +74,7 @@ export default function Layout({ children }) {
   };
 
   const setIconColor = (route) => {
-    if (route === router.pathname) {
+    if (route + '[id]' === router.pathname) {
       return {
         color: '#5D55B4'
       };
@@ -105,58 +105,58 @@ export default function Layout({ children }) {
             <ListItem
               button
               dense
-              selected={'/' === router.pathname}
+              selected={'/home/[id]' === router.pathname}
               className={classes.item}
-              onClick={() => router.push('/')}
+              onClick={() => router.push('/home/' + id)}
             >
               <ListItemIcon>
-                <Home style={setIconColor('/')} />
+                <Home style={setIconColor('/home/')} />
               </ListItemIcon>
-              <ListItemText primary="Home" classes={{ root: setTextColor('/') }} />
+              <ListItemText primary="Home" classes={{ root: setTextColor('/home/') }} />
             </ListItem>
             <ListItem
               button
               dense
-              selected={'/schedule' === router.pathname}
+              selected={'/schedule/[id]' === router.pathname}
               className={classes.item}
-              onClick={() => router.push('/schedule')}
+              onClick={() => router.push('/schedule/' + id)}
             >
               <ListItemIcon>
-                <CalendarToday style={setIconColor('/schedule')} />
+                <CalendarToday style={setIconColor('/schedule/')} />
               </ListItemIcon>
               <ListItemText
                 primary="Schedule"
-                classes={{ root: setTextColor('/schedule') }}
-                selected={'/' === router.pathname}
+                classes={{ root: setTextColor('/schedule/') }}
+                selected={'/schedule/[id]' === router.pathname}
               />
             </ListItem>
             <ListItem
               button
               dense
-              selected={'/placement' === router.pathname}
+              selected={'/placement/[id]' === router.pathname}
               className={classes.item}
-              onClick={() => router.push('/placement')}
+              onClick={() => router.push('/placement/' + id)}
             >
               <ListItemIcon>
-                <Edit style={setIconColor('/placement')} />
+                <Edit style={setIconColor('/placement/')} />
               </ListItemIcon>
               <ListItemText
                 primary="Placement"
-                classes={{ root: setTextColor('/placement') }}
-                selected={'/' === router.pathname}
+                classes={{ root: setTextColor('/placement/') }}
+                selected={'/placement/[id]' === router.pathname}
               />
             </ListItem>
             <ListItem
               button
               dense
-              selected={'/menu' === router.pathname}
+              selected={'/menu/[id]' === router.pathname}
               className={classes.item}
-              onClick={() => router.push('/menu')}
+              onClick={() => router.push('/menu/' + id)}
             >
               <ListItemIcon>
-                <MenuBook style={setIconColor('/menu')} />
+                <MenuBook style={setIconColor('/menu/')} />
               </ListItemIcon>
-              <ListItemText primary="Menu" classes={{ root: setTextColor('/menu') }} />
+              <ListItemText primary="Menu" classes={{ root: setTextColor('/menu/') }} />
             </ListItem>
           </List>
           <Divider />
@@ -166,7 +166,7 @@ export default function Layout({ children }) {
               dense
               className={classes.logoutButton}
               onClick={() => {
-                document.cookie = 'token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT';
+                document.cookie = 'token=; expires = Thu, 01 Jan 1970 00:00:00 GMT;path=/';
                 localStorage.clear();
                 router.push('/login');
               }}
