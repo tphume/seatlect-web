@@ -6,11 +6,17 @@ import { getBusinessRepo } from 'src/businessRepo';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import TextField from '@material-ui/core/TextField';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   form: {
     width: `500px`
+  },
+  input: {
+    '& label, & label.Mui-disabled': {
+      color: `rgba(0, 0, 0, 0.87)`,
+      fontWeight: `700`
+    }
   }
-});
+}));
 
 export default function Home({ env, url, initial }) {
   const classes = useStyles();
@@ -43,6 +49,7 @@ export default function Home({ env, url, initial }) {
             value={business.businessName}
             fullWidth={true}
             label="Business Name"
+            className={classes.input}
           />
         </form>
       </div>
