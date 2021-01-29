@@ -5,16 +5,22 @@ import { getBusinessRepo } from 'src/businessRepo';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles((theme) => ({
   form: {
     width: `500px`
   },
   input: {
-    '& label, & label.Mui-disabled': {
-      color: `rgba(0, 0, 0, 0.87)`,
-      fontWeight: `700`
-    }
+    margin: `0 0 1.2rem 0`,
+  },
+  label: {
+    color: `rgba(0, 0, 0, 0.87)`,
+    fontWeight: `700`,
+    fontSize: `0.75rem`,
+    margin: '0 0 3px 0'
   }
 }));
 
@@ -42,15 +48,29 @@ export default function Home({ env, url, initial }) {
     <Layout id={id}>
       <div>
         <form className={classes.form}>
+          <InputLabel className={classes.label}>Business Name</InputLabel>
           <TextField
             variant="outlined"
             size="small"
-            disabled={true}
+            disabled
             value={business.businessName}
-            fullWidth={true}
-            label="Business Name"
+            fullWidth
             className={classes.input}
           />
+          <InputLabel className={classes.label}>Type</InputLabel>
+          <Select
+            labelId="type-select"
+            id="type-select"
+            variant="outlined"
+            margin="dense"
+            value={business.type}
+            disabled
+            fullWidth
+          >
+            <MenuItem value="Restaurant">Restaurant</MenuItem>
+            <MenuItem value="Bar">Bar</MenuItem>
+            <MenuItem value="Theatre">Theatre</MenuItem>
+          </Select>
         </form>
       </div>
     </Layout>
