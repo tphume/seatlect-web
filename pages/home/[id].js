@@ -3,7 +3,18 @@ import React, { useState, useEffect } from 'react';
 import Layout from 'src/components/layout';
 import { getBusinessRepo } from 'src/businessRepo';
 
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import TextField from '@material-ui/core/TextField';
+
+const useStyles = makeStyles({
+  form: {
+    width: `500px`
+  }
+});
+
 export default function Home({ env, url, initial }) {
+  const classes = useStyles();
+
   const [id, setId] = useState('');
   const [business, setBusiness] = useState(initial);
 
@@ -24,7 +35,16 @@ export default function Home({ env, url, initial }) {
   return (
     <Layout id={id}>
       <div>
-        <h1>Hi, you are at home page</h1>
+        <form className={classes.form}>
+          <TextField
+            variant="outlined"
+            size="small"
+            disabled={true}
+            value={business.businessName}
+            fullWidth={true}
+            label="Business Name"
+          />
+        </form>
       </div>
     </Layout>
   );
