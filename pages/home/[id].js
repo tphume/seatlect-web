@@ -13,14 +13,19 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: `500px`
   },
-  input: {
-    margin: `0 0 1.2rem 0`,
-  },
   label: {
     color: `rgba(0, 0, 0, 0.87)`,
     fontWeight: `700`,
     fontSize: `0.75rem`,
     margin: '0 0 3px 0'
+  },
+  textField: {
+    margin: `0 0 1.2rem 0`
+  },
+  selectField: {
+    '&.MuiSelect-root, &.Mui-disabled': {
+      margin: `0 0 1.2rem 0`
+    }
   }
 }));
 
@@ -55,7 +60,7 @@ export default function Home({ env, url, initial }) {
             disabled
             value={business.businessName}
             fullWidth
-            className={classes.input}
+            className={classes.textField}
           />
           <InputLabel className={classes.label}>Type</InputLabel>
           <Select
@@ -66,11 +71,22 @@ export default function Home({ env, url, initial }) {
             value={business.type}
             disabled
             fullWidth
+            className={classes.selectField}
           >
             <MenuItem value="Restaurant">Restaurant</MenuItem>
             <MenuItem value="Bar">Bar</MenuItem>
             <MenuItem value="Theatre">Theatre</MenuItem>
           </Select>
+          <InputLabel className={classes.label}>Description</InputLabel>
+          <TextField
+            variant="outlined"
+            size="small"
+            disabled
+            value={business.description}
+            fullWidth
+            multiline
+            className={classes.textField}
+          />
         </form>
       </div>
     </Layout>
