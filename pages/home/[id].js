@@ -4,6 +4,7 @@ import Layout from 'src/components/layout';
 import { getBusinessRepo } from 'src/businessRepo';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -11,7 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles((theme) => ({
   form: {
-    width: `500px`
+    width: `100%`
   },
   label: {
     color: `rgba(0, 0, 0, 0.87)`,
@@ -51,44 +52,46 @@ export default function Home({ env, url, initial }) {
 
   return (
     <Layout id={id}>
-      <div>
-        <form className={classes.form}>
-          <InputLabel className={classes.label}>Business Name</InputLabel>
-          <TextField
-            variant="outlined"
-            size="small"
-            disabled
-            value={business.businessName}
-            fullWidth
-            className={classes.textField}
-          />
-          <InputLabel className={classes.label}>Type</InputLabel>
-          <Select
-            labelId="type-select"
-            id="type-select"
-            variant="outlined"
-            margin="dense"
-            value={business.type}
-            disabled
-            fullWidth
-            className={classes.selectField}
-          >
-            <MenuItem value="Restaurant">Restaurant</MenuItem>
-            <MenuItem value="Bar">Bar</MenuItem>
-            <MenuItem value="Theatre">Theatre</MenuItem>
-          </Select>
-          <InputLabel className={classes.label}>Description</InputLabel>
-          <TextField
-            variant="outlined"
-            size="small"
-            disabled
-            value={business.description}
-            fullWidth
-            multiline
-            className={classes.textField}
-          />
-        </form>
-      </div>
+      <Grid container spacing={1}>
+        <Grid item component="div" sm={6}>
+          <form className={classes.form}>
+            <InputLabel className={classes.label}>Business Name</InputLabel>
+            <TextField
+              variant="outlined"
+              size="small"
+              disabled
+              value={business.businessName}
+              fullWidth
+              className={classes.textField}
+            />
+            <InputLabel className={classes.label}>Type</InputLabel>
+            <Select
+              labelId="type-select"
+              id="type-select"
+              variant="outlined"
+              margin="dense"
+              value={business.type}
+              disabled
+              fullWidth
+              className={classes.selectField}
+            >
+              <MenuItem value="Restaurant">Restaurant</MenuItem>
+              <MenuItem value="Bar">Bar</MenuItem>
+              <MenuItem value="Theatre">Theatre</MenuItem>
+            </Select>
+            <InputLabel className={classes.label}>Description</InputLabel>
+            <TextField
+              variant="outlined"
+              size="small"
+              disabled
+              value={business.description}
+              fullWidth
+              multiline
+              className={classes.textField}
+            />
+          </form>
+        </Grid>
+      </Grid>
     </Layout>
   );
 }
