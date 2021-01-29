@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 
 import Layout from 'src/components/layout';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 // This root page should not be accessed by user - will redirect to homepage
 export default function Home() {
   const router = useRouter();
@@ -17,10 +19,16 @@ export default function Home() {
   }
 
   return (
-    <Layout id={id}>
-      <div>
-        <h1>You should not be here</h1>
-      </div>
-    </Layout>
+    <div
+      style={{
+        display: `flex`,
+        flexDirection: `column`,
+        justifyContent: `center`,
+        alignItems: `center`,
+        height: `100vh`
+      }}
+    >
+      <CircularProgress size={320} />
+    </div>
   );
 }
