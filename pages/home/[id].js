@@ -94,6 +94,16 @@ export default function Home({ env, url, initial }) {
               multiline
               className={classes.textField}
             />
+            <InputLabel className={classes.label}>Address</InputLabel>
+            <TextField
+              variant="outlined"
+              size="small"
+              disabled
+              value={business.address}
+              fullWidth
+              multiline
+              className={classes.textField}
+            />
             <div className={classes.mapContainer}>
               <GoogleMapReact
                 bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_MAP }}
