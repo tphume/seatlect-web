@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import GoogleMapReact from 'google-map-react';
 
 import Layout from 'src/components/layout';
 import { getBusinessRepo } from 'src/businessRepo';
@@ -27,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
     '&.MuiSelect-root, &.Mui-disabled': {
       margin: `0 0 1.2rem 0`
     }
+  },
+  mapContainer: {
+    width: `100%`,
+    height: `300px`
   }
 }));
 
@@ -89,6 +94,16 @@ export default function Home({ env, url, initial }) {
               multiline
               className={classes.textField}
             />
+            <div className={classes.mapContainer}>
+              <GoogleMapReact
+                bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_MAP }}
+                defaultCenter={{
+                  lat: business.location.latitude,
+                  lng: business.location.longitude
+                }}
+                defaultZoom={17}
+              ></GoogleMapReact>
+            </div>
           </form>
         </Grid>
       </Grid>

@@ -31,7 +31,7 @@ class BusinessMockRepo {
       tags: ['Korean', 'Alcohol'],
       description:
         'Korean style bar with an emphasis on roast side dishes. Made by certified chef Jiaroach',
-      location: { latitude: '', longitude: '' },
+      location: { latitude: 13.745226384751511, longitude: 100.53793107547114 },
       address: '2FL. Groove Central World, Pathum Wan District, Bangkok 10330',
       displayImage: 'https://i.imgur.com/g17EY2i.jpg',
       images: ['https://i.imgur.com/g17EY2i.jpg', 'https://i.imgur.com/RjFgQSZ.jpeg'],
