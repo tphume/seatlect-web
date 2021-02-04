@@ -17,6 +17,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme) => ({
 	form: {
@@ -38,7 +39,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	mapContainer: {
 		width: `100%`,
-		height: `300px`
+		height: `300px`,
+		margin: `0 0 1.2rem 0`
 	},
 	displayCard: {
 		display: `flex`,
@@ -122,17 +124,22 @@ export default function Home({ env, url, initial }) {
 							multiline
 							className={classes.textField}
 						/>
-						<div className={classes.mapContainer}>
-							<GoogleMapReact
-								bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_MAP }}
-								defaultCenter={{
-									lat: business.location.latitude,
-									lng: business.location.longitude
-								}}
-								defaultZoom={17}
-							></GoogleMapReact>
-						</div>
 					</form>
+					<div className={classes.mapContainer}>
+						<GoogleMapReact
+							bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_MAP }}
+							defaultCenter={{
+								lat: business.location.latitude,
+								lng: business.location.longitude
+							}}
+							defaultZoom={17}
+						></GoogleMapReact>
+					</div>
+					<Tooltip title="Make a request to change business information">
+						<Button variant="contained" color="primary" size="large" disableElevation fullWidth>
+							Request change
+						</Button>
+					</Tooltip>
 				</Grid>
 				<Grid item component="div" sm={6}>
 					<Card className={classes.displayCard} variant="outlined">
@@ -154,13 +161,15 @@ export default function Home({ env, url, initial }) {
 							</CardContent>
 							<CardActionArea />
 							<CardActions>
-								<Button size="small" color="primary">
-									Edit
-								</Button>
+								<Tooltip title="Replace the display image">
+									<Button size="small" color="primary">
+										Edit
+									</Button>
+								</Tooltip>
 							</CardActions>
 						</div>
 					</Card>
-					// TODO: Add business.images slideshow card
+					{/* TODO: Add business.images slideshow card */}
 				</Grid>
 			</Grid>
 		</Layout>
