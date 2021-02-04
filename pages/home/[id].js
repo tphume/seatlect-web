@@ -41,8 +41,11 @@ const useStyles = makeStyles((theme) => ({
 		height: `300px`
 	},
 	displayCard: {
-		maxWidth: `375px`,
-		margin: `auto`
+		display: `flex`,
+		margin: `0 auto 1.2rem auto`
+	},
+	displayImage: {
+		width: 300
 	}
 }));
 
@@ -129,22 +132,29 @@ export default function Home({ env, url, initial }) {
 				</Grid>
 				<Grid item component="div" sm={6}>
 					<Card className={classes.displayCard} variant="outlined">
-						<CardMedia image={business.displayImage} component="img" height="225" />
-						<CardContent>
-							<Typography gutterBottom variant="h5" component="h2">
-								Lizard
-							</Typography>
-							<Typography variant="body2" color="textSecondary" component="p">
-								This will be the image that is used to represent your Business in the mobile
-								application. It is the first image the customer will see.
-							</Typography>
-						</CardContent>
-						<CardActionArea />
-						<CardActions>
-							<Button size="small" color="primary">
-								Edit
-							</Button>
-						</CardActions>
+						<CardMedia
+							className={classes.displayImage}
+							image={business.displayImage}
+							component="img"
+							height="180"
+						/>
+						<div>
+							<CardContent>
+								<Typography gutterBottom variant="h6" component="h2">
+									Display Image
+								</Typography>
+								<Typography variant="body3" color="textSecondary" component="p">
+									The avatar of the Business. The first image that the mobile application user will
+									see.
+								</Typography>
+							</CardContent>
+							<CardActionArea />
+							<CardActions>
+								<Button size="small" color="primary">
+									Edit
+								</Button>
+							</CardActions>
+						</div>
 					</Card>
 				</Grid>
 			</Grid>
