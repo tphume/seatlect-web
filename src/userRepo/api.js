@@ -7,7 +7,9 @@ class UserRepo {
 		this.endpoint = endpoint;
 	}
 
-	async login({ username, password }) {
+	async login(args) {
+		const { username, password } = args;
+
 		try {
 			await axios.post(this.url + this.endpoint, { username, password });
 		} catch (e) {
@@ -18,7 +20,7 @@ class UserRepo {
 }
 
 class MockUserRepo {
-	async login({ username, password }) {
+	async login(args) {
 		await new Promise((resolve) => setTimeout(resolve, 1000));
 
 		// Uncomment the following if you want to test error
