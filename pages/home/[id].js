@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	displayCard: {
 		display: `flex`,
-		margin: `0.8rem auto 1.2rem auto`
+		margin: `0 auto 1.2rem auto`,
 	},
 	displayImage: {
 		width: 300
@@ -142,6 +142,16 @@ export default function Home({ env, url, initial }) {
 					</Tooltip>
 				</Grid>
 				<Grid item component="div" sm={6}>
+					<InputLabel className={classes.label}>Minimum Age</InputLabel>
+					<TextField
+						variant="outlined"
+						size="small"
+						disabled
+						value={business.policy.minAge}
+						fullWidth
+						multiline
+						className={classes.textField}
+					/>
 					<Card className={classes.displayCard} variant="outlined">
 						<CardMedia
 							className={classes.displayImage}
