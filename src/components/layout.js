@@ -20,169 +20,169 @@ import ExitToApp from '@material-ui/icons/ExitToApp';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex'
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0
-  },
-  drawerPaper: {
-    width: drawerWidth,
-    backgroundColor: theme.palette.primary.main,
-    padding: `1rem`
-  },
-  drawerContainer: {
-    overflow: 'auto'
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3)
-  },
-  whiteColor: {
-    color: `white`
-  },
-  primaryColor: {
-    color: theme.palette.primary.main
-  },
-  item: {
-    '&.Mui-selected, &.Mui-selected:hover': {
-      backgroundColor: 'white'
-    }
-  },
-  logoutButton: {
-    '&.MuiListItem-button': {
-      backgroundColor: theme.palette.error.main
-    }
-  }
+	root: {
+		display: 'flex'
+	},
+	appBar: {
+		zIndex: theme.zIndex.drawer + 1
+	},
+	drawer: {
+		width: drawerWidth,
+		flexShrink: 0
+	},
+	drawerPaper: {
+		width: drawerWidth,
+		backgroundColor: theme.palette.primary.main,
+		padding: `1rem`
+	},
+	drawerContainer: {
+		overflow: 'auto'
+	},
+	content: {
+		flexGrow: 1,
+		padding: theme.spacing(3)
+	},
+	whiteColor: {
+		color: `white`
+	},
+	primaryColor: {
+		color: theme.palette.primary.main
+	},
+	item: {
+		'&.Mui-selected, &.Mui-selected:hover': {
+			backgroundColor: 'white'
+		}
+	},
+	logoutButton: {
+		'&.MuiListItem-button': {
+			backgroundColor: theme.palette.error.main
+		}
+	}
 }));
 
 export default function Layout({ children, id }) {
-  const classes = useStyles();
-  const router = useRouter();
+	const classes = useStyles();
+	const router = useRouter();
 
-  // Helper function for list items
-  const setTextColor = (route) => {
-    if (route + '[id]' === router.pathname) {
-      return classes.primaryColor;
-    }
+	// Helper function for list items
+	const setTextColor = (route) => {
+		if (route + '[id]' === router.pathname) {
+			return classes.primaryColor;
+		}
 
-    return classes.whiteColor;
-  };
+		return classes.whiteColor;
+	};
 
-  const setIconColor = (route) => {
-    if (route + '[id]' === router.pathname) {
-      return {
-        color: '#5D55B4'
-      };
-    }
+	const setIconColor = (route) => {
+		if (route + '[id]' === router.pathname) {
+			return {
+				color: '#5D55B4'
+			};
+		}
 
-    return { color: 'white' };
-  };
+		return { color: 'white' };
+	};
 
-  return (
-    <div className={classes.root}>
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" noWrap>
-            SEATLECT for Business
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper
-        }}
-      >
-        <Toolbar />
-        <div className={classes.drawerContainer}>
-          <List>
-            <ListItem
-              button
-              dense
-              selected={'/home/[id]' === router.pathname}
-              className={classes.item}
-              onClick={() => router.push('/home/' + id)}
-            >
-              <ListItemIcon>
-                <Home style={setIconColor('/home/')} />
-              </ListItemIcon>
-              <ListItemText primary="Home" classes={{ root: setTextColor('/home/') }} />
-            </ListItem>
-            <ListItem
-              button
-              dense
-              selected={'/schedule/[id]' === router.pathname}
-              className={classes.item}
-              onClick={() => router.push('/schedule/' + id)}
-            >
-              <ListItemIcon>
-                <CalendarToday style={setIconColor('/schedule/')} />
-              </ListItemIcon>
-              <ListItemText
-                primary="Schedule"
-                classes={{ root: setTextColor('/schedule/') }}
-                selected={'/schedule/[id]' === router.pathname}
-              />
-            </ListItem>
-            <ListItem
-              button
-              dense
-              selected={'/placement/[id]' === router.pathname}
-              className={classes.item}
-              onClick={() => router.push('/placement/' + id)}
-            >
-              <ListItemIcon>
-                <Edit style={setIconColor('/placement/')} />
-              </ListItemIcon>
-              <ListItemText
-                primary="Placement"
-                classes={{ root: setTextColor('/placement/') }}
-                selected={'/placement/[id]' === router.pathname}
-              />
-            </ListItem>
-            <ListItem
-              button
-              dense
-              selected={'/menu/[id]' === router.pathname}
-              className={classes.item}
-              onClick={() => router.push('/menu/' + id)}
-            >
-              <ListItemIcon>
-                <MenuBook style={setIconColor('/menu/')} />
-              </ListItemIcon>
-              <ListItemText primary="Menu" classes={{ root: setTextColor('/menu/') }} />
-            </ListItem>
-          </List>
-          <Divider />
-          <List>
-            <ListItem
-              button
-              dense
-              className={classes.logoutButton}
-              onClick={() => {
-                document.cookie = 'token=; expires = Thu, 01 Jan 1970 00:00:00 GMT;path=/';
-                localStorage.clear();
-                router.push('/login');
-              }}
-            >
-              <ListItemIcon>
-                <ExitToApp style={{ color: 'white' }} />
-              </ListItemIcon>
-              <ListItemText primary="Logout" style={{ color: 'white' }} />
-            </ListItem>
-          </List>
-        </div>
-      </Drawer>
-      <main className={classes.content}>
-        <Toolbar />
-        {children}
-      </main>
-    </div>
-  );
+	return (
+		<div className={classes.root}>
+			<AppBar position="fixed" className={classes.appBar}>
+				<Toolbar>
+					<Typography variant="h6" noWrap>
+						SEATLECT for Business
+					</Typography>
+				</Toolbar>
+			</AppBar>
+			<Drawer
+				className={classes.drawer}
+				variant="permanent"
+				classes={{
+					paper: classes.drawerPaper
+				}}
+			>
+				<Toolbar />
+				<div className={classes.drawerContainer}>
+					<List>
+						<ListItem
+							button
+							dense
+							selected={'/home/[id]' === router.pathname}
+							className={classes.item}
+							onClick={() => router.push('/home/' + id)}
+						>
+							<ListItemIcon>
+								<Home style={setIconColor('/home/')} />
+							</ListItemIcon>
+							<ListItemText primary="Home" classes={{ root: setTextColor('/home/') }} />
+						</ListItem>
+						<ListItem
+							button
+							dense
+							selected={'/schedule/[id]' === router.pathname}
+							className={classes.item}
+							onClick={() => router.push('/schedule/' + id)}
+						>
+							<ListItemIcon>
+								<CalendarToday style={setIconColor('/schedule/')} />
+							</ListItemIcon>
+							<ListItemText
+								primary="Schedule"
+								classes={{ root: setTextColor('/schedule/') }}
+								selected={'/schedule/[id]' === router.pathname}
+							/>
+						</ListItem>
+						<ListItem
+							button
+							dense
+							selected={'/placement/[id]' === router.pathname}
+							className={classes.item}
+							onClick={() => router.push('/placement/' + id)}
+						>
+							<ListItemIcon>
+								<Edit style={setIconColor('/placement/')} />
+							</ListItemIcon>
+							<ListItemText
+								primary="Placement"
+								classes={{ root: setTextColor('/placement/') }}
+								selected={'/placement/[id]' === router.pathname}
+							/>
+						</ListItem>
+						<ListItem
+							button
+							dense
+							selected={'/menu/[id]' === router.pathname}
+							className={classes.item}
+							onClick={() => router.push('/menu/' + id)}
+						>
+							<ListItemIcon>
+								<MenuBook style={setIconColor('/menu/')} />
+							</ListItemIcon>
+							<ListItemText primary="Menu" classes={{ root: setTextColor('/menu/') }} />
+						</ListItem>
+					</List>
+					<Divider />
+					<List>
+						<ListItem
+							button
+							dense
+							className={classes.logoutButton}
+							onClick={() => {
+								document.cookie = 'token=; expires = Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+								localStorage.clear();
+								router.push('/login');
+							}}
+						>
+							<ListItemIcon>
+								<ExitToApp style={{ color: 'white' }} />
+							</ListItemIcon>
+							<ListItemText primary="Logout" style={{ color: 'white' }} />
+						</ListItem>
+					</List>
+				</div>
+			</Drawer>
+			<main className={classes.content}>
+				<Toolbar />
+				{children}
+			</main>
+		</div>
+	);
 }

@@ -19,163 +19,163 @@ import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-  form: {
-    width: `100%`
-  },
-  label: {
-    color: `rgba(0, 0, 0, 0.87)`,
-    fontWeight: `700`,
-    fontSize: `0.75rem`,
-    margin: '0 0 3px 0'
-  },
-  textField: {
-    margin: `0 0 1.2rem 0`
-  },
-  selectField: {
-    '&.MuiSelect-root, &.Mui-disabled': {
-      margin: `0 0 1.2rem 0`
-    }
-  },
-  mapContainer: {
-    width: `100%`,
-    height: `300px`
-  },
-  displayCard: {
-    maxWidth: `375px`,
-    margin: `auto`
-  }
+	form: {
+		width: `100%`
+	},
+	label: {
+		color: `rgba(0, 0, 0, 0.87)`,
+		fontWeight: `700`,
+		fontSize: `0.75rem`,
+		margin: '0 0 3px 0'
+	},
+	textField: {
+		margin: `0 0 1.2rem 0`
+	},
+	selectField: {
+		'&.MuiSelect-root, &.Mui-disabled': {
+			margin: `0 0 1.2rem 0`
+		}
+	},
+	mapContainer: {
+		width: `100%`,
+		height: `300px`
+	},
+	displayCard: {
+		maxWidth: `375px`,
+		margin: `auto`
+	}
 }));
 
 export default function Home({ env, url, initial }) {
-  const classes = useStyles();
+	const classes = useStyles();
 
-  const [id, setId] = useState('');
-  const [business, setBusiness] = useState(initial);
+	const [id, setId] = useState('');
+	const [business, setBusiness] = useState(initial);
 
-  useEffect(function () {
-    setId(localStorage.getItem('_id'));
-  }, []);
+	useEffect(function () {
+		setId(localStorage.getItem('_id'));
+	}, []);
 
-  if (Object.keys(initial).length === 0 && initial.constructor === Object) {
-    return (
-      <Layout id={id}>
-        <div>
-          <h1>An error occurred - try refreshing</h1>
-        </div>
-      </Layout>
-    );
-  }
+	if (Object.keys(initial).length === 0 && initial.constructor === Object) {
+		return (
+			<Layout id={id}>
+				<div>
+					<h1>An error occurred - try refreshing</h1>
+				</div>
+			</Layout>
+		);
+	}
 
-  return (
-    <Layout id={id}>
-      <Grid container spacing={1}>
-        <Grid item component="div" sm={6}>
-          <form className={classes.form}>
-            <InputLabel className={classes.label}>Business Name</InputLabel>
-            <TextField
-              variant="outlined"
-              size="small"
-              disabled
-              value={business.businessName}
-              fullWidth
-              className={classes.textField}
-            />
-            <InputLabel className={classes.label}>Type</InputLabel>
-            <Select
-              labelId="type-select"
-              id="type-select"
-              variant="outlined"
-              margin="dense"
-              value={business.type}
-              disabled
-              fullWidth
-              className={classes.selectField}
-            >
-              <MenuItem value="Restaurant">Restaurant</MenuItem>
-              <MenuItem value="Bar">Bar</MenuItem>
-              <MenuItem value="Theatre">Theatre</MenuItem>
-            </Select>
-            <InputLabel className={classes.label}>Description</InputLabel>
-            <TextField
-              variant="outlined"
-              size="small"
-              disabled
-              value={business.description}
-              fullWidth
-              multiline
-              className={classes.textField}
-            />
-            <InputLabel className={classes.label}>Address</InputLabel>
-            <TextField
-              variant="outlined"
-              size="small"
-              disabled
-              value={business.address}
-              fullWidth
-              multiline
-              className={classes.textField}
-            />
-            <div className={classes.mapContainer}>
-              <GoogleMapReact
-                bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_MAP }}
-                defaultCenter={{
-                  lat: business.location.latitude,
-                  lng: business.location.longitude
-                }}
-                defaultZoom={17}
-              ></GoogleMapReact>
-            </div>
-          </form>
-        </Grid>
-        <Grid item component="div" sm={6}>
-          <Card className={classes.displayCard} variant="outlined">
-            <CardMedia image={business.displayImage} component="img" height="225" />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                Lizard
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                This will be the image that is used to represent your Business in the mobile
-                application. It is the first image the customer will see.
-              </Typography>
-            </CardContent>
-            <CardActionArea />
-            <CardActions>
-              <Button size="small" color="primary">
-                Edit
-              </Button>
-            </CardActions>
-          </Card>
-        </Grid>
-      </Grid>
-    </Layout>
-  );
+	return (
+		<Layout id={id}>
+			<Grid container spacing={1}>
+				<Grid item component="div" sm={6}>
+					<form className={classes.form}>
+						<InputLabel className={classes.label}>Business Name</InputLabel>
+						<TextField
+							variant="outlined"
+							size="small"
+							disabled
+							value={business.businessName}
+							fullWidth
+							className={classes.textField}
+						/>
+						<InputLabel className={classes.label}>Type</InputLabel>
+						<Select
+							labelId="type-select"
+							id="type-select"
+							variant="outlined"
+							margin="dense"
+							value={business.type}
+							disabled
+							fullWidth
+							className={classes.selectField}
+						>
+							<MenuItem value="Restaurant">Restaurant</MenuItem>
+							<MenuItem value="Bar">Bar</MenuItem>
+							<MenuItem value="Theatre">Theatre</MenuItem>
+						</Select>
+						<InputLabel className={classes.label}>Description</InputLabel>
+						<TextField
+							variant="outlined"
+							size="small"
+							disabled
+							value={business.description}
+							fullWidth
+							multiline
+							className={classes.textField}
+						/>
+						<InputLabel className={classes.label}>Address</InputLabel>
+						<TextField
+							variant="outlined"
+							size="small"
+							disabled
+							value={business.address}
+							fullWidth
+							multiline
+							className={classes.textField}
+						/>
+						<div className={classes.mapContainer}>
+							<GoogleMapReact
+								bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_MAP }}
+								defaultCenter={{
+									lat: business.location.latitude,
+									lng: business.location.longitude
+								}}
+								defaultZoom={17}
+							></GoogleMapReact>
+						</div>
+					</form>
+				</Grid>
+				<Grid item component="div" sm={6}>
+					<Card className={classes.displayCard} variant="outlined">
+						<CardMedia image={business.displayImage} component="img" height="225" />
+						<CardContent>
+							<Typography gutterBottom variant="h5" component="h2">
+								Lizard
+							</Typography>
+							<Typography variant="body2" color="textSecondary" component="p">
+								This will be the image that is used to represent your Business in the mobile
+								application. It is the first image the customer will see.
+							</Typography>
+						</CardContent>
+						<CardActionArea />
+						<CardActions>
+							<Button size="small" color="primary">
+								Edit
+							</Button>
+						</CardActions>
+					</Card>
+				</Grid>
+			</Grid>
+		</Layout>
+	);
 }
 
 export async function getServerSideProps(ctx) {
-  // If already logged in - redirect to homepage
-  if (ctx.req.cookies.token == undefined) {
-    return { redirect: { destination: '/login', permanent: false } };
-  }
+	// If already logged in - redirect to homepage
+	if (ctx.req.cookies.token == undefined) {
+		return { redirect: { destination: '/login', permanent: false } };
+	}
 
-  // Get params
-  let env = process.env.NODE_ENV;
-  let id = ctx.params.id;
-  let initial = {};
+	// Get params
+	let env = process.env.NODE_ENV;
+	let id = ctx.params.id;
+	let initial = {};
 
-  // Get initial data
-  let businessRepo = getBusinessRepo({ env, id });
-  try {
-    initial = await businessRepo.getBusiness();
-  } catch (e) {
-    // TODO handle error
-  }
+	// Get initial data
+	let businessRepo = getBusinessRepo({ env, id });
+	try {
+		initial = await businessRepo.getBusiness();
+	} catch (e) {
+		// TODO handle error
+	}
 
-  return {
-    props: {
-      env,
-      url: process.env.URL ? process.env.URL : '',
-      initial
-    }
-  };
+	return {
+		props: {
+			env,
+			url: process.env.URL ? process.env.URL : '',
+			initial
+		}
+	};
 }

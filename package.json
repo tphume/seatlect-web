@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "format": "prettier --write '{pages,src}/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./prettierrc.json"
+    "format": "prettier --write '{pages,src}/**/*.{js,jsx,ts,tsx,css,md,json}' --use-tabs --config ./prettierrc.json"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.1",
