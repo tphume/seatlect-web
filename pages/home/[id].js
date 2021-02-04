@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	displayCard: {
 		display: `flex`,
-		margin: `0 auto 1.2rem auto`
+		margin: `0.8rem auto 1.2rem auto`
 	},
 	displayImage: {
 		width: 300
@@ -143,7 +143,7 @@ export default function Home({ env, url, initial }) {
 								<Typography gutterBottom variant="h6" component="h2">
 									Display Image
 								</Typography>
-								<Typography variant="body3" color="textSecondary" component="p">
+								<Typography variant="body2" color="textSecondary" component="p">
 									The avatar of the Business. The first image that the mobile application user will
 									see.
 								</Typography>
