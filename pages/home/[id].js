@@ -69,6 +69,10 @@ export default function Home({ env, url, initial }) {
 		);
 	}
 
+	// TODO: requestChange modal and handlers
+	// TODO: displayImage modal and handlers
+	// TODO: images modal and handlers
+
 	return (
 		<Layout id={id}>
 			<Grid container spacing={1}>
@@ -156,6 +160,7 @@ export default function Home({ env, url, initial }) {
 							</CardActions>
 						</div>
 					</Card>
+					// TODO: Add business.images slideshow card
 				</Grid>
 			</Grid>
 		</Layout>
