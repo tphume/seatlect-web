@@ -20,9 +20,6 @@ import { Button } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme) => ({
-	form: {
-		width: `100%`
-	},
 	label: {
 		color: `rgba(0, 0, 0, 0.87)`,
 		fontWeight: `700`,
@@ -79,52 +76,50 @@ export default function Home({ env, url, initial }) {
 		<Layout id={id}>
 			<Grid container spacing={1}>
 				<Grid item component="div" sm={6}>
-					<form className={classes.form}>
-						<InputLabel className={classes.label}>Business Name</InputLabel>
-						<TextField
-							variant="outlined"
-							size="small"
-							disabled
-							value={business.businessName}
-							fullWidth
-							className={classes.textField}
-						/>
-						<InputLabel className={classes.label}>Type</InputLabel>
-						<Select
-							labelId="type-select"
-							id="type-select"
-							variant="outlined"
-							margin="dense"
-							value={business.type}
-							disabled
-							fullWidth
-							className={classes.selectField}
-						>
-							<MenuItem value="Restaurant">Restaurant</MenuItem>
-							<MenuItem value="Bar">Bar</MenuItem>
-							<MenuItem value="Theatre">Theatre</MenuItem>
-						</Select>
-						<InputLabel className={classes.label}>Description</InputLabel>
-						<TextField
-							variant="outlined"
-							size="small"
-							disabled
-							value={business.description}
-							fullWidth
-							multiline
-							className={classes.textField}
-						/>
-						<InputLabel className={classes.label}>Address</InputLabel>
-						<TextField
-							variant="outlined"
-							size="small"
-							disabled
-							value={business.address}
-							fullWidth
-							multiline
-							className={classes.textField}
-						/>
-					</form>
+					<InputLabel className={classes.label}>Business Name</InputLabel>
+					<TextField
+						variant="outlined"
+						size="small"
+						disabled
+						value={business.businessName}
+						fullWidth
+						className={classes.textField}
+					/>
+					<InputLabel className={classes.label}>Type</InputLabel>
+					<Select
+						labelId="type-select"
+						id="type-select"
+						variant="outlined"
+						margin="dense"
+						value={business.type}
+						disabled
+						fullWidth
+						className={classes.selectField}
+					>
+						<MenuItem value="Restaurant">Restaurant</MenuItem>
+						<MenuItem value="Bar">Bar</MenuItem>
+						<MenuItem value="Theatre">Theatre</MenuItem>
+					</Select>
+					<InputLabel className={classes.label}>Description</InputLabel>
+					<TextField
+						variant="outlined"
+						size="small"
+						disabled
+						value={business.description}
+						fullWidth
+						multiline
+						className={classes.textField}
+					/>
+					<InputLabel className={classes.label}>Address</InputLabel>
+					<TextField
+						variant="outlined"
+						size="small"
+						disabled
+						value={business.address}
+						fullWidth
+						multiline
+						className={classes.textField}
+					/>
 					<div className={classes.mapContainer}>
 						<GoogleMapReact
 							bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_MAP }}
