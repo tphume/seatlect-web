@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
+// id is used to match with url and routing
 export default function Layout({ children, id }) {
 	const classes = useStyles();
 	const router = useRouter();

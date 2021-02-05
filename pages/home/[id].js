@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 
 import Layout from 'src/components/layout';
+import RequestFrom from 'src/components/RequestForm';
 import { getBusinessRepo } from 'src/businessRepo';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	displayCard: {
 		display: `flex`,
-		margin: `0 auto 1.2rem auto`,
+		margin: `0 auto 1.2rem auto`
 	},
 	displayImage: {
 		width: 300
@@ -51,9 +52,14 @@ const useStyles = makeStyles((theme) => ({
 export default function Home({ env, url, initial }) {
 	const classes = useStyles();
 
+	// Id state is the id of the business
 	const [id, setId] = useState('');
 	const [business, setBusiness] = useState(initial);
 
+	// Set if request form should be visible
+	const [requestForm, setRequestForm] = useState(false);
+
+	// load initial id from local storage
 	useEffect(function () {
 		setId(localStorage.getItem('_id'));
 	}, []);
@@ -74,6 +80,7 @@ export default function Home({ env, url, initial }) {
 
 	return (
 		<Layout id={id}>
+			<RequestFrom visible={requestForm} setVisible={setRequestForm} />
 			<Grid container spacing={1}>
 				<Grid item component="div" sm={6}>
 					<InputLabel className={classes.label}>Business Name</InputLabel>
@@ -131,7 +138,14 @@ export default function Home({ env, url, initial }) {
 						></GoogleMapReact>
 					</div>
 					<Tooltip title="Make a request to change business information">
-						<Button variant="contained" color="primary" size="large" disableElevation fullWidth>
+						<Button
+							variant="contained"
+							color="primary"
+							size="large"
+							disableElevation
+							fullWidth
+							onClick={() => setRequestForm(true)}
+						>
 							Request change
 						</Button>
 					</Tooltip>
