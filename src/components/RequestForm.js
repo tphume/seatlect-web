@@ -14,97 +14,86 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
-  label: {
-    color: `rgba(0, 0, 0, 0.87)`,
-    fontWeight: `700`,
-    fontSize: `0.75rem`,
-    margin: '0 0 3px 0'
-  },
-  textField: {
-    margin: `0 0 1rem 0`
-  },
-  selectField: {
-    margin: `0 0 1rem 0`,
-  },
-  mapContainer: {
-    width: `100%`,
-    height: `250px`,
-    margin: `0 0 1.2rem 0`
-  },
+	label: {
+		color: `rgba(0, 0, 0, 0.87)`,
+		fontWeight: `700`,
+		fontSize: `0.75rem`,
+		margin: '0 0 3px 0'
+	},
+	textField: {
+		margin: `0 0 1rem 0`
+	},
+	selectField: {
+		margin: `0 0 1rem 0`
+	},
+	mapContainer: {
+		width: `100%`,
+		height: `250px`,
+		margin: `0 0 1.2rem 0`
+	}
 }));
 
 // visible (and setVisible) should be a React state variable and it set state function
 export default function RequestForm({ visible, setVisible }) {
-  const classes = useStyles();
+	const classes = useStyles();
 
-  function handleClose() {
-    setVisible(false);
-  }
+	function handleClose() {
+		setVisible(false);
+	}
 
-  return (
-    <Dialog open={visible} onClose={handleClose}>
-      <DialogTitle>Request Change</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          To change Business information a request have to be made. Fill in the form with the
-          new information and press Submit Request to make the request.
+	return (
+		<Dialog open={visible} onClose={handleClose}>
+			<DialogTitle>Request Change</DialogTitle>
+			<DialogContent>
+				<DialogContentText>
+					To change Business information a request have to be made. Fill in the form with the new
+					information and press Submit Request to make the request.
 				</DialogContentText>
-        <InputLabel className={classes.label}>Business Name</InputLabel>
-        <TextField
-          variant="outlined"
-          size="small"
-          fullWidth
-          className={classes.textField}
-        />
-        <InputLabel className={classes.label}>Type</InputLabel>
-        <Select
-          labelId="type-select"
-          id="type-select"
-          variant="outlined"
-          margin="dense"
-          fullWidth
-          className={classes.selectField}
-        >
-          <MenuItem value="Restaurant">Restaurant</MenuItem>
-          <MenuItem value="Bar">Bar</MenuItem>
-          <MenuItem value="Theatre">Theatre</MenuItem>
-        </Select>
-        <InputLabel className={classes.label}>Description</InputLabel>
-        <TextField
-          variant="outlined"
-          size="small"
-          fullWidth
-          multiline
-          className={classes.textField}
-        />
-        <InputLabel className={classes.label}>Address</InputLabel>
-        <TextField
-          variant="outlined"
-          size="small"
-          fullWidth
-          multiline
-          className={classes.textField}
-        />
-        <div className={classes.mapContainer}>
-          <GoogleMapReact
-            bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_MAP }}
-            defaultCenter={{
-              lat: 0,
-              lng: 0
-            }}
-            defaultZoom={17}
-          ></GoogleMapReact>
-        </div>
-        <Button
-          variant="contained"
-          color="primary"
-          size="normal"
-          disableElevation
-          fullWidth
-        >
-          Submit Request
-						</Button>
-      </DialogContent>
-    </Dialog>
-  );
+				<InputLabel className={classes.label}>Business Name</InputLabel>
+				<TextField variant="outlined" size="small" fullWidth className={classes.textField} />
+				<InputLabel className={classes.label}>Type</InputLabel>
+				<Select
+					labelId="type-select"
+					id="type-select"
+					variant="outlined"
+					margin="dense"
+					fullWidth
+					className={classes.selectField}
+				>
+					<MenuItem value="Restaurant">Restaurant</MenuItem>
+					<MenuItem value="Bar">Bar</MenuItem>
+					<MenuItem value="Theatre">Theatre</MenuItem>
+				</Select>
+				<InputLabel className={classes.label}>Description</InputLabel>
+				<TextField
+					variant="outlined"
+					size="small"
+					fullWidth
+					multiline
+					className={classes.textField}
+				/>
+				<InputLabel className={classes.label}>Address</InputLabel>
+				<TextField
+					variant="outlined"
+					size="small"
+					fullWidth
+					multiline
+					className={classes.textField}
+				/>
+				<div className={classes.mapContainer}>
+					<GoogleMapReact
+						bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_MAP }}
+						defaultCenter={{
+							lat: 0,
+							lng: 0
+						}}
+						defaultZoom={17}
+					></GoogleMapReact>
+				</div>
+				<Button variant="contained" color="primary" size="normal" disableElevation fullWidth>
+					Submit Request
+				</Button>
+			</DialogContent>
+		</Dialog>
+	);
 }
