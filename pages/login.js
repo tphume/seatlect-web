@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { getUserRepo } from 'src/userRepo';
+import RegisterForm from 'src/components/RegisterForm';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Grid from '@material-ui/core/Grid';
@@ -44,6 +45,7 @@ export default function Login({ env, url }) {
 	// Presentation state
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
+	const [regForm, setRegForm] = useState(false);
 
 	// Handlers
 	async function handleLogin(e) {
@@ -70,6 +72,7 @@ export default function Login({ env, url }) {
 
 	return (
 		<Grid container component="main" spacing={0} className={classes.root}>
+			<RegisterForm visible={regForm} setVisible={setRegForm} />
 			<Grid item component="div" sm={6}></Grid>
 			<Grid item component="section" sm={6} className={classes.loginRoot}>
 				<Box marginBottom={`2rem`}>
@@ -121,7 +124,12 @@ export default function Login({ env, url }) {
 				</form>
 				<p style={{ marginTop: `2rem` }}>
 					Don't have an account yet?
-					<Button size="small" color="secondary" classes={{ root: classes.createButton }}>
+					<Button
+						size="small"
+						color="secondary"
+						classes={{ root: classes.createButton }}
+						onClick={() => setRegForm(true)}
+					>
 						Create account
 					</Button>
 				</p>
