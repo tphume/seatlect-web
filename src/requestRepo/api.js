@@ -12,7 +12,7 @@ class RequestRepo {
 		// TODO: Check arguments
 
 		try {
-			const response = await axios.post(this.url + endpoint, args);
+			const response = await axios.post(this.url + this.endpoint, args);
 			return response;
 		} catch (e) {
 			// TODO add better error handling

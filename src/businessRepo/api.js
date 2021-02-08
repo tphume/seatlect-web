@@ -9,7 +9,7 @@ class BusinessRepo {
 
 	async getBusiness() {
 		try {
-			const response = await axios.get(this.url + endpoint);
+			const response = await axios.get(this.url + this.endpoint);
 			return response;
 		} catch (e) {
 			// TODO add better error handling
