@@ -30,12 +30,12 @@ class RequestMockRepo {
 	}
 }
 
-function getRequestRepo({ env, id }) {
+function getRequestRepo({ url, env, id }) {
 	if (env === 'development') {
 		return new RequestMockRepo();
 	}
 
-	return new RequestRepo({ env, id });
+	return new RequestRepo({ url, id });
 }
 
 export { RequestRepo, RequestMockRepo, getRequestRepo };

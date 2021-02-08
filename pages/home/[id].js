@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function Home({ env, url, business }) {
+export default function Home({ business }) {
 	// Initial setup
 	const classes = useStyles();
 
@@ -83,7 +83,6 @@ export default function Home({ env, url, business }) {
 			<RequestFrom
 				visible={requestForm}
 				setVisible={setRequestForm}
-				env={env}
 				id={id}
 				initial={{
 					businessName: business.businessName,
@@ -210,7 +209,7 @@ export async function getServerSideProps(ctx) {
 	let business = {};
 
 	// Get initial data
-	let businessRepo = getBusinessRepo({ env, id });
+	let businessRepo = getBusinessRepo({ env, id, url: process.env.NEXT_PUBLIC_BE });
 	try {
 		business = await businessRepo.getBusiness();
 	} catch (e) {
@@ -219,8 +218,6 @@ export async function getServerSideProps(ctx) {
 
 	return {
 		props: {
-			env,
-			url: process.env.URL ? process.env.URL : '',
 			business
 		}
 	};

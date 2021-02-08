@@ -43,11 +43,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // visible (and setVisible) should be a React state variable and it set state function
-export default function RequestForm({ visible, setVisible, env, id, initial }) {
+export default function RequestForm({ visible, setVisible, id, initial }) {
 	const classes = useStyles();
 
 	// Setup repo
-	const repo = getRequestRepo({ env, id });
+	const repo = getRequestRepo({ env: process.env.NODE_ENV, id, url: process.env.NEXT_PUBLIC_BE });
 
 	// Set initial state
 	const [req, setReq] = useState(initial);

@@ -39,12 +39,12 @@ class BusinessMockRepo {
 	}
 }
 
-function getBusinessRepo({ env, id }) {
+function getBusinessRepo({ url, env, id }) {
 	if (env === 'development') {
 		return new BusinessMockRepo();
 	}
 
-	return new BusinessRepo({ env, id });
+	return new BusinessRepo({ url, id });
 }
 
 export { BusinessRepo, BusinessMockRepo, getBusinessRepo };
