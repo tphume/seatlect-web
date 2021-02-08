@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -30,12 +30,18 @@ const useStyles = makeStyles((theme) => ({
 		width: `100%`,
 		height: `250px`,
 		margin: `0 0 1.2rem 0`
+	},
+	submitButton: {
+		margin: `0 0 1rem 0`
 	}
 }));
 
 // visible (and setVisible) should be a React state variable and it set state function
-export default function RequestForm({ visible, setVisible }) {
+export default function RequestForm({ visible, setVisible, initial }) {
 	const classes = useStyles();
+
+	// Set initial state
+	const [req, setReq] = useState(initial);
 
 	function handleClose() {
 		setVisible(false);
@@ -50,7 +56,13 @@ export default function RequestForm({ visible, setVisible }) {
 					information and press Submit Request to make the request.
 				</DialogContentText>
 				<InputLabel className={classes.label}>Business Name</InputLabel>
-				<TextField variant="outlined" size="small" fullWidth className={classes.textField} />
+				<TextField
+					variant="outlined"
+					size="small"
+					fullWidth
+					className={classes.textField}
+					value={req.businessName}
+				/>
 				<InputLabel className={classes.label}>Type</InputLabel>
 				<Select
 					labelId="type-select"
@@ -59,6 +71,7 @@ export default function RequestForm({ visible, setVisible }) {
 					margin="dense"
 					fullWidth
 					className={classes.selectField}
+					value={req.type}
 				>
 					<MenuItem value="Restaurant">Restaurant</MenuItem>
 					<MenuItem value="Bar">Bar</MenuItem>
@@ -71,6 +84,7 @@ export default function RequestForm({ visible, setVisible }) {
 					fullWidth
 					multiline
 					className={classes.textField}
+					value={req.description}
 				/>
 				<InputLabel className={classes.label}>Address</InputLabel>
 				<TextField
@@ -79,6 +93,7 @@ export default function RequestForm({ visible, setVisible }) {
 					fullWidth
 					multiline
 					className={classes.textField}
+					value={req.address}
 				/>
 				<div className={classes.mapContainer}>
 					<GoogleMapReact
@@ -90,7 +105,14 @@ export default function RequestForm({ visible, setVisible }) {
 						defaultZoom={17}
 					></GoogleMapReact>
 				</div>
-				<Button variant="contained" color="primary" size="normal" disableElevation fullWidth>
+				<Button
+					variant="contained"
+					color="primary"
+					size="medium"
+					disableElevation
+					fullWidth
+					className={classes.submitButton}
+				>
 					Submit Request
 				</Button>
 			</DialogContent>

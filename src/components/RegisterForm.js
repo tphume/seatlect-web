@@ -105,7 +105,7 @@ export default function RegisterForm({ visible, setVisible }) {
 				<Button
 					variant="contained"
 					color="primary"
-					size="normal"
+					size="medium"
 					disableElevation
 					fullWidth
 					className={classes.submitButton}

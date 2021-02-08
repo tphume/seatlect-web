@@ -8,7 +8,7 @@ class RequestRepo {
 	}
 
 	async createRequest(args) {
-		const { businessName, type, tags, description, location, address, policy } = args;
+		const { businessName, type, tags, description, location, address } = args;
 		// TODO: Check arguments
 
 		try {

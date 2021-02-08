@@ -49,12 +49,11 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function Home({ env, url, initial }) {
+export default function Home({ env, url, business }) {
 	const classes = useStyles();
 
 	// Id state is the id of the business
 	const [id, setId] = useState('');
-	const [business, setBusiness] = useState(initial);
 
 	// Set if request form should be visible
 	const [requestForm, setRequestForm] = useState(false);
@@ -64,7 +63,7 @@ export default function Home({ env, url, initial }) {
 		setId(localStorage.getItem('_id'));
 	}, []);
 
-	if (Object.keys(initial).length === 0 && initial.constructor === Object) {
+	if (Object.keys(business).length === 0 && business.constructor === Object) {
 		return (
 			<Layout id={id}>
 				<div>
@@ -74,13 +73,23 @@ export default function Home({ env, url, initial }) {
 		);
 	}
 
-	// TODO: requestChange modal and handlers
 	// TODO: displayImage modal and handlers
 	// TODO: images modal and handlers
 
 	return (
 		<Layout id={id}>
-			<RequestFrom visible={requestForm} setVisible={setRequestForm} />
+			<RequestFrom
+				visible={requestForm}
+				setVisible={setRequestForm}
+				initial={{
+					businessName: business.businessName,
+					type: business.type,
+					tags: business.tags,
+					description: business.description,
+					location: business.location,
+					address: business.address
+				}}
+			/>
 			<Grid container spacing={1}>
 				<Grid item component="div" sm={6}>
 					<InputLabel className={classes.label}>Business Name</InputLabel>
@@ -194,12 +203,12 @@ export async function getServerSideProps(ctx) {
 	// Get params
 	let env = process.env.NODE_ENV;
 	let id = ctx.params.id;
-	let initial = {};
+	let business = {};
 
 	// Get initial data
 	let businessRepo = getBusinessRepo({ env, id });
 	try {
-		initial = await businessRepo.getBusiness();
+		business = await businessRepo.getBusiness();
 	} catch (e) {
 		// TODO handle error
 	}
@@ -208,7 +217,7 @@ export async function getServerSideProps(ctx) {
 		props: {
 			env,
 			url: process.env.URL ? process.env.URL : '',
-			initial
+			business
 		}
 	};
 }
