@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,6 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 const useStyles = makeStyles((theme) => ({
 	label: {
@@ -40,6 +41,21 @@ const useStyles = makeStyles((theme) => ({
 export default function RegisterForm({ visible, setVisible }) {
 	const classes = useStyles();
 
+	// Set initial state
+	const [req, setReq] = useState({
+		email: '',
+		username: '',
+		password: '',
+		businessName: '',
+		type: 'Restaurant',
+		description: '',
+		address: '',
+		location: {
+			latitude: 13.7563,
+			longitude: 100.5018
+		}
+	});
+
 	function handleClose() {
 		setVisible(false);
 	}
@@ -50,9 +66,21 @@ export default function RegisterForm({ visible, setVisible }) {
 			<DialogContent>
 				<DialogContentText>Fill in all the fields and click submit to proceed.</DialogContentText>
 				<InputLabel className={classes.label}>Email</InputLabel>
-				<TextField variant="outlined" size="small" fullWidth className={classes.textField} />
+				<TextField
+					variant="outlined"
+					size="small"
+					fullWidth
+					className={classes.textField}
+					value={req.email}
+				/>
 				<InputLabel className={classes.label}>Username</InputLabel>
-				<TextField variant="outlined" size="small" fullWidth className={classes.textField} />
+				<TextField
+					variant="outlined"
+					size="small"
+					fullWidth
+					className={classes.textField}
+					value={req.username}
+				/>
 				<InputLabel className={classes.label}>Password</InputLabel>
 				<TextField
 					variant="outlined"
@@ -60,9 +88,16 @@ export default function RegisterForm({ visible, setVisible }) {
 					type="password"
 					fullWidth
 					className={classes.textField}
+					value={req.password}
 				/>
 				<InputLabel className={classes.label}>Business Name</InputLabel>
-				<TextField variant="outlined" size="small" fullWidth className={classes.textField} />
+				<TextField
+					variant="outlined"
+					size="small"
+					fullWidth
+					className={classes.textField}
+					value={req.businessName}
+				/>
 				<InputLabel className={classes.label}>Type</InputLabel>
 				<Select
 					labelId="type-select"
@@ -71,6 +106,7 @@ export default function RegisterForm({ visible, setVisible }) {
 					margin="dense"
 					fullWidth
 					className={classes.selectField}
+					value={req.type}
 				>
 					<MenuItem value="Restaurant">Restaurant</MenuItem>
 					<MenuItem value="Bar">Bar</MenuItem>
@@ -83,6 +119,7 @@ export default function RegisterForm({ visible, setVisible }) {
 					fullWidth
 					multiline
 					className={classes.textField}
+					value={req.description}
 				/>
 				<InputLabel className={classes.label}>Address</InputLabel>
 				<TextField
@@ -91,16 +128,23 @@ export default function RegisterForm({ visible, setVisible }) {
 					fullWidth
 					multiline
 					className={classes.textField}
+					value={req.address}
 				/>
 				<div className={classes.mapContainer}>
 					<GoogleMapReact
 						bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_MAP }}
 						defaultCenter={{
-							lat: 0,
-							lng: 0
+							lat: 13.7563,
+							lng: 100.5018
 						}}
 						defaultZoom={17}
-					></GoogleMapReact>
+					>
+						<LocationOnIcon
+							lat={req.location.latitude}
+							lng={req.location.longitude}
+							color="error"
+						/>
+					</GoogleMapReact>
 				</div>
 				<Button
 					variant="contained"
