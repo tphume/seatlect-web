@@ -18,6 +18,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme) => ({
@@ -147,7 +148,13 @@ export default function Home({ business }) {
 								lng: business.location.longitude
 							}}
 							defaultZoom={17}
-						></GoogleMapReact>
+						>
+							<LocationOnIcon
+								lat={business.location.latitude}
+								lng={business.location.longitude}
+								color="error"
+							/>
+						</GoogleMapReact>
 					</div>
 					<Tooltip title="Make a request to change business information">
 						<Button
