@@ -12,6 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 const useStyles = makeStyles((theme) => ({
 	label: {
@@ -43,8 +44,13 @@ export default function RequestForm({ visible, setVisible, initial }) {
 	// Set initial state
 	const [req, setReq] = useState(initial);
 
+	// Handlers
 	function handleClose() {
 		setVisible(false);
+	}
+
+	function handleMarker(event) {
+		setReq({ ...req, location: { latitude: event.lat, longitude: event.lng } });
 	}
 
 	return (
@@ -99,11 +105,18 @@ export default function RequestForm({ visible, setVisible, initial }) {
 					<GoogleMapReact
 						bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_MAP }}
 						defaultCenter={{
-							lat: 0,
-							lng: 0
+							lat: initial.location.latitude,
+							lng: initial.location.longitude
 						}}
 						defaultZoom={17}
-					></GoogleMapReact>
+						onClick={handleMarker}
+					>
+						<LocationOnIcon
+							lat={req.location.latitude}
+							lng={req.location.longitude}
+							color="error"
+						/>
+					</GoogleMapReact>
 				</div>
 				<Button
 					variant="contained"
