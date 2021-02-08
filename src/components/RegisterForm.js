@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 
+import { getUserRepo } from 'src/userRepo';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -13,6 +16,8 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
 	label: {
@@ -41,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
 export default function RegisterForm({ visible, setVisible }) {
 	const classes = useStyles();
 
+	// Setup repo
+	const repo = getUserRepo({ env: process.env.NODE_ENV, url: process.env.NEXT_PUBLIC_BE });
+
 	// Set initial state
 	const [req, setReq] = useState({
 		email: '',
@@ -56,6 +64,10 @@ export default function RegisterForm({ visible, setVisible }) {
 		}
 	});
 
+	// Presentation state
+	const [loading, setLoading] = useState(false);
+	const [success, setSuccess] = useState(false);
+
 	// Handlers
 	function handleClose() {
 		setVisible(false);
@@ -65,8 +77,31 @@ export default function RegisterForm({ visible, setVisible }) {
 		setReq({ ...req, location: { latitude: e.lat, longitude: e.lng } });
 	}
 
+	async function handleSubmit(e) {
+		setLoading(true);
+
+		try {
+			await repo.register(req);
+			setSuccess(true);
+
+			await new Promise((resolve) => setTimeout(resolve, 2000));
+			setVisible(false);
+		} catch (e) {}
+
+		setLoading(false);
+	}
+
+	function handleAlert(event, reason) {
+		if (reason === 'clickaway') {
+			return;
+		}
+
+		setSuccess(false);
+	}
+
 	return (
 		<Dialog open={visible} onClose={handleClose} fullWidth>
+			{loading && <LinearProgress />}
 			<DialogTitle>Register</DialogTitle>
 			<DialogContent>
 				<DialogContentText>Fill in all the fields and click submit to proceed.</DialogContentText>
@@ -76,6 +111,7 @@ export default function RegisterForm({ visible, setVisible }) {
 					size="small"
 					fullWidth
 					className={classes.textField}
+					disabled={loading}
 					value={req.email}
 					onChange={(e) => setReq({ ...req, email: e.target.value })}
 				/>
@@ -85,6 +121,7 @@ export default function RegisterForm({ visible, setVisible }) {
 					size="small"
 					fullWidth
 					className={classes.textField}
+					disabled={loading}
 					value={req.username}
 					onChange={(e) => setReq({ ...req, username: e.target.value })}
 				/>
@@ -95,6 +132,7 @@ export default function RegisterForm({ visible, setVisible }) {
 					type="password"
 					fullWidth
 					className={classes.textField}
+					disabled={loading}
 					value={req.password}
 					onChange={(e) => setReq({ ...req, password: e.target.value })}
 				/>
@@ -104,6 +142,7 @@ export default function RegisterForm({ visible, setVisible }) {
 					size="small"
 					fullWidth
 					className={classes.textField}
+					disabled={loading}
 					value={req.businessName}
 					onChange={(e) => setReq({ ...req, businessName: e.target.value })}
 				/>
@@ -115,6 +154,7 @@ export default function RegisterForm({ visible, setVisible }) {
 					margin="dense"
 					fullWidth
 					className={classes.selectField}
+					disabled={loading}
 					value={req.type}
 					onChange={(e) => setReq({ ...req, type: e.target.value })}
 				>
@@ -129,6 +169,7 @@ export default function RegisterForm({ visible, setVisible }) {
 					fullWidth
 					multiline
 					className={classes.textField}
+					disabled={loading}
 					value={req.description}
 					onChange={(e) => setReq({ ...req, description: e.target.value })}
 				/>
@@ -139,6 +180,7 @@ export default function RegisterForm({ visible, setVisible }) {
 					fullWidth
 					multiline
 					className={classes.textField}
+					disabled={loading}
 					value={req.address}
 					onChange={(e) => setReq({ ...req, address: e.target.value })}
 				/>
@@ -166,10 +208,16 @@ export default function RegisterForm({ visible, setVisible }) {
 					disableElevation
 					fullWidth
 					className={classes.submitButton}
+					onClick={handleSubmit}
 				>
 					Submit
 				</Button>
 			</DialogContent>
+			<Snackbar open={success} autoHideDuration={2000} onClose={handleAlert}>
+				<MuiAlert elevation={6} variant="filled" onClose={handleAlert} severity="success">
+					Register successfully - check your email
+				</MuiAlert>
+			</Snackbar>
 		</Dialog>
 	);
 }
