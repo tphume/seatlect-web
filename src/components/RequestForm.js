@@ -3,6 +3,7 @@ import GoogleMapReact from 'google-map-react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -13,6 +14,8 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
 	label: {
@@ -38,23 +41,50 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // visible (and setVisible) should be a React state variable and it set state function
-export default function RequestForm({ visible, setVisible, initial }) {
+export default function RequestForm({ visible, setVisible, repo, initial }) {
 	const classes = useStyles();
 
 	// Set initial state
 	const [req, setReq] = useState(initial);
+
+	// Presentation state
+	const [loading, setLoading] = useState(false);
+	const [success, setSuccess] = useState(false);
 
 	// Handlers
 	function handleClose() {
 		setVisible(false);
 	}
 
-	function handleMarker(event) {
-		setReq({ ...req, location: { latitude: event.lat, longitude: event.lng } });
+	function handleMarker(e) {
+		setReq({ ...req, location: { latitude: e.lat, longitude: e.lng } });
+	}
+
+	async function handleSubmit(e) {
+		setLoading(true);
+
+		try {
+			await repo.createRequest(req);
+			setSuccess(true);
+
+			await new Promise((resolve) => setTimeout(resolve, 1000));
+			setVisible(false);
+		} catch (e) {}
+
+		setLoading(false);
+	}
+
+	function handleAlert(event, reason) {
+		if (reason === 'clickaway') {
+			return;
+		}
+
+		setSuccess(false);
 	}
 
 	return (
 		<Dialog open={visible} onClose={handleClose}>
+			{loading && <LinearProgress />}
 			<DialogTitle>Request Change</DialogTitle>
 			<DialogContent>
 				<DialogContentText>
@@ -68,6 +98,8 @@ export default function RequestForm({ visible, setVisible, initial }) {
 					fullWidth
 					className={classes.textField}
 					value={req.businessName}
+					disabled={loading}
+					onChange={(event) => setReq({ ...req, businessName: event.target.value })}
 				/>
 				<InputLabel className={classes.label}>Type</InputLabel>
 				<Select
@@ -78,6 +110,8 @@ export default function RequestForm({ visible, setVisible, initial }) {
 					fullWidth
 					className={classes.selectField}
 					value={req.type}
+					disabled={loading}
+					onChange={(event) => setReq({ ...req, type: event.target.value })}
 				>
 					<MenuItem value="Restaurant">Restaurant</MenuItem>
 					<MenuItem value="Bar">Bar</MenuItem>
@@ -91,6 +125,8 @@ export default function RequestForm({ visible, setVisible, initial }) {
 					multiline
 					className={classes.textField}
 					value={req.description}
+					disabled={loading}
+					onChange={(event) => setReq({ ...req, description: event.target.value })}
 				/>
 				<InputLabel className={classes.label}>Address</InputLabel>
 				<TextField
@@ -100,6 +136,8 @@ export default function RequestForm({ visible, setVisible, initial }) {
 					multiline
 					className={classes.textField}
 					value={req.address}
+					disabled={loading}
+					onChange={(event) => setReq({ ...req, address: event.target.value })}
 				/>
 				<div className={classes.mapContainer}>
 					<GoogleMapReact
@@ -125,10 +163,17 @@ export default function RequestForm({ visible, setVisible, initial }) {
 					disableElevation
 					fullWidth
 					className={classes.submitButton}
+					disabled={loading}
+					onClick={handleSubmit}
 				>
 					Submit Request
 				</Button>
 			</DialogContent>
+			<Snackbar open={success} autoHideDuration={1000} onClose={handleAlert}>
+				<MuiAlert elevation={6} variant="filled" onClose={handleAlert} severity="success">
+					Request have been created
+				</MuiAlert>
+			</Snackbar>
 		</Dialog>
 	);
 }

@@ -22,7 +22,7 @@ class RequestRepo {
 }
 
 class RequestMockRepo {
-	async makeRequest(args) {
+	async createRequest(args) {
 		await new Promise((resolve) => setTimeout(resolve, 1000));
 
 		// Uncomment the following if you want to test error

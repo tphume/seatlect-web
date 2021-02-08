@@ -4,6 +4,7 @@ import GoogleMapReact from 'google-map-react';
 import Layout from 'src/components/layout';
 import RequestFrom from 'src/components/RequestForm';
 import { getBusinessRepo } from 'src/businessRepo';
+import { getRequestRepo } from 'src/requestRepo';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Grid from '@material-ui/core/Grid';
@@ -50,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Home({ env, url, business }) {
+	// Initial setup
 	const classes = useStyles();
 
 	// Id state is the id of the business
@@ -63,6 +65,7 @@ export default function Home({ env, url, business }) {
 		setId(localStorage.getItem('_id'));
 	}, []);
 
+	// Check that data is loaded correctly
 	if (Object.keys(business).length === 0 && business.constructor === Object) {
 		return (
 			<Layout id={id}>
@@ -73,6 +76,9 @@ export default function Home({ env, url, business }) {
 		);
 	}
 
+	// Setup repo
+	const reqRepo = getRequestRepo({ env, id });
+
 	// TODO: displayImage modal and handlers
 	// TODO: images modal and handlers
 
@@ -81,6 +87,7 @@ export default function Home({ env, url, business }) {
 			<RequestFrom
 				visible={requestForm}
 				setVisible={setRequestForm}
+				repo={reqRepo}
 				initial={{
 					businessName: business.businessName,
 					type: business.type,
