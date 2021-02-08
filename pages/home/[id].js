@@ -4,7 +4,6 @@ import GoogleMapReact from 'google-map-react';
 import Layout from 'src/components/layout';
 import RequestFrom from 'src/components/RequestForm';
 import { getBusinessRepo } from 'src/businessRepo';
-import { getRequestRepo } from 'src/requestRepo';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Grid from '@material-ui/core/Grid';
@@ -76,9 +75,6 @@ export default function Home({ env, url, business }) {
 		);
 	}
 
-	// Setup repo
-	const reqRepo = getRequestRepo({ env, id });
-
 	// TODO: displayImage modal and handlers
 	// TODO: images modal and handlers
 
@@ -87,7 +83,8 @@ export default function Home({ env, url, business }) {
 			<RequestFrom
 				visible={requestForm}
 				setVisible={setRequestForm}
-				repo={reqRepo}
+				env={env}
+				id={id}
 				initial={{
 					businessName: business.businessName,
 					type: business.type,

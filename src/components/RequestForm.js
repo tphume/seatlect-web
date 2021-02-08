@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 
+import { getRequestRepo } from 'src/requestRepo';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -41,8 +43,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // visible (and setVisible) should be a React state variable and it set state function
-export default function RequestForm({ visible, setVisible, repo, initial }) {
+export default function RequestForm({ visible, setVisible, env, id, initial }) {
 	const classes = useStyles();
+
+	// Setup repo
+	const repo = getRequestRepo({ env, id });
 
 	// Set initial state
 	const [req, setReq] = useState(initial);
