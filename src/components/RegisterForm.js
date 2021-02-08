@@ -56,8 +56,13 @@ export default function RegisterForm({ visible, setVisible }) {
 		}
 	});
 
+	// Handlers
 	function handleClose() {
 		setVisible(false);
+	}
+
+	function handleMarker(e) {
+		setReq({ ...req, location: { latitude: e.lat, longitude: e.lng } });
 	}
 
 	return (
@@ -72,6 +77,7 @@ export default function RegisterForm({ visible, setVisible }) {
 					fullWidth
 					className={classes.textField}
 					value={req.email}
+					onChange={(e) => setReq({ ...req, email: e.target.value })}
 				/>
 				<InputLabel className={classes.label}>Username</InputLabel>
 				<TextField
@@ -80,6 +86,7 @@ export default function RegisterForm({ visible, setVisible }) {
 					fullWidth
 					className={classes.textField}
 					value={req.username}
+					onChange={(e) => setReq({ ...req, username: e.target.value })}
 				/>
 				<InputLabel className={classes.label}>Password</InputLabel>
 				<TextField
@@ -89,6 +96,7 @@ export default function RegisterForm({ visible, setVisible }) {
 					fullWidth
 					className={classes.textField}
 					value={req.password}
+					onChange={(e) => setReq({ ...req, password: e.target.value })}
 				/>
 				<InputLabel className={classes.label}>Business Name</InputLabel>
 				<TextField
@@ -97,6 +105,7 @@ export default function RegisterForm({ visible, setVisible }) {
 					fullWidth
 					className={classes.textField}
 					value={req.businessName}
+					onChange={(e) => setReq({ ...req, businessName: e.target.value })}
 				/>
 				<InputLabel className={classes.label}>Type</InputLabel>
 				<Select
@@ -107,6 +116,7 @@ export default function RegisterForm({ visible, setVisible }) {
 					fullWidth
 					className={classes.selectField}
 					value={req.type}
+					onChange={(e) => setReq({ ...req, type: e.target.value })}
 				>
 					<MenuItem value="Restaurant">Restaurant</MenuItem>
 					<MenuItem value="Bar">Bar</MenuItem>
@@ -120,6 +130,7 @@ export default function RegisterForm({ visible, setVisible }) {
 					multiline
 					className={classes.textField}
 					value={req.description}
+					onChange={(e) => setReq({ ...req, description: e.target.value })}
 				/>
 				<InputLabel className={classes.label}>Address</InputLabel>
 				<TextField
@@ -129,6 +140,7 @@ export default function RegisterForm({ visible, setVisible }) {
 					multiline
 					className={classes.textField}
 					value={req.address}
+					onChange={(e) => setReq({ ...req, address: e.target.value })}
 				/>
 				<div className={classes.mapContainer}>
 					<GoogleMapReact
@@ -138,6 +150,7 @@ export default function RegisterForm({ visible, setVisible }) {
 							lng: 100.5018
 						}}
 						defaultZoom={17}
+						onClick={handleMarker}
 					>
 						<LocationOnIcon
 							lat={req.location.latitude}
