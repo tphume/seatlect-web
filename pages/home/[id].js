@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	displayImage: {
 		width: 300
-	}
+	},
 }));
 
 export default function Home({ business }) {
