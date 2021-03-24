@@ -104,8 +104,8 @@ export default function Layout({ children, id }) {
 				<Toolbar />
 				<div className={classes.drawerContainer}>
 					<List>
-					{/* ------------------------------------------------------------------------- */}
-					{/* Home */}
+						{/* ------------------------------------------------------------------------- */}
+						{/* Home */}
 						<ListItem
 							button
 							dense
@@ -118,28 +118,8 @@ export default function Layout({ children, id }) {
 							</ListItemIcon>
 							<ListItemText primary="Home" classes={{ root: setTextColor('/home/') }} />
 						</ListItem>
-					
-					{/* ------------------------------------------------------------------------- */}
-					{/* Dashboard */}						
-						<ListItem
-							button
-							dense
-							selected={'/dashboard/[id]' === router.pathname}
-							className={classes.item}
-							onClick={() => router.push('/dashboard/'+id)}
-						>
-							<ListItemIcon>
-								<DashboardIcon style={setIconColor('/dashboard/')} />
-							</ListItemIcon>
-							<ListItemText
-								primary="Dashboard"
-								classes={{ root: setTextColor('/dashboard/') }}
-								selected={'/dashboard/[id]' === router.pathname}
-							/>
-						</ListItem>
-					
-					{/* ------------------------------------------------------------------------- */}
-					{/* Schedule */}
+						{/* ------------------------------------------------------------------------- */}
+						{/* Schedule */}
 						<ListItem
 							button
 							dense
@@ -156,9 +136,9 @@ export default function Layout({ children, id }) {
 								selected={'/schedule/[id]' === router.pathname}
 							/>
 						</ListItem>
-						
-					{/* ------------------------------------------------------------------------- */}
-					{/* Placment */}
+
+						{/* ------------------------------------------------------------------------- */}
+						{/* Placment */}
 						<ListItem
 							button
 							dense
@@ -175,8 +155,8 @@ export default function Layout({ children, id }) {
 								selected={'/placement/[id]' === router.pathname}
 							/>
 						</ListItem>
-					{/* ------------------------------------------------------------------------- */}
-					{/* Menu */}
+						{/* ------------------------------------------------------------------------- */}
+						{/* Menu */}
 						<ListItem
 							button
 							dense
