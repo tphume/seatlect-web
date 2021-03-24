@@ -16,6 +16,24 @@ class MenuRepo {
 			throw 'Network error';
 		}
 	}
+
+	async appendItem(args) {
+		try {
+			await axios.post(this.url + this.endpoint + '/menuitems', args);
+		} catch (e) {
+			// TODO add better error handling
+			throw 'Network error';
+		}
+	}
+
+	async deleteItem(name) {
+		try {
+			const response = await axios.delete(this.url + this.endpoint + '/menuitems/' + name);
+		} catch (e) {
+			// TODO add better error handling
+			throw 'Network error';
+		}
+	}
 }
 
 class MenuMockRepo {
@@ -63,6 +81,20 @@ class MenuMockRepo {
 				description: 'Side dish'
 			}
 		];
+	}
+
+	async appendItem(args) {
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		// Uncomment the following if you want to test error
+		// throw 'Fake error';
+	}
+
+	async deleteItem(name) {
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		// Uncomment the following if you want to test error
+		// throw 'Fake error';
 	}
 }
 
