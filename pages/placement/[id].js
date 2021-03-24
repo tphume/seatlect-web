@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from 'src/components/layout';
 import { render } from 'react-dom';
 import Konva from 'konva';
-import { Stage, Layer, Rect, Transformer, Image, Text, Circle, Label} from 'react-konva';
+import { Stage, Layer, Rect, Transformer, Image, Text, Circle, Label } from 'react-konva';
 import table1 from '../../public/rectangleAvailable.png';
 import table2 from '../../public/square4Available.png';
 import wall1 from '../../public/wall1.png';
@@ -10,9 +10,9 @@ import wall2 from '../../public/wall2.png';
 import object1 from '../../public/object1.png';
 import object2 from '../../public/object2.png';
 import useImage from 'use-image';
-import { Button, InputGroup, FormControl} from 'react-bootstrap';
+import { Button, InputGroup, FormControl } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Sidebar from './sidebar'
+import Sidebar from './sidebar';
 import FreeStyleObject from './FreeStyleObject';
 
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 	test: {
 		display: flex
 	},
-	canvas:{
+	canvas: {
 		marginLeft: `1vw`,
 		width: `74vw`
 	},
@@ -61,7 +61,8 @@ const useStyles = makeStyles((theme) => ({
 	inputGroup: {
 		padding: `10px`
 	},
-	inputGroup,text:{
+	inputGroup,
+	text: {
 		display: inline,
 		width: `6rem`
 	},
@@ -74,8 +75,8 @@ const useStyles = makeStyles((theme) => ({
 		height: `2.5rem`,
 		display: block,
 		justifyContent: center,
-		borderTopLeftRadius:`20px`,
-		borderTopRightRadius:`20px`,
+		borderTopLeftRadius: `20px`,
+		borderTopRightRadius: `20px`,
 		backgroundColor: `#E5E5E5`
 	},
 	headSliderSelected: {
@@ -91,16 +92,16 @@ const useStyles = makeStyles((theme) => ({
 		display: flex,
 		justifyContent: center,
 		lineHeight: `3rem`
-	},	
+	},
 	sliderBarSelected: {
-		display:flex,
-		justifyContent: space-evenly,
+		display: flex,
+		justifyContent: space - evenly,
 		paddingLeft: `20%`,
 		paddingRight: `20%`,
 		paddingTop: `10px`,
 		height: `110px`
 	},
-	sliderBar:{
+	sliderBar: {
 		display: none
 	},
 	navLink: {
@@ -115,14 +116,14 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const canvasWidth  = 0.74
-const canvasHeight = 0.8
+const canvasWidth = 0.74;
+const canvasHeight = 0.8;
 
 // const Rectangle = ({ shapeProps, isSelected, onSelect, onChange, src, rotation, onDelete}) => {
 //   const shapeRef = React.useRef();
 //   const trRef = React.useRef();
 //   const [img] = useImage(src);
-  
+
 //   React.useEffect(() => {
 //     if (isSelected) {
 //       // we need to attach transformer manually
@@ -185,7 +186,7 @@ const canvasHeight = 0.8
 //             // we will reset it back
 //             node.scaleX(1);
 //             node.scaleY(1);
-  
+
 //             onChange({
 //               ...shapeProps,
 //               x: coordinateX,
@@ -203,8 +204,8 @@ const canvasHeight = 0.8
 //           }}
 //           status={false}
 //         />
-  
-//         <Text text={shapeProps.name} x={shapeProps.x+(shapeProps.width/2.25)} y={shapeProps.y+(shapeProps.height/2-5)}  fill="black" fillEnabled fontSize={15} 
+
+//         <Text text={shapeProps.name} x={shapeProps.x+(shapeProps.width/2.25)} y={shapeProps.y+(shapeProps.height/2-5)}  fill="black" fillEnabled fontSize={15}
 //               fillLinearGradientColorStops
 //         />
 //         {isSelected && (
@@ -225,7 +226,7 @@ const canvasHeight = 0.8
 //         )}
 //         {
 //           isSelected && (
-//             <Text text="Delete" x={shapeProps.x+shapeProps.width+20} y={shapeRef.current.y()+40}  fill="black" fillEnabled fontSize={15} 
+//             <Text text="Delete" x={shapeProps.x+shapeProps.width+20} y={shapeRef.current.y()+40}  fill="black" fillEnabled fontSize={15}
 //               fillLinearGradientColorStops
 //               onClick={ () => {
 //                 console.log("Deleted");
@@ -304,335 +305,331 @@ export default function Placement() {
 
 	useEffect(() => setId(localStorage.getItem('_id')), []);
 
-	return(
-    <h1>Placement</h1>
-  );
-  // const [images, setImages] = useState(initialRectangles);
-  // const [objects, setObject] = useState(initialObjects);
-  // const [walls, setWall] = useState(initialWalls);
-  // const [selectedId, selectShape] = useState(null);
-  // const [selectedShape, setShape] = useState(null);
-  // const dragUrl = React.useRef();
-  // const indexOfImage = React.useRef();
-  // const dragObject = React.useRef();
-  // const dragWidth = React.useRef();
-  // const dragHeight = React.useRef();
-  // const stageRef = React.useRef();
-  // const tableId = React.useRef(0);
-  // const startDragId = React.useState();
+	return <h1>Placement</h1>;
+	// const [images, setImages] = useState(initialRectangles);
+	// const [objects, setObject] = useState(initialObjects);
+	// const [walls, setWall] = useState(initialWalls);
+	// const [selectedId, selectShape] = useState(null);
+	// const [selectedShape, setShape] = useState(null);
+	// const dragUrl = React.useRef();
+	// const indexOfImage = React.useRef();
+	// const dragObject = React.useRef();
+	// const dragWidth = React.useRef();
+	// const dragHeight = React.useRef();
+	// const stageRef = React.useRef();
+	// const tableId = React.useRef(0);
+	// const startDragId = React.useState();
 
-  // const checkDeselect = (e) => {
-  //   // deselect when clicked on empty area
-  //   const clickedOnEmpty = e.target === e.target.getStage();
-  //   if (clickedOnEmpty) {
-  //     selectShape(null);
-  //     setShape(null);
-  //   }
-  // };
-  
-  // const [activeIndex,Setheader]= useState(null);
+	// const checkDeselect = (e) => {
+	//   // deselect when clicked on empty area
+	//   const clickedOnEmpty = e.target === e.target.getStage();
+	//   if (clickedOnEmpty) {
+	//     selectShape(null);
+	//     setShape(null);
+	//   }
+	// };
 
-  // return (
-  // <div>
-  //   <div className={classes.category}>
+	// const [activeIndex,Setheader]= useState(null);
 
-  //     <div id="wallComponent" className={classes.headSliderSelected} onClick={ () => {
-  //       document.getElementById('wallComponent').className= classes.headSliderSelected
-  //       document.getElementById('tableComponent').className= classes.headSlider
-  //       document.getElementById('objectComponent').className= classes.headSlider
-  //       document.getElementById('slider1').className= classes.sliderBarSelected
-  //       document.getElementById('slider2').className= classes.sliderBar
-  //       document.getElementById('slider3').className= classes.sliderBar
-  //     }}>
-  //       <div className={classes.center}>Wall</div>
-  //     </div>
-  //     <div id="tableComponent"className={classes.headSlider} onClick={ () => {
-  //       document.getElementById('wallComponent').className= classes.headSlider
-  //       document.getElementById('tableComponent').className= classes.headSliderSelected
-  //       document.getElementById('objectComponent').className= classes.headSlider
-  //       document.getElementById('slider1').className= classes.sliderBar
-  //       document.getElementById('slider2').className= classes.sliderBarSelected
-  //       document.getElementById('slider3').className= classes.sliderBar
-  //     }}>
-  //       <div className={classes.center}>Table</div>
-  //     </div>
-  //   <div id="objectComponent" className={classes.headSlider} onClick={ () => {
-  //       document.getElementById('wallComponent').className= classes.headSlider
-  //       document.getElementById('tableComponent').className= styles.headSlider
-  //       document.getElementById('objectComponent').className= classes.headSliderSelected
-  //       document.getElementById('slider1').className= classes.sliderBar
-  //       document.getElementById('slider2').className= classes.sliderBar
-  //       document.getElementById('slider3').className= classes.sliderBarSelected
-  //     }}>
-  //       <div className={classes.center}>Object</div>
-  //     </div>
-  //   </div>
-  //   <div>
-  //     <div id="slider1" className={classes.sliderBarSelected} >
-  //       <img
-  //         alt="wall1"
-  //         src={wall1}
-  //         draggable="true"
-  //         width={15}
-  //         height={90}
-  //         onDragStart={e => {
-  //           dragUrl.current = e.target.src;
-  //           dragObject.current = e.target.alt
-  //           dragWidth.current = e.target.width
-  //           dragHeight.current = e.target.height
-  //           // console.log(e.target)
-  //         }}
-  //       />
-  //       {/* <div style={{width:100, height:100}}></div> */}
-  //       <img
-  //         alt="wall2"
-  //         src={wall2}
-  //         draggable="true"
-  //         width={15}
-  //         height={90}
-  //         onDragStart={e => {
-  //           dragUrl.current = e.target.src;
-  //           dragObject.current = e.target.alt
-  //           dragWidth.current = e.target.width
-  //           dragHeight.current = e.target.height
-  //           // console.log(e.target)
-  //         }}
-  //       />
-  //     </div>
-  //     <div id="slider2" className={classes.sliderBar} >
-  //       <img
-  //         alt="table2"
-  //         src={table2}
-  //         draggable="true"
-  //         width={80}
-  //         height={80}
-  //         onDragStart={e => {
-  //           dragUrl.current = e.target.src;
-  //           dragObject.current = e.target.alt
-  //           dragWidth.current = e.target.width
-  //           dragHeight.current = e.target.height
-  //         }}
-  //       />
-  //       <img
-  //         alt="table1"
-  //         src={table1}
-  //         draggable="true"
-  //         width={120}
-  //         height={80}
-  //         onDragStart={e => {
-  //           dragUrl.current = e.target.src;
-  //           dragObject.current = e.target.alt
-  //           dragWidth.current = e.target.width
-  //           dragHeight.current = e.target.height
-  //           // console.log(e.target)
-  //         }}
-  //       />
-  //     </div>
-  //     <div id="slider3" className={classes.sliderBar} >
-  //       <img
-  //         alt="object1"
-  //         src={object1}
-  //         draggable="true"
-  //         width={90}
-  //         height={90}
-  //         onDragStart={e => {
-  //           dragUrl.current = e.target.src;
-  //           dragObject.current = e.target.alt
-  //           dragWidth.current = e.target.width
-  //           dragHeight.current = e.target.height
-  //           // console.log(e.target)
-  //         }}
-  //       />
-  //       <img
-  //         alt="object2"
-  //         src={object2}
-  //         draggable="true"
-  //         width={90}
-  //         height={90}
-  //         onDragStart={e => {
-  //           dragUrl.current = e.target.src;
-  //           dragObject.current = e.target.alt
-  //           dragWidth.current = e.target.width
-  //           dragHeight.current = e.target.height
-  //           // console.log(e.target)
-  //         }}
-  //       />
-  //     </div>
-  //   </div>
-  //   <div
-  //     onDrop={e => {
-  //       // register event position
-  //       stageRef.current.setPointersPositions(e);
-  //       // add image
-  //       console.log(dragObject.current)
-  //       if(dragObject.current=="table1"||dragObject.current=="table2"){
-  //       setImages(
-  //         images.concat([
-  //           {
-  //             ...stageRef.current.getPointerPosition(),
-  //             src: dragUrl.current,
-  //             type: dragObject.current,
-  //             // fill: "orange",
-  //             width: dragWidth.current,
-  //             height: dragHeight.current,
-  //             id: tableId.current,
-  //             name: "",
-  //             guest: 1,
-  //             price: 100,
-  //             // id: tableId.current,
-  //           }
-  //         ])
-  //       );
-  //       tableId.current += 1
-  //     }
-  //     else{
-  //       setObject(
-  //         objects.concat([
-  //           {
-  //             ...stageRef.current.getPointerPosition(),
-  //             src: dragUrl.current,
-  //             type: dragObject.current,
-  //             // fill: "orange",
-  //             width: dragWidth.current,
-  //             height: 100,
-  //             id: tableId.current,
-  //             name: "",
-  //             // guest: 1,
-  //             // price: 100,
-  //             // id: tableId.current,
-  //           }
-  //         ])
-  //       );
-  //       tableId.current += 1
-  //     }
+	// return (
+	// <div>
+	//   <div className={classes.category}>
 
-  //     }}
-  //     onDragOver={e => e.preventDefault()}
-  //     onClick={e => {
-  //       console.log(images)
-  //       console.log(objects)
-  //     }}
-  //     className={classes.test}
-  //   >
-  //   <div className={classes.canvas}>
-  //     <Stage
-  //       width={window.innerWidth*canvasWidth}
-  //       height={window.innerHeight*canvasHeight}
-  //       style={{ border: '1px solid grey' }}
-  //       ref={stageRef}
-  //       onMouseDown={checkDeselect}
-  //       onTouchStart={checkDeselect}
-  //     >
-  //       <Layer>
-  //         {images.map((rect, i) => {
-  //         return (
-  //           <Rectangle
-  //             key={i}
-  //             image={rect.src}
-  //             shapeProps={rect}
-  //             isSelected={rect.id === selectedId}
-  //             src={rect.src}
-  //             type={rect.alt}
-  //             onSelect={() => {
-  //               setShape()
-  //               selectShape(rect.id);
-  //               setShape(rect)
-  //               indexOfImage.current = i
-  //               console.log(indexOfImage)
-  //               console.log(selectedId)
-  //               console.log(rect)
-  //             }}
-  //             onChange={(newAttrs) => {
-  //               const rects = images.slice();
-  //               rects[i] = newAttrs;
+	//     <div id="wallComponent" className={classes.headSliderSelected} onClick={ () => {
+	//       document.getElementById('wallComponent').className= classes.headSliderSelected
+	//       document.getElementById('tableComponent').className= classes.headSlider
+	//       document.getElementById('objectComponent').className= classes.headSlider
+	//       document.getElementById('slider1').className= classes.sliderBarSelected
+	//       document.getElementById('slider2').className= classes.sliderBar
+	//       document.getElementById('slider3').className= classes.sliderBar
+	//     }}>
+	//       <div className={classes.center}>Wall</div>
+	//     </div>
+	//     <div id="tableComponent"className={classes.headSlider} onClick={ () => {
+	//       document.getElementById('wallComponent').className= classes.headSlider
+	//       document.getElementById('tableComponent').className= classes.headSliderSelected
+	//       document.getElementById('objectComponent').className= classes.headSlider
+	//       document.getElementById('slider1').className= classes.sliderBar
+	//       document.getElementById('slider2').className= classes.sliderBarSelected
+	//       document.getElementById('slider3').className= classes.sliderBar
+	//     }}>
+	//       <div className={classes.center}>Table</div>
+	//     </div>
+	//   <div id="objectComponent" className={classes.headSlider} onClick={ () => {
+	//       document.getElementById('wallComponent').className= classes.headSlider
+	//       document.getElementById('tableComponent').className= styles.headSlider
+	//       document.getElementById('objectComponent').className= classes.headSliderSelected
+	//       document.getElementById('slider1').className= classes.sliderBar
+	//       document.getElementById('slider2').className= classes.sliderBar
+	//       document.getElementById('slider3').className= classes.sliderBarSelected
+	//     }}>
+	//       <div className={classes.center}>Object</div>
+	//     </div>
+	//   </div>
+	//   <div>
+	//     <div id="slider1" className={classes.sliderBarSelected} >
+	//       <img
+	//         alt="wall1"
+	//         src={wall1}
+	//         draggable="true"
+	//         width={15}
+	//         height={90}
+	//         onDragStart={e => {
+	//           dragUrl.current = e.target.src;
+	//           dragObject.current = e.target.alt
+	//           dragWidth.current = e.target.width
+	//           dragHeight.current = e.target.height
+	//           // console.log(e.target)
+	//         }}
+	//       />
+	//       {/* <div style={{width:100, height:100}}></div> */}
+	//       <img
+	//         alt="wall2"
+	//         src={wall2}
+	//         draggable="true"
+	//         width={15}
+	//         height={90}
+	//         onDragStart={e => {
+	//           dragUrl.current = e.target.src;
+	//           dragObject.current = e.target.alt
+	//           dragWidth.current = e.target.width
+	//           dragHeight.current = e.target.height
+	//           // console.log(e.target)
+	//         }}
+	//       />
+	//     </div>
+	//     <div id="slider2" className={classes.sliderBar} >
+	//       <img
+	//         alt="table2"
+	//         src={table2}
+	//         draggable="true"
+	//         width={80}
+	//         height={80}
+	//         onDragStart={e => {
+	//           dragUrl.current = e.target.src;
+	//           dragObject.current = e.target.alt
+	//           dragWidth.current = e.target.width
+	//           dragHeight.current = e.target.height
+	//         }}
+	//       />
+	//       <img
+	//         alt="table1"
+	//         src={table1}
+	//         draggable="true"
+	//         width={120}
+	//         height={80}
+	//         onDragStart={e => {
+	//           dragUrl.current = e.target.src;
+	//           dragObject.current = e.target.alt
+	//           dragWidth.current = e.target.width
+	//           dragHeight.current = e.target.height
+	//           // console.log(e.target)
+	//         }}
+	//       />
+	//     </div>
+	//     <div id="slider3" className={classes.sliderBar} >
+	//       <img
+	//         alt="object1"
+	//         src={object1}
+	//         draggable="true"
+	//         width={90}
+	//         height={90}
+	//         onDragStart={e => {
+	//           dragUrl.current = e.target.src;
+	//           dragObject.current = e.target.alt
+	//           dragWidth.current = e.target.width
+	//           dragHeight.current = e.target.height
+	//           // console.log(e.target)
+	//         }}
+	//       />
+	//       <img
+	//         alt="object2"
+	//         src={object2}
+	//         draggable="true"
+	//         width={90}
+	//         height={90}
+	//         onDragStart={e => {
+	//           dragUrl.current = e.target.src;
+	//           dragObject.current = e.target.alt
+	//           dragWidth.current = e.target.width
+	//           dragHeight.current = e.target.height
+	//           // console.log(e.target)
+	//         }}
+	//       />
+	//     </div>
+	//   </div>
+	//   <div
+	//     onDrop={e => {
+	//       // register event position
+	//       stageRef.current.setPointersPositions(e);
+	//       // add image
+	//       console.log(dragObject.current)
+	//       if(dragObject.current=="table1"||dragObject.current=="table2"){
+	//       setImages(
+	//         images.concat([
+	//           {
+	//             ...stageRef.current.getPointerPosition(),
+	//             src: dragUrl.current,
+	//             type: dragObject.current,
+	//             // fill: "orange",
+	//             width: dragWidth.current,
+	//             height: dragHeight.current,
+	//             id: tableId.current,
+	//             name: "",
+	//             guest: 1,
+	//             price: 100,
+	//             // id: tableId.current,
+	//           }
+	//         ])
+	//       );
+	//       tableId.current += 1
+	//     }
+	//     else{
+	//       setObject(
+	//         objects.concat([
+	//           {
+	//             ...stageRef.current.getPointerPosition(),
+	//             src: dragUrl.current,
+	//             type: dragObject.current,
+	//             // fill: "orange",
+	//             width: dragWidth.current,
+	//             height: 100,
+	//             id: tableId.current,
+	//             name: "",
+	//             // guest: 1,
+	//             // price: 100,
+	//             // id: tableId.current,
+	//           }
+	//         ])
+	//       );
+	//       tableId.current += 1
+	//     }
+
+	//     }}
+	//     onDragOver={e => e.preventDefault()}
+	//     onClick={e => {
+	//       console.log(images)
+	//       console.log(objects)
+	//     }}
+	//     className={classes.test}
+	//   >
+	//   <div className={classes.canvas}>
+	//     <Stage
+	//       width={window.innerWidth*canvasWidth}
+	//       height={window.innerHeight*canvasHeight}
+	//       style={{ border: '1px solid grey' }}
+	//       ref={stageRef}
+	//       onMouseDown={checkDeselect}
+	//       onTouchStart={checkDeselect}
+	//     >
+	//       <Layer>
+	//         {images.map((rect, i) => {
+	//         return (
+	//           <Rectangle
+	//             key={i}
+	//             image={rect.src}
+	//             shapeProps={rect}
+	//             isSelected={rect.id === selectedId}
+	//             src={rect.src}
+	//             type={rect.alt}
+	//             onSelect={() => {
+	//               setShape()
+	//               selectShape(rect.id);
+	//               setShape(rect)
+	//               indexOfImage.current = i
+	//               console.log(indexOfImage)
+	//               console.log(selectedId)
+	//               console.log(rect)
+	//             }}
+	//             onChange={(newAttrs) => {
+	//               const rects = images.slice();
+	//               rects[i] = newAttrs;
 	// 	            setImages(rects);
-  //             }}
-              
-  //             onDelete={(newAttrs) => {
-  //               setImages(images.filter(img => img.id !== newAttrs));
-  //             }}
+	//             }}
 
-              
-  //             //onDrop={}
-  //             rotation={rect.rotation}
-  //           ></Rectangle>
-  //         );
-  //       })}
+	//             onDelete={(newAttrs) => {
+	//               setImages(images.filter(img => img.id !== newAttrs));
+	//             }}
 
-  //       {objects.map((object, i) => {
-  //         return (
-  //           <FreeStyleObject
-  //             key={i}
-  //             image={object.src}
-  //             shapeProps={object}
-  //             isSelected={object.id === selectedId}
-  //             src={object.src}
-  //             type={object.alt}
-  //             onSelect={() => {
-  //               setShape()
-  //               selectShape(object.id);
-  //               setShape(object)
-  //               indexOfImage.current = i
-  //               console.log(indexOfImage)
-  //               console.log(selectedId)
-  //               console.log(object)
-  //             }}
-  //             onChange={(newAttrs) => {
-  //               const rects = objects.slice();
-  //               rects[i] = newAttrs;
+	//             //onDrop={}
+	//             rotation={rect.rotation}
+	//           ></Rectangle>
+	//         );
+	//       })}
+
+	//       {objects.map((object, i) => {
+	//         return (
+	//           <FreeStyleObject
+	//             key={i}
+	//             image={object.src}
+	//             shapeProps={object}
+	//             isSelected={object.id === selectedId}
+	//             src={object.src}
+	//             type={object.alt}
+	//             onSelect={() => {
+	//               setShape()
+	//               selectShape(object.id);
+	//               setShape(object)
+	//               indexOfImage.current = i
+	//               console.log(indexOfImage)
+	//               console.log(selectedId)
+	//               console.log(object)
+	//             }}
+	//             onChange={(newAttrs) => {
+	//               const rects = objects.slice();
+	//               rects[i] = newAttrs;
 	// 	            setObject(rects);
-  //             }}
-              
-  //             onDelete={(newAttrs) => {
-  //               setObject(objects.filter(obj => obj.id !== newAttrs));
-  //             }}
+	//             }}
 
-              
-  //             //onDrop={}
-  //             rotation={object.rotation}
-  //           ></FreeStyleObject>
-  //         );
-  //       })}
-  //       </Layer>
-  //     </Stage>
-  //     </div>
-  //     <div className={classes.sidebar}>
-  //       <Sidebar 
-  //         shapeProps = {selectedShape}
-  //         onChangeSidebar={(newAttrs) => {
-  //           console.log('newAettrs')
-  //           console.log(newAttrs)
-  //           if(newAttrs.type == 'table1' || newAttrs.type == 'table2'){
-  //             const rects = images.slice();
-  //             var i = indexOfImage.current
-  //             console.log(rects)
-  //             rects[i] = newAttrs;
-  //             setImages(rects);
-  //             console.log(rects)
-  //           }
-  //           else{
-  //             const rects = objects.slice();
-  //             var i = indexOfImage.current
-  //             console.log(rects)
-  //             rects[i] = newAttrs;
-  //             setObject(rects);
-  //             console.log(rects)
-  //           }
-  //       }}
-  //         onDelete={(newAttrs) => {
-  //           setImages(images.filter(img => img.id !== newAttrs));
-  //           if(selectShape.type == 'table1' || selectShape.type == 'table2'){
-  //             setImages(images.filter(img => img.id !== newAttrs));
-  //           }
-  //           else{
-  //             setObject(objects.filter(obj => obj.id !== newAttrs));
-  //           }
-  //         }}
-  //       />
+	//             onDelete={(newAttrs) => {
+	//               setObject(objects.filter(obj => obj.id !== newAttrs));
+	//             }}
 
-  //     </div>
-  //   </div>
-  //   <div><SavingButton /></div>
-  // </div>
-  // );
+	//             //onDrop={}
+	//             rotation={object.rotation}
+	//           ></FreeStyleObject>
+	//         );
+	//       })}
+	//       </Layer>
+	//     </Stage>
+	//     </div>
+	//     <div className={classes.sidebar}>
+	//       <Sidebar
+	//         shapeProps = {selectedShape}
+	//         onChangeSidebar={(newAttrs) => {
+	//           console.log('newAettrs')
+	//           console.log(newAttrs)
+	//           if(newAttrs.type == 'table1' || newAttrs.type == 'table2'){
+	//             const rects = images.slice();
+	//             var i = indexOfImage.current
+	//             console.log(rects)
+	//             rects[i] = newAttrs;
+	//             setImages(rects);
+	//             console.log(rects)
+	//           }
+	//           else{
+	//             const rects = objects.slice();
+	//             var i = indexOfImage.current
+	//             console.log(rects)
+	//             rects[i] = newAttrs;
+	//             setObject(rects);
+	//             console.log(rects)
+	//           }
+	//       }}
+	//         onDelete={(newAttrs) => {
+	//           setImages(images.filter(img => img.id !== newAttrs));
+	//           if(selectShape.type == 'table1' || selectShape.type == 'table2'){
+	//             setImages(images.filter(img => img.id !== newAttrs));
+	//           }
+	//           else{
+	//             setObject(objects.filter(obj => obj.id !== newAttrs));
+	//           }
+	//         }}
+	//       />
+
+	//     </div>
+	//   </div>
+	//   <div><SavingButton /></div>
+	// </div>
+	// );
 }

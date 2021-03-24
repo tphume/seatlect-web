@@ -31,8 +31,8 @@ import EditMenuModal from './editMenuModal';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-    display: 'flex',
-  },
+		display: 'flex'
+	},
 	label: {
 		color: `rgba(0, 0, 0, 0.87)`,
 		fontWeight: `700`,
@@ -59,133 +59,114 @@ const useStyles = makeStyles((theme) => ({
 	displayImage: {
 		width: 300
 	},
-	createDishButton:{
+	createDishButton: {
 		// width: `9rem`,
-		height: `2.625rem`,
+		height: `2.625rem`
 	},
-	iconColor:{
-		color: `white`,
+	iconColor: {
+		color: `white`
 	},
-	headerText:{
+	headerText: {
 		fontWeight: 900,
-		fontSize: `2.25rem`,
+		fontSize: `2.25rem`
 	},
-	header2Text:{
-		fontSize: `2rem`,
+	header2Text: {
+		fontSize: `2rem`
 	},
 	paper: {
-    position: 'absolute',
+		position: 'absolute',
 		left: `25vw`,
 		top: `15vh`,
-    width: `50vw`,
+		width: `50vw`,
 		height: `70vh`,
-    backgroundColor: `white`,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
+		backgroundColor: `white`,
+		border: '2px solid #000',
+		boxShadow: theme.shadows[5],
+		padding: theme.spacing(2, 4, 3)
+	}
 }));
 
 const initialData = [
 	{
-		image : "image",
-		name : "main 1",
-		status : true,
-		title: "name",
-		price: "350.00",
-		catagory: "main dish",
-		allergic: "seafood"
+		image: 'image',
+		name: 'main 1',
+		price: '350.00',
+		description: 'main dish'
 	},
 	{
-		image : "image",
-		name : "main 2",
-		status : false,
-		title: "name",
-		price: "320.00",
-		catagory: "Main dish",
-		allergic: "glutten"
+		image: 'image',
+		name: 'main 2',
+		price: '320.00',
+		description: 'Main dish'
 	},
 	{
-		image : "image",
-		name : "main 3",
-		status : false,
-		title: "name",
-		price: "295.00",
-		catagory: "Main dish",
-		allergic: "egg"
+		image: 'image',
+		name: 'main 3',
+		price: '295.00',
+		description: 'Main dish'
 	},
 	{
-		image : "image",
-		name : "side 1",
-		status : false,
-		title: "name",
-		price: "120.00",
-		catagory: "Side dish",
-		allergic: "cellery"
+		image: 'image',
+		name: 'side 1',
+		price: '120.00',
+		description: 'Side dish'
 	},
 	{
-		image : "image",
-		name : "side 2",
-		status : false,
-		title: "name",
-		price: "170.00",
-		catagory: "Side dish",
-		allergic: "glutten"
+		image: 'image',
+		name: 'side 2',
+		price: '170.00',
+		description: 'Side dish'
 	},
 	{
-		image : "image",
-		name : "side 3",
-		status : false,
-		title: "name",
-		price: "85.00",
-		catagory: "Side dish",
-		allergic: "egg and gluten"
-	},
-]
+		image: 'image',
+		name: 'side 3',
+		price: '85.00',
+		description: 'Side dish'
+	}
+];
+
 export default function Menu() {
 	// Initial setup
 	const classes = useStyles();
 
 	// Id state is the id of the business
 	const [id, setId] = useState('');
-	const [datas,setData] = useState(initialData);
-	const [datas2,setData2] = useState(initialData);
+	const [datas, setData] = useState(initialData);
+	const [datas2, setData2] = useState(initialData);
 	const [openCreate, setOpenCreate] = React.useState(false);
 	const [openEdit, setOpenEdit] = React.useState(false);
-	const [selectedFood,setFoodInfo] = React.useState('');
-  const handleOpenCreate = () => {
-    setOpenCreate(true);
-  };
+	const [selectedFood, setFoodInfo] = React.useState('');
+	const handleOpenCreate = () => {
+		setOpenCreate(true);
+	};
 
 	const handleCloseCreate = () => {
-    setOpenCreate(false);
-  };
+		setOpenCreate(false);
+	};
 
 	const handleOpenEdit = (info) => {
-    setOpenEdit(true);
-		setFoodInfo(info)
-  };
+		setOpenEdit(true);
+		setFoodInfo(info);
+	};
 	const handleCloseEdit = () => {
-    setOpenEdit(false);
-  };
+		setOpenEdit(false);
+	};
 	// Set if request form should be visible
 	const [requestForm, setRequestForm] = useState(false);
 
 	// load initial id from local storage
 	useEffect(function () {
 		setId(localStorage.getItem('_id'));
-		setData(initialData)
-		setData2(initialData[1])
+		setData(initialData);
+		setData2(initialData[1]);
 	}, []);
 
 	const body = (
-    <div className={classes.paper}>
-      <h2 id="simple-modal-title">Create new menu</h2>
-      <p id="simple-modal-description">
-        test
-      </p>
-    </div>
-  );
+		<div className={classes.paper}>
+			<h2 id="simple-modal-title">Create new menu</h2>
+			<p id="simple-modal-description">test</p>
+		</div>
+	);
 	// Check that data is loaded correctly
 	// if (Object.keys(business).length === 0 && business.constructor === Object) {
 	// 	return (
@@ -201,12 +182,12 @@ export default function Menu() {
 	// TODO: images modal and handlers
 	// TODO: Menu card
 	// TODO: create new menu
-	// TODO: menu in catagory
+	// TODO: menu in description
 
 	return (
 		<Layout id={id}>
 			{/*   ----- header section -----   */}
-			<Box display="flex" flexDirection="row" justifyContent="space-between" >
+			<Box display="flex" flexDirection="row" justifyContent="space-between">
 				<Box alignSelf="center">
 					<div className={classes.headerText}>Menu</div>
 				</Box>
@@ -220,78 +201,56 @@ export default function Menu() {
 							disableElevation
 							onClick={() => handleOpenCreate()}
 						>
-              <AddCircleIcon className={classes.iconColor}/>
-							<div style={{width:"0.5rem"}}></div>
-													creatEdit item
+							<AddCircleIcon className={classes.iconColor} />
+							<div style={{ width: '0.5rem' }}></div>
+							Create Menu Item
 						</Button>
 					</Tooltip>
 				</Box>
 			</Box>
 			<div>
+				{/*   ----- Modal create section -----   */}
+				<Modal
+					open={openCreate}
+					onClose={handleCloseCreate}
+					aria-labelledby="simple-modal-title"
+					aria-describedby="simple-modal-description"
+				>
+					<CreateMenuModal
+						className={classes.paper}
+						onClickClose={() => {
+							handleCloseCreate();
+						}}
+					/>
+				</Modal>
 
-		{/*   ----- Modal create section -----   */}
-			<Modal
-        open={openCreate}
-        onClose={handleCloseCreate}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        <CreateMenuModal className={classes.paper} onClickClose={() => {handleCloseCreate()}}/>
-      </Modal>
+				{/*   ----- Modal edit section -----   */}
+				<Modal
+					open={openEdit}
+					onClose={handleCloseEdit}
+					aria-labelledby="simple-modal-title"
+					aria-describedby="simple-modal-description"
+				>
+					<EditMenuModal
+						className={classes.paper}
+						foodInfo={selectedFood}
+						onClickClose={() => {
+							handleCloseEdit();
+						}}
+					/>
+				</Modal>
 
-
-			{/*   ----- Modal edit section -----   */}
-			<Modal
-        open={openEdit}
-        onClose={handleCloseEdit}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        <EditMenuModal className={classes.paper} foodInfo={selectedFood} onClickClose={() => {handleCloseEdit()}}/>
-      </Modal>
-
-
-			{/*   ----- Modal delete section -----   */}
-			{/*   ----- Menu section -----   */}
+				{/*   ----- Modal delete section -----   */}
+				{/*   ----- Menu section -----   */}
 				<div>
-					<div className={classes.root}>
-						<FolderOpenIcon />
-						<Box alignSelf="center">
-							<div style={{marginLeft: "0.5rem"}}>Main dish</div>
-						</Box>
-					</div>
 					<Box>
 						{datas.map((rect, i) => {
 							return (
-								<MenuCard
-									key={i}
-									foodInfo={rect}
-									openEdit={()=>handleOpenEdit(rect)}
-								></MenuCard>
+								<MenuCard key={i} foodInfo={rect} openEdit={() => handleOpenEdit(rect)}></MenuCard>
 							);
 						})}
-						{/* <MenuCard foodInfo={initialData[0]} openEdit={()=>{handleOpenEdit(initialData[0])}}/>
-						<MenuCard foodInfo={initialData[1]} openEdit={()=>{handleOpenEdit(initialData[1])}}/>
-						<MenuCard foodInfo={initialData[2]} openEdit={()=>{handleOpenEdit(initialData[2])}}/> */}
 					</Box>
 				</div>
-				<div>
-					<div className={classes.root}>
-						<FolderOpenIcon />
-						<Box alignSelf="center">
-							<div style={{marginLeft: "0.5rem"}}>Side dish</div>
-						</Box>
-					</div>
-					<Box>
-						<MenuCard foodInfo={initialData[3]} openEdit={()=>{handleOpenEdit(initialData[3])}}/>
-						<MenuCard foodInfo={initialData[4]} openEdit={()=>{handleOpenEdit(initialData[4])}}/>
-						<MenuCard foodInfo={initialData[5]} openEdit={()=>{handleOpenEdit(initialData[5])}}/>
-						<MenuCard foodInfo={initialData[3]} openEdit={()=>{handleOpenEdit(initialData[3])}}/>
-						<MenuCard foodInfo={initialData[4]} openEdit={()=>{handleOpenEdit(initialData[4])}}/>
-						<MenuCard foodInfo={initialData[5]} openEdit={()=>{handleOpenEdit(initialData[5])}}/>
-					</Box>
-				</div>
-
 			</div>
 		</Layout>
 	);

@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	displayImage: {
 		width: 300
-	},
+	}
 }));
 
 export default function Home({ business }) {
@@ -205,11 +205,6 @@ export default function Home({ business }) {
 }
 
 export async function getServerSideProps(ctx) {
-	// If already logged in - redirect to homepage
-	if (ctx.req.cookies.token == undefined) {
-		return { redirect: { destination: '/login', permanent: false } };
-	}
-
 	// Get params
 	let env = process.env.NODE_ENV;
 	let id = ctx.params.id;
