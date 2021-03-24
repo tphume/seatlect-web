@@ -69,19 +69,8 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const initialDatas = [
-	{
-		name: 'Brightio Restaurant',
-		score: '4.4',
-		open: '8AM',
-		close: '7PM',
-		temp: 'temp'
-	}
-];
-
 export default function MenuCard({ foodInfo, openEdit }) {
 	const classes = useStyles();
-	const [datas, SetData] = useState(initialDatas);
 	const [showRecipe, setShowRecipe] = React.useState({
 		checkedA: true
 	});
