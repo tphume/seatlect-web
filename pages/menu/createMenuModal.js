@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+
+import { getMenuRepo } from 'src/menuRepo';
+
 import Layout from 'src/components/layout';
 import { makeStyles } from '@material-ui/core/styles';
 import StarIcon from '@material-ui/icons/Star';
@@ -102,13 +105,39 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function CreateMenuModal({ onClickClose }) {
+export default function CreateMenuModal({ id, menu, setMenu, onClickClose }) {
 	const classes = useStyles();
 
 	const [image, setImage] = useState(placeholderImg);
+	const [name, setName] = useState('');
+	const [price, setPrice] = useState('');
+	const [desc, setDesc] = useState('');
 
-	function handleImage(e) {
-		setImage(URL.createObjectURL(e.target.files[0]));
+	// Setup repo
+	const repo = getMenuRepo({
+		env: process.env.NEXT_PUBLIC_ENV,
+		url: process.env.NEXT_PUBLIC_BE,
+		id: id
+	});
+
+	async function appendItem(e) {
+		e.preventDefault();
+
+		try {
+			let req = {
+				name,
+				description: desc,
+				price,
+				image
+			};
+
+			const res = await repo.appendItem(req);
+
+			req.image = res;
+			setMenu([...menu, req]);
+		} catch (e) {
+			console.log(e);
+		}
 	}
 
 	return (
@@ -124,7 +153,7 @@ export default function CreateMenuModal({ onClickClose }) {
 							component="img"
 							height="250"
 						/>
-						<input type="file" onChange={handleImage} />
+						<input type="file" onChange={(e) => setImage(URL.createObjectURL(e.target.files[0]))} />
 					</Card>
 				</Grid>
 				<Grid item xs={8}>
@@ -138,6 +167,8 @@ export default function CreateMenuModal({ onClickClose }) {
 								size="small"
 								// disabled
 								fullWidth
+								value={name}
+								onChange={(e) => setName(e.target.value)}
 							/>
 						</Grid>
 					</Box>
@@ -146,7 +177,13 @@ export default function CreateMenuModal({ onClickClose }) {
 							<Box textAlign="right">Price</Box>
 						</Grid>
 						<Grid xs={9}>
-							<TextField variant="outlined" size="small" fullWidth />
+							<TextField
+								variant="outlined"
+								size="small"
+								fullWidth
+								value={price}
+								onChange={(e) => setPrice(e.target.value)}
+							/>
 						</Grid>
 					</Box>
 					<Box display="flex" alignItems="center" className={classes.textField}>
@@ -160,6 +197,8 @@ export default function CreateMenuModal({ onClickClose }) {
 								// disabled
 								fullWidth
 								multiline
+								value={desc}
+								onChange={(e) => setDesc(e.target.value)}
 							/>
 						</Grid>
 					</Box>
@@ -182,9 +221,7 @@ export default function CreateMenuModal({ onClickClose }) {
 							color="primary"
 							size="large"
 							disableElevation
-							onClick={() => {
-								handleOpen();
-							}}
+							onClick={appendItem}
 						>
 							Save
 						</Button>

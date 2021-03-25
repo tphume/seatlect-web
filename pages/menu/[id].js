@@ -175,6 +175,9 @@ export default function Menu({ menu }) {
 				>
 					<CreateMenuModal
 						className={classes.paper}
+						id={id}
+						menu={data}
+						setMenu={setData}
 						onClickClose={() => {
 							handleCloseCreate();
 						}}

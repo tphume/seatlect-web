@@ -19,9 +19,11 @@ class MenuRepo {
 
 	async appendItem(args) {
 		try {
-			await axios.post(this.url + this.endpoint + '/menuitems', args);
+			const res = await axios.post(this.url + this.endpoint + '/menuitems', args);
+			return res.data.image;
 		} catch (e) {
 			// TODO add better error handling
+			console.log(e);
 			throw 'Network error';
 		}
 	}
