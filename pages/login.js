@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { getUserRepo } from 'src/userRepo';
@@ -36,7 +36,10 @@ export default function Login() {
 	const classes = useStyles();
 	const router = useRouter();
 
-	const userRepo = getUserRepo({ env: process.env.NODE_ENV, url: process.NEXT_PUBLIC_BE });
+	const userRepo = getUserRepo({
+		env: process.env.NEXT_PUBLIC_ENV,
+		url: process.env.NEXT_PUBLIC_BE
+	});
 
 	// Input state
 	const [username, setUsername] = useState('');
@@ -94,7 +97,7 @@ export default function Login() {
 						placeholder="Jiaroach"
 						InputLabelProps={{ shrink: true }}
 						value={username}
-						onChange={(e) => setUsername(e.value)}
+						onChange={(e) => setUsername(e.target.value)}
 					/>
 					<TextField
 						required
@@ -107,7 +110,7 @@ export default function Login() {
 						InputLabelProps={{ shrink: true }}
 						type="password"
 						value={password}
-						onChange={(e) => setPassword(e.value)}
+						onChange={(e) => setPassword(e.target.value)}
 					/>
 					<Button
 						variant="contained"

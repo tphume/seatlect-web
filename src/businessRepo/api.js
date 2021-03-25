@@ -10,7 +10,7 @@ class BusinessRepo {
 	async getBusiness() {
 		try {
 			const response = await axios.get(this.url + this.endpoint);
-			return response;
+			return response.data;
 		} catch (e) {
 			// TODO add better error handling
 			throw 'Network error';

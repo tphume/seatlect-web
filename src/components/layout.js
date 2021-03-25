@@ -16,6 +16,7 @@ import CalendarToday from '@material-ui/icons/CalendarToday';
 import Edit from '@material-ui/icons/Edit';
 import MenuBook from '@material-ui/icons/MenuBook';
 import ExitToApp from '@material-ui/icons/ExitToApp';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 
 const drawerWidth = 240;
 
@@ -103,6 +104,8 @@ export default function Layout({ children, id }) {
 				<Toolbar />
 				<div className={classes.drawerContainer}>
 					<List>
+						{/* ------------------------------------------------------------------------- */}
+						{/* Home */}
 						<ListItem
 							button
 							dense
@@ -115,6 +118,8 @@ export default function Layout({ children, id }) {
 							</ListItemIcon>
 							<ListItemText primary="Home" classes={{ root: setTextColor('/home/') }} />
 						</ListItem>
+						{/* ------------------------------------------------------------------------- */}
+						{/* Schedule */}
 						<ListItem
 							button
 							dense
@@ -131,6 +136,9 @@ export default function Layout({ children, id }) {
 								selected={'/schedule/[id]' === router.pathname}
 							/>
 						</ListItem>
+
+						{/* ------------------------------------------------------------------------- */}
+						{/* Placment */}
 						<ListItem
 							button
 							dense
@@ -147,6 +155,8 @@ export default function Layout({ children, id }) {
 								selected={'/placement/[id]' === router.pathname}
 							/>
 						</ListItem>
+						{/* ------------------------------------------------------------------------- */}
+						{/* Menu */}
 						<ListItem
 							button
 							dense
