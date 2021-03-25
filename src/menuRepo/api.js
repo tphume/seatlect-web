@@ -28,7 +28,7 @@ class MenuRepo {
 
 	async deleteItem(name) {
 		try {
-			const response = await axios.delete(this.url + this.endpoint + '/menuitems/' + name);
+			await axios.delete(this.url + this.endpoint + '/menuitems/' + name);
 		} catch (e) {
 			// TODO add better error handling
 			throw 'Network error';

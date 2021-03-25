@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+
+import { getMenuRepo } from 'src/menuRepo';
+
 import Layout from 'src/components/layout';
 import { makeStyles } from '@material-ui/core/styles';
 import StarIcon from '@material-ui/icons/Star';
@@ -69,16 +72,32 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function MenuCard({ foodInfo, openEdit }) {
+export default function MenuCard({ id, index, openEdit, menu, setMenu }) {
 	const classes = useStyles();
 	const [showRecipe, setShowRecipe] = React.useState({
 		checkedA: true
 	});
 
-	function showFoodInfo() {
-		console.log(foodInfo);
-		console.log(foodInfo.name);
-		console.log();
+	// Setup repo
+	const repo = getMenuRepo({
+		env: process.env.NEXT_PUBLIC_ENV,
+		url: process.env.NEXT_PUBLIC_BE,
+		id: id
+	});
+
+	async function deleteItem(e) {
+		e.preventDefault();
+
+		try {
+			await repo.deleteItem(menu[index].name);
+
+			let tmp = [...menu];
+			tmp.splice(index, 1);
+
+			setMenu(tmp);
+		} catch (e) {
+			console.log(e);
+		}
 	}
 
 	const handleChange = (event) => {
@@ -92,18 +111,16 @@ export default function MenuCard({ foodInfo, openEdit }) {
 				<Card className={classes.displayCard} variant="outlined">
 					<CardMedia
 						className={classes.displayImage}
-						image={foodInfo.image}
+						image={menu[index].image}
 						alt="food image"
 						component="img"
 						height="75"
 						width="88"
 					/>
 				</Card>
-				{/* <div>{foodInfo.name}</div> */}
 				<Box alignSelf="center" width="80%">
-					<div>{foodInfo.name}</div>
+					<div>{menu[index].name}</div>
 				</Box>
-				{/* <div>checkbox slider</div> */}
 				<Tooltip title="Edit menu">
 					<Button
 						className={classes.createDishButton}
@@ -114,8 +131,8 @@ export default function MenuCard({ foodInfo, openEdit }) {
 						<EditIcon color="primary" />
 					</Button>
 				</Tooltip>
-				<Tooltip title="Delete menu">
-					<Button size="large" disableElevation onClick={() => showFoodInfo()}>
+				<Tooltip title="Delete Item">
+					<Button size="large" disableElevation onClick={deleteItem}>
 						<DeleteOutlineIcon color="primary" />
 					</Button>
 				</Tooltip>

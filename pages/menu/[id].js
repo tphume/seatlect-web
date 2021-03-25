@@ -91,7 +91,7 @@ export default function Menu({ menu }) {
 
 	// Id state is the id of the business
 	const [id, setId] = useState('');
-	const [datas, setData] = useState(menu);
+	const [data, setData] = useState(menu);
 	const [openCreate, setOpenCreate] = React.useState(false);
 	const [openEdit, setOpenEdit] = React.useState(false);
 	const [selectedFood, setFoodInfo] = React.useState('');
@@ -201,9 +201,16 @@ export default function Menu({ menu }) {
 				{/*   ----- Menu section -----   */}
 				<div>
 					<Box>
-						{datas.map((rect, i) => {
+						{data.map((rect, i) => {
 							return (
-								<MenuCard key={i} foodInfo={rect} openEdit={() => handleOpenEdit(rect)}></MenuCard>
+								<MenuCard
+									key={rect.name}
+									id={id}
+									index={i}
+									menu={data}
+									setMenu={setData}
+									openEdit={() => handleOpenEdit(rect)}
+								></MenuCard>
 							);
 						})}
 					</Box>
