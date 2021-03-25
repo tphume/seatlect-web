@@ -135,6 +135,8 @@ export default function CreateMenuModal({ id, menu, setMenu, onClickClose }) {
 
 			req.image = res;
 			setMenu([...menu, req]);
+
+			onClickClose();
 		} catch (e) {
 			console.log(e);
 		}
