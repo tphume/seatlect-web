@@ -47,7 +47,7 @@ export default function RegisterForm({ visible, setVisible }) {
 	const classes = useStyles();
 
 	// Setup repo
-	const repo = getUserRepo({ env: process.env.NODE_ENV, url: process.env.NEXT_PUBLIC_BE });
+	const repo = getUserRepo({ env: process.env.NEXT_PUBLIC_ENV, url: process.env.NEXT_PUBLIC_BE });
 
 	// Set initial state
 	const [req, setReq] = useState({

@@ -47,7 +47,11 @@ export default function RequestForm({ visible, setVisible, id, initial }) {
 	const classes = useStyles();
 
 	// Setup repo
-	const repo = getRequestRepo({ env: process.env.NODE_ENV, id, url: process.env.NEXT_PUBLIC_BE });
+	const repo = getRequestRepo({
+		env: process.env.NEXT_PUBLIC_ENV,
+		id,
+		url: process.env.NEXT_PUBLIC_BE
+	});
 
 	// Set initial state
 	const [req, setReq] = useState(initial);

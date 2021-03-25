@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Layout from 'src/components/layout';
 
-import RequestFrom from 'src/components/RequestForm';
-import { getBusinessRepo } from 'src/businessRepo';
-
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Box from '@material-ui/core/Box';
 import { flexbox } from '@material-ui/system';
