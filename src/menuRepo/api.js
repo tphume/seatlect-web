@@ -45,37 +45,43 @@ class MenuMockRepo {
 
 		return [
 			{
-				image: 'image',
+				image:
+					'https://images.all-free-download.com/images/graphicthumb/food_picture_05_hd_picture_167519.jpg',
 				name: 'main 1',
 				price: '350.00',
 				description: 'main dish'
 			},
 			{
-				image: 'image',
+				image:
+					'https://images.all-free-download.com/images/graphicthumb/food_picture_05_hd_picture_167519.jpg',
 				name: 'main 2',
 				price: '320.00',
 				description: 'Main dish'
 			},
 			{
-				image: 'image',
+				image:
+					'https://images.all-free-download.com/images/graphicthumb/food_picture_05_hd_picture_167519.jpg',
 				name: 'main 3',
 				price: '295.00',
 				description: 'Main dish'
 			},
 			{
-				image: 'image',
+				image:
+					'https://images.all-free-download.com/images/graphicthumb/food_picture_05_hd_picture_167519.jpg',
 				name: 'side 1',
 				price: '120.00',
 				description: 'Side dish'
 			},
 			{
-				image: 'image',
+				image:
+					'https://images.all-free-download.com/images/graphicthumb/food_picture_05_hd_picture_167519.jpg',
 				name: 'side 2',
 				price: '170.00',
 				description: 'Side dish'
 			},
 			{
-				image: 'image',
+				image:
+					'https://images.all-free-download.com/images/graphicthumb/food_picture_05_hd_picture_167519.jpg',
 				name: 'side 3',
 				price: '85.00',
 				description: 'Side dish'

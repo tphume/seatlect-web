@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+
+import { getMenuRepo } from 'src/menuRepo';
 import Layout from 'src/components/layout';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -83,53 +85,13 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const initialData = [
-	{
-		image: 'image',
-		name: 'main 1',
-		price: '350.00',
-		description: 'main dish'
-	},
-	{
-		image: 'image',
-		name: 'main 2',
-		price: '320.00',
-		description: 'Main dish'
-	},
-	{
-		image: 'image',
-		name: 'main 3',
-		price: '295.00',
-		description: 'Main dish'
-	},
-	{
-		image: 'image',
-		name: 'side 1',
-		price: '120.00',
-		description: 'Side dish'
-	},
-	{
-		image: 'image',
-		name: 'side 2',
-		price: '170.00',
-		description: 'Side dish'
-	},
-	{
-		image: 'image',
-		name: 'side 3',
-		price: '85.00',
-		description: 'Side dish'
-	}
-];
-
-export default function Menu() {
+export default function Menu({ menu }) {
 	// Initial setup
 	const classes = useStyles();
 
 	// Id state is the id of the business
 	const [id, setId] = useState('');
-	const [datas, setData] = useState(initialData);
-	const [datas2, setData2] = useState(initialData);
+	const [datas, setData] = useState(menu);
 	const [openCreate, setOpenCreate] = React.useState(false);
 	const [openEdit, setOpenEdit] = React.useState(false);
 	const [selectedFood, setFoodInfo] = React.useState('');
@@ -154,8 +116,6 @@ export default function Menu() {
 	// load initial id from local storage
 	useEffect(function () {
 		setId(localStorage.getItem('_id'));
-		setData(initialData);
-		setData2(initialData[1]);
 	}, []);
 
 	const body = (
@@ -253,11 +213,23 @@ export default function Menu() {
 	);
 }
 
-// export async function getServerSideProps() {
-//   // Fetch data from external API
-//   const res = await fetch(`http://localhost:9000/api/v1/business/placholder/menu`)
-//   const data = await res.json()
+export async function getServerSideProps(ctx) {
+	// Get params
+	let env = process.env.NEXT_PUBLIC_ENV;
+	let id = ctx.params.id;
+	let menu = {};
 
-//   // Pass data to the page via props
-//   return { props: { data } }
-// }
+	// Get initial data
+	let menuRepo = getMenuRepo({ env, id, url: process.env.NEXT_PUBLIC_BE });
+	try {
+		menu = await menuRepo.getMenu();
+	} catch (e) {
+		// TODO handle error
+	}
+
+	return {
+		props: {
+			menu
+		}
+	};
+}

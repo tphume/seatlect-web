@@ -92,7 +92,7 @@ export default function MenuCard({ foodInfo, openEdit }) {
 				<Card className={classes.displayCard} variant="outlined">
 					<CardMedia
 						className={classes.displayImage}
-						image="https://images.all-free-download.com/images/graphicthumb/food_picture_05_hd_picture_167519.jpg"
+						image={foodInfo.image}
 						alt="food image"
 						component="img"
 						height="75"
