@@ -9,21 +9,19 @@ import Image from 'next/image';
 import { withStyles } from '@material-ui/core/styles';
 import { green, grey } from '@material-ui/core/colors';
 import Box from '@material-ui/core/Box';
-import { Button } from '@material-ui/core';
-import Tooltip from '@material-ui/core/Tooltip';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
+import { Button } from '@material-ui/core';
+import Tooltip from '@material-ui/core/Tooltip';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import InputLabel from '@material-ui/core/InputLabel';
-import { NoEncryption } from '@material-ui/icons';
+
+import placeholderImg from 'src/utils/image';
 
 const drawerWidth = 240;
 
@@ -79,8 +77,7 @@ const useStyles = makeStyles((theme) => ({
 		}
 	},
 	displayImage: {
-		height: 75,
-		width: 88
+		height: 200
 	},
 	paper: {
 		padding: theme.spacing(2),
@@ -105,26 +102,30 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const initialDatas = [
-	{
-		name: 'Brightio Restaurant',
-		score: '4.4',
-		open: '8AM',
-		close: '7PM',
-		temp: 'temp'
-	}
-];
-
 export default function CreateMenuModal({ onClickClose }) {
 	const classes = useStyles();
-	const [datas, SetData] = useState(initialDatas);
+
+	const [image, setImage] = useState(placeholderImg);
+
+	function handleImage(e) {
+		setImage(URL.createObjectURL(e.target.files[0]));
+	}
 
 	return (
 		<Card className={classes.root}>
 			<h1>New menu Item</h1>
 			<Grid container spacing={2}>
 				<Grid item xs={4}>
-					<Paper className={classes.paper}>image upload</Paper>
+					<Card className={classes.displayCard} variant="outlined">
+						<CardMedia
+							className={classes.displayImage}
+							image={image}
+							alt="food image"
+							component="img"
+							height="250"
+						/>
+						<input type="file" onChange={handleImage} />
+					</Card>
 				</Grid>
 				<Grid item xs={8}>
 					<Box display="flex" alignItems="center" className={classes.textField}>
