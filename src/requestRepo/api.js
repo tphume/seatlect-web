@@ -13,7 +13,7 @@ class RequestRepo {
 
 		try {
 			const response = await axios.post(this.url + this.endpoint, args);
-			return response;
+			return response.data;
 		} catch (e) {
 			// TODO add better error handling
 			throw 'Network error';

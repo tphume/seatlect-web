@@ -206,7 +206,7 @@ export default function Home({ business }) {
 
 export async function getServerSideProps(ctx) {
 	// Get params
-	let env = process.env.NODE_ENV;
+	let env = process.env.NEXT_PUBLIC_ENV;
 	let id = ctx.params.id;
 	let business = {};
 

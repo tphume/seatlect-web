@@ -11,7 +11,10 @@ class UserRepo {
 		const { username, password } = args;
 
 		try {
-			await axios.post(this.url + this.endpoint + '/login', { username, password });
+			const res = await axios.post(this.url + this.endpoint + '/login', args);
+
+			document.cookie = 'token=' + res.data._id;
+			localStorage.setItem('_id', res.data._id);
 		} catch (e) {
 			// TODO add better error handling
 			throw 'Authentication error';

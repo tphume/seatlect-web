@@ -10,7 +10,7 @@ class MenuRepo {
 	async getMenu() {
 		try {
 			const response = await axios.get(this.url + this.endpoint + '/menu');
-			return response.menu;
+			return response.data.menu;
 		} catch (e) {
 			// TODO add better error handling
 			throw 'Network error';
