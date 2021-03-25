@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import Layout from 'src/components/layout';
-import { render } from 'react-dom';
 import Konva from 'konva';
 import { Stage, Layer, Rect, Transformer, Image, Text, Circle, Label } from 'react-konva';
-import table1 from '../../public/rectangleAvailable.png';
-import table2 from '../../public/square4Available.png';
-import wall1 from '../../public/wall1.png';
-import wall2 from '../../public/wall2.png';
-import object1 from '../../public/object1.png';
-import object2 from '../../public/object2.png';
+
+import Layout from 'src/components/layout';
+
+import makeStyles from '@material-ui/core/styles/makeStyles'
+
+// import table1 from '../../public/rectangleAvailable.png';
+// import table2 from '../../public/square4Available.png';
+// import wall1 from '../../public/wall1.png';
+// import wall2 from '../../public/wall2.png';
+// import object1 from '../../public/object1.png';
+// import object2 from '../../public/object2.png';
 import useImage from 'use-image';
-import { Button, InputGroup, FormControl } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Sidebar from './sidebar';
-import FreeStyleObject from './FreeStyleObject';
+
+// import { Button, InputGroup, FormControl } from 'react-bootstrap';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import Sidebar from './sidebar';
+// import FreeStyleObject from './FreeStyleObject';
 
 const useStyles = makeStyles((theme) => ({
 	label: {
@@ -305,7 +309,11 @@ export default function Placement() {
 
 	useEffect(() => setId(localStorage.getItem('_id')), []);
 
-	return <h1>Placement</h1>;
+	return (
+		<Layout id={id}>
+			<h1>Placement</h1>
+		</Layout>
+	);
 	// const [images, setImages] = useState(initialRectangles);
 	// const [objects, setObject] = useState(initialObjects);
 	// const [walls, setWall] = useState(initialWalls);
