@@ -18,6 +18,7 @@ import Button from '@material-ui/core/Button';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
 	label: {
@@ -75,6 +76,20 @@ export default function RegisterForm({ visible, setVisible }) {
 
 	function handleMarker(e) {
 		setReq({ ...req, location: { latitude: e.lat, longitude: e.lng } });
+	}
+
+	function handleMarkerCurrent(e) {
+		if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+					setReq({ ...req, location: { latitude: position.coords.latitude, longitude: position.coords.longitude } });
+        },
+      );
+    } 
 	}
 
 	async function handleSubmit(e) {
@@ -187,9 +202,9 @@ export default function RegisterForm({ visible, setVisible }) {
 				<div className={classes.mapContainer}>
 					<GoogleMapReact
 						bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_MAP }}
-						defaultCenter={{
-							lat: 13.7563,
-							lng: 100.5018
+						center={{
+							lat: req.location.latitude,
+							lng: req.location.longitude
 						}}
 						defaultZoom={17}
 						onClick={handleMarker}
@@ -201,7 +216,33 @@ export default function RegisterForm({ visible, setVisible }) {
 						/>
 					</GoogleMapReact>
 				</div>
-				<Button
+				<Grid className={classes.row} container spacing={3}>
+					<Grid item sm={6}>
+						<Button
+							variant="contained"
+							color="primary"
+							size="large"
+							disableElevation
+							fullWidth
+							onClick={handleMarkerCurrent}
+						>
+							Current location
+						</Button>
+					</Grid>
+					<Grid item sm={6}>
+						<Button
+							variant="contained"
+							color="primary"
+							size="large"
+							disableElevation
+							fullWidth
+							onClick={handleSubmit}
+						>
+							Submit
+						</Button>
+					</Grid>
+				</Grid>
+				{/* <Button
 					variant="contained"
 					color="primary"
 					size="medium"
@@ -211,7 +252,7 @@ export default function RegisterForm({ visible, setVisible }) {
 					onClick={handleSubmit}
 				>
 					Submit
-				</Button>
+				</Button> */}
 			</DialogContent>
 			<Snackbar open={success} autoHideDuration={2000} onClose={handleAlert}>
 				<MuiAlert elevation={6} variant="filled" onClose={handleAlert} severity="success">

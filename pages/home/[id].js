@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import GoogleMapReact from 'google-map-react';
 
 import Layout from 'src/components/layout';
@@ -20,6 +20,24 @@ import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Tooltip from '@material-ui/core/Tooltip';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import {useLoadScript} from "@react-google-maps/api"; 
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from "@reach/combobox";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+import "@reach/combobox/styles.css";
+
+import Paper from '@material-ui/core/Paper';
+import { Search, SettingsInputAntennaTwoTone } from '@material-ui/icons';
+
 
 const useStyles = makeStyles((theme) => ({
 	label: {
@@ -47,10 +65,25 @@ const useStyles = makeStyles((theme) => ({
 	},
 	displayImage: {
 		width: 300
+	},
+	button: {
+		margin: `0 0.5rem 1.2rem 0.5rem`
+	},
+	paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+	row: {
+		display: `flex`,
+		justifyContent: `space-between`,
+	},
+	search: {
+		margin: `0 0 1.2rem 0`,	
 	}
 }));
 
-export default function Home({ business }) {
+export default function Home({ business }){
 	// Initial setup
 	const classes = useStyles();
 
@@ -59,11 +92,39 @@ export default function Home({ business }) {
 
 	// Set if request form should be visible
 	const [requestForm, setRequestForm] = useState(false);
+	
+	// Set lat + long coordinate
+	const [req, setReq] = useState({
+		businessName: business.businessName,
+		type: business.type,
+		description: business.description,
+		address: business.address,
+		location: {
+			latitude: business.location.latitude,
+			longitude: business.location.longitude
+		}
+	});
 
 	// load initial id from local storage
 	useEffect(function () {
 		setId(localStorage.getItem('_id'));
 	}, []);
+
+	const libraries = ["places"];
+	const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: 'AIzaSyBhQpLSffxq08YO7XHdJV6ceZZ8K7CZx18',
+    libraries,
+  });
+
+	const mapRef = React.useRef();
+  const onMapLoad = React.useCallback((map) => {
+    mapRef.current = map;
+  }, []);
+
+  const panTo = React.useCallback(({ lat, lng }) => {
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(17);
+  }, []);
 
 	// Check that data is loaded correctly
 	if (Object.keys(business).length === 0 && business.constructor === Object) {
@@ -76,8 +137,42 @@ export default function Home({ business }) {
 		);
 	}
 
+	// timeout function
+	function timeout(delay) {
+    return new Promise( res => setTimeout(res, delay) );
+	}
+	//Handle
+	function handleMarker(e) {
+		setReq({ ...req, location: { latitude: e.lat, longitude: e.lng } });
+		console.log(req.location.latitude)
+		console.log(req.location.longitude)
+	}
+
+	function handleMarkerCurrent(e) {
+		if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+					setReq({ ...req, location: { latitude: position.coords.latitude, longitude: position.coords.longitude } });
+					console.log(position.coords.latitude)
+					console.log(position.coords.longitude)
+					console.log(req.location.latitude)
+					console.log(req.location.longitude)
+					// setReq({ ...req, location: { latitude: position.coords.latitude, longitude: position.coords.longitude } });
+					
+        },
+      );
+    } 
+	}
+	
 	// TODO: displayImage modal and handlers
 	// TODO: images modal and handlers
+
+	if (loadError) return "Error";
+  if (!isLoaded) return "Loading...";
 
 	return (
 		<Layout id={id}>
@@ -140,23 +235,54 @@ export default function Home({ business }) {
 						multiline
 						className={classes.textField}
 					/>
+					<SearchBar panTo={panTo}/>
+					{/* --- GoogleMapReact --- */}
 					<div className={classes.mapContainer}>
 						<GoogleMapReact
 							bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_MAP }}
-							defaultCenter={{
-								lat: business.location.latitude,
-								lng: business.location.longitude
+							center={{
+								// lat: business.location.latitude,
+								// lng: business.location.longitude
+								lat: req.location.latitude,
+								lng: req.location.longitude
 							}}
 							defaultZoom={17}
+							onClick={handleMarker}
 						>
 							<LocationOnIcon
-								lat={business.location.latitude}
-								lng={business.location.longitude}
+								lat={req.location.latitude}
+								lng={req.location.longitude}
 								color="error"
 							/>
 						</GoogleMapReact>
 					</div>
-					<Tooltip title="Make a request to change business information">
+					<Grid className={classes.row} container spacing={3}>
+						<Grid item sm={6}>
+							<Button
+								variant="contained"
+								color="primary"
+								size="large"
+								disableElevation
+								fullWidth
+								onClick={handleMarkerCurrent}
+							>
+								Current location
+							</Button>
+						</Grid>
+						<Grid item sm={6}>
+							<Button
+								variant="contained"
+								color="primary"
+								size="large"
+								disableElevation
+								fullWidth
+								onClick={() => setRequestForm(true)}
+							>
+								Request change
+							</Button>
+						</Grid>
+					</Grid>
+					{/* <Tooltip title="Make a request to change business information">
 						<Button
 							variant="contained"
 							color="primary"
@@ -167,7 +293,7 @@ export default function Home({ business }) {
 						>
 							Request change
 						</Button>
-					</Tooltip>
+					</Tooltip> */}
 				</Grid>
 				<Grid item component="div" sm={6}>
 					<Card className={classes.displayCard} variant="outlined">
@@ -228,4 +354,63 @@ export async function getServerSideProps(ctx) {
 			business
 		}
 	};
+}
+
+function SearchBar({panTo}) {
+	const classes = useStyles();
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      location: { lat: () => 13.729896, lng: () => 100.779320 },
+      radius: 200 * 1000
+    },
+  });
+
+  // https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest
+
+  const handleInput = (e) => {
+    setValue(e.target.value);
+  };
+
+  const handleSelect = async (address) => {
+    setValue(address, false);
+    clearSuggestions();
+
+    try {
+      const results = await getGeocode({ address });
+      const { lat, lng } = await getLatLng(results[0]);
+			console.log(panTo)
+			panTo({ lat, lng });
+			// setReq({ ...req, location: { latitude: lat, longitude: lng } });
+			
+    } catch (error) {
+      console.log("😱 Error: ", error);
+    }
+  };
+
+  return (
+    <div className={classes.search}>
+      <Combobox onSelect={handleSelect}>
+        <ComboboxInput
+          value={value}
+          onChange={handleInput}
+          disabled={!ready}
+          placeholder="Search your location"
+        />
+        <ComboboxPopover>
+          <ComboboxList>
+            {status === "OK" &&
+              data.map(({ id, description }) => (
+                <ComboboxOption key={id} value={description} />
+              ))}
+          </ComboboxList>
+        </ComboboxPopover>
+      </Combobox>
+    </div>
+  );
 }
