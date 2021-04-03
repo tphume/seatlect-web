@@ -1,6 +1,11 @@
 import React, { Component, useState } from 'react';
-import { Button, InputGroup, FormControl } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import makeStyles from '@material-ui/core/styles/makeStyles'
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import shape from '@material-ui/core/styles/shape';
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
+const canvasOutline = `800px`;
 
 const useStyles = makeStyles((theme) => ({
 	label: {
@@ -10,7 +15,9 @@ const useStyles = makeStyles((theme) => ({
 		margin: '0 0 3px 0'
 	},
 	textField: {
-		margin: `0 0 1.2rem 0`
+		margin: `0 0 0rem 0`,
+		padding: `20px`,
+		paddingRight: `20px`
 	},
 	selectField: {
 		'&.MuiSelect-root, &.Mui-disabled': {
@@ -27,14 +34,14 @@ const useStyles = makeStyles((theme) => ({
 		margin: `0.8rem auto 1.2rem auto`
 	},
 	displayImage: {
-		width: 300
+		width: `300px`
 	},
 	test: {
-		display: flex
+		display: `flex`
 	},
 	canvas: {
 		marginLeft: `1vw`,
-		width: `74vw`
+		width: canvasOutline
 	},
 	sidebar: {
 		width: `25vw`,
@@ -43,25 +50,33 @@ const useStyles = makeStyles((theme) => ({
 		display: `inline`
 	},
 	headerSidebar: {
-		fontSize: `1.5rem`
+		marginBlockEnd: `0`
+	},
+	subHeaderSidebar: {
+		marginBlockStart: `0.25rem`,
+		marginBlockEnd: `0.5rem`,
+	},
+	subHeaderSidebar_Inactive:{
+		marginBlockStart: `0.25rem`,
+		marginBlockEnd: `0.5rem`,
+		color: `#9d9d9d`
 	},
 	inputGroup: {
 		padding: `10px`
 	},
-	inputGroup,
-	text: {
-		display: inline,
+	inputGroupText: {
+		display: `inline`,
 		width: `6rem`
 	},
 	category: {
-		display: flex,
-		alignItems: center
+		display: `flex`,
+		alignItems: `center`
 	},
 	headSlider: {
 		width: `30vw`,
 		height: `2.5rem`,
-		display: block,
-		justifyContent: center,
+		display: `block`,
+		justifyContent: `center`,
 		borderTopLeftRadius: `20px`,
 		borderTopRightRadius: `20px`,
 		backgroundColor: `#E5E5E5`
@@ -72,38 +87,52 @@ const useStyles = makeStyles((theme) => ({
 		borderTopLeftRadius: `20px`,
 		borderTopRightRadius: `20px`,
 		backgroundColor: `#5D55B4`,
-		color: white,
-		display: block
+		color: `white`,
+		display: `block`
 	},
 	center: {
-		display: flex,
-		justifyContent: center,
+		display: `flex`,
+		justifyContent: `center`,
 		lineHeight: `3rem`
 	},
 	sliderBarSelected: {
-		display: flex,
-		justifyContent: space - evenly,
+		display: `flex`,
+		justifyContent: `space-evenly`,
 		paddingLeft: `20%`,
 		paddingRight: `20%`,
 		paddingTop: `10px`,
 		height: `110px`
 	},
 	sliderBar: {
-		display: none
+		display: `none`
 	},
 	navLink: {
 		width: `60%`,
-		display: flex,
+		display: `flex`,
 		justifyContent: `space-around`,
-		alignItems: center,
-		listStyle: none
+		alignItems: `center`,
+		listStyle: `none`
 	},
 	link: {
-		color: white
+		color: `white`
+	},
+	sideBarRow:{
+		paddingTop: `0`
+	},
+	button:{
+		// backgroundColor: `red`,	
+	},
+	centerAlign:{
+		display: `flex`,
+		justifyContent: `center`
+	},
+	primaryColor:{
+		color: theme.palette.primary.main
 	}
 }));
 
 const Sidebar = ({ shapeProps, onChangeSidebar, onDelete }) => {
+	const classes = useStyles();
 	const maxGuest = React.useRef();
 	// const [guestValue, selectedGuest] = useState({value: shapeProps.guest});
 	console.log(shapeProps);
@@ -117,86 +146,173 @@ const Sidebar = ({ shapeProps, onChangeSidebar, onDelete }) => {
 		maxGuest.current = shapeProps.guest;
 		const xValue = Math.round(shapeProps.x);
 		const yValue = Math.round(shapeProps.y);
-
+		var isTable = false;
+		
+		if(shapeProps.type == 'table1' || shapeProps.type == 'table2'){
+			isTable = true;
+		}
+		
+		var typeOfOBJ;
+		if(shapeProps.type == 'table1' || shapeProps.type == 'table2'){
+			typeOfOBJ = 'Table'
+		}
+		if(shapeProps.type == 'wall1' || shapeProps.type == 'wall2'){
+			typeOfOBJ = 'Wall'
+		}
+		if(shapeProps.type == 'object1' || shapeProps.type == 'object2'){
+			typeOfOBJ = 'Object'
+		}
 		return (
 			<div className={classes.sidebar}>
-				<Label className={classes.headerSidebar}>Table {shapeProps.id} </Label>
-				<InputGroup className="mb-2" className={classes.inputGroup}>
-					<InputGroup.Text className={(classes.inputGroup, classes.text)}>X</InputGroup.Text>
-					<FormControl placeholder="X coordinate" value={xValue} readOnly />
-				</InputGroup>
-				<InputGroup className="mb-2" className={classes.inputGroup}>
-					<InputGroup.Text className={(classes.inputGroup, classes.text)}>Y</InputGroup.Text>
-					<FormControl placeholder="Y coordinate" value={yValue} readOnly />
-				</InputGroup>
-				<InputGroup className="mb-2" className={classes.inputGroup}>
-					<InputGroup.Text className={(classes.inputGroup, classes.text)}>ID</InputGroup.Text>
-					<FormControl placeholder="Y coordinate" value={shapeProps.id} readOnly />
-				</InputGroup>
-				<InputGroup className="mb-2" className={classes.inputGroup}>
-					<InputGroup.Text className={(classes.inputGroup, classes.text)}>Name</InputGroup.Text>
-					<FormControl
-						placeholder="Table 1"
-						defaultValue={shapeProps.name}
-						onChange={(e) => {
-							console.log(e.target.value);
-							console.log(shapeProps.type);
-							onChangeSidebar({ ...shapeProps, name: e.target.value });
-						}}
-						onClick={(e) => {
-							console.log(shapeProps.type);
-						}}
-					/>
-				</InputGroup>
-				<InputGroup className="mb-5" className={classes.inputGroup}>
-					<InputGroup.Text id="basic-addon1" className={(classes.inputGroup, classes.text)}>
-						Price
-					</InputGroup.Text>
-					<FormControl
-						id="guestNo"
-						defaultValue={shapeProps.price}
-						onChange={(e) => {
-							console.log(e.target.value);
-							// shapeProps.guest = parseInt(e.target.value)
-
-							onChangeSidebar({ ...shapeProps, price: parseInt(e.target.value) });
-							// onChangeSidebar(value);
-						}}
-					/>
-				</InputGroup>
-				<InputGroup className="mb-5" className={classes.inputGroup}>
-					<InputGroup.Text id="basic-addon1" className={(classes.inputGroup, classes.text)}>
-						Max Guest
-					</InputGroup.Text>
-					<FormControl
-						id="guestNo"
-						defaultValue={shapeProps.guest}
-						onChange={(e) => {
-							console.log(e.target.value);
-							console.log(shapeProps.guest);
-							// shapeProps.guest = parseInt(e.target.value)
-
-							onChangeSidebar({ ...shapeProps, guest: parseInt(e.target.value) });
-							// onChangeSidebar(value);
-						}}
-					/>
-				</InputGroup>
-				<Button
-					variant="danger"
-					onClick={(e) => {
-						console.log('delete');
-						onDelete(shapeProps.id);
-					}}
-				>
-					Delete
-				</Button>{' '}
+				<Grid container spacing={1}>
+					{/* Header */}
+					<Grid item xs={12}>
+						<div className={`${classes.centerAlign} ${classes.primaryColor}`}>
+							<h1 className={classes.headerSidebar}>{typeOfOBJ} information</h1>
+						</div> 
+						<div className={`${classes.centerAlign} ${classes.primaryColor}`}>
+							<h3 className={classes.subHeaderSidebar}> : {shapeProps.name}</h3>						
+						</div> 
+					</Grid>
+					<Grid item xs={12}>
+						<hr/> 
+					</Grid>
+					{/*--- X coordinate ---*/}
+					<Grid item xs={12}></Grid>
+					<Grid item xs={12}>
+						<TextField
+							className={classes.textField}
+							variant="outlined"
+							id="standard-full-width"
+							label="X coordinate"
+							placeholder="coordinate"
+							value={xValue}
+							// helperText="Full width!"
+							fullWidth
+							disabled
+							margin="normal"
+							InputLabelProps={{
+								shrink: true,
+							}}
+						/>
+					</Grid>
+					{/*--- Y coordinate ---*/}
+					<Grid item xs={12}>
+						<TextField
+							className={classes.textField}
+							variant="outlined"
+							id="standard-full-width"
+							label="Y coordinate"
+							placeholder="coordinate"
+							// helperText="Full width!"
+							fullWidth
+							disabled
+							margin="normal"
+							InputLabelProps={{
+								shrink: true,
+							}}
+						/>
+					</Grid>
+					{/*--- ID of the object ---*/}
+					<Grid item xs={12}>
+						<TextField
+							className={classes.textField}
+							variant="outlined"
+							id="standard-full-width"
+							label="ID"
+							placeholder="object id"
+							value={shapeProps.id}
+							// helperText="Full width!"
+							fullWidth
+							disabled
+							margin="normal"
+							InputLabelProps={{
+								shrink: true,
+							}}
+						/>
+					</Grid>
+					{/*--- Name of the object ---*/}
+					<Grid item xs={12}>
+						<TextField
+							className={classes.textField}
+							variant="outlined"
+							id="standard-full-width"
+							label="Name"
+							placeholder="object name"
+							defaultValue={shapeProps.name}
+							fullWidth
+							margin="normal"
+							InputLabelProps={{
+								shrink: true,
+							}}
+							onChange={ e => {
+								console.log(e.target.value)
+								console.log(shapeProps.type)
+								onChangeSidebar({...shapeProps,name: e.target.value});
+							}}
+							onClick={e => {
+								console.log(shapeProps.type)
+							}}
+						/>
+					</Grid>
+					{/*--- Max Guest ---*/}
+					{ isTable && (
+						<Grid item xs={12}>
+							<TextField
+								className={classes.textField}
+								variant="outlined"
+								id="standard-full-width"
+								label="Max guest"
+								placeholder="Max number of guest"
+								defaultValue={shapeProps.guest}
+								fullWidth
+								margin="normal"
+								InputLabelProps={{
+									shrink: true,
+								}}
+								onChange={ e => {
+									// console.log(e.target.value)
+									onChangeSidebar({...shapeProps,name: e.target.value});
+								}}
+							/>
+						</Grid>
+						)}
+					{/*--- Delete Button ---*/}
+					<Grid item xs={12}>
+						<div className={classes.centerAlign}>
+						<Button
+							variant="contained"
+							color="primary"
+							className={classes.button}
+							startIcon={<DeleteIcon />}
+							onClick={(e)=>{
+								console.log('delete')
+								onDelete(shapeProps.id)
+							}}
+						>
+							Delete
+						</Button>
+						</div>
+					</Grid>
+				</Grid>
 			</div>
 		);
 	} catch (error) {
+		console.log(error)
 		return (
-			<div className={classes.sidebar}>
-				<Label className={classes.headerSidebar}>Table </Label>
-			</div>
+			<Grid container spacing={3}>
+        <Grid item xs={12}>
+					<div className={`${classes.centerAlign} ${classes.primaryColor}`}>
+						<h1 className={classes.headerSidebar}>Object information</h1>
+					</div> 
+					<div className={`${classes.centerAlign} ${classes.primaryColor}`}>
+						<h3 className={classes.subHeaderSidebar_Inactive}> : object name </h3>						
+					</div> 
+				</Grid>
+				<Grid item xs={12}>
+					<hr/> 
+				</Grid>
+			</Grid>
 		);
 	}
 };
