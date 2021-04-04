@@ -3,20 +3,8 @@ import Konva from 'konva';
 import { Stage, Layer, Rect, Transformer, Image, Text, Circle, Label } from 'react-konva';
 
 import Layout from 'src/components/layout';
-
 import makeStyles from '@material-ui/core/styles/makeStyles'
-
-// import table1 from '../../public/rectangleAvailable.png';
-// import table2 from '../../public/square4Available.png';
-// import wall1 from '../../public/wall1.png';
-// import wall2 from '../../public/wall2.png';
-// import object1 from '../../public/object1.png';
-// import object2 from '../../public/object2.png';
 import useImage from 'use-image';
-
-// import { Button, InputGroup, FormControl } from 'react-bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import Sidebar from './sidebar';
 
 import Rectangle from './Rectangle';
 import FreeStyleObject from './FreeStyleObject';
@@ -34,6 +22,15 @@ const WALL_Width = 13;
 const WALL_Height = 80;
 const OBJ_Width = 80;
 const OBJ_Height = 80;
+
+// pre-define type
+const WALL1 = 'BLUE_WALL'
+const WALL2 = 'BROWN_WALL'
+const OBJ1 = 'OBJECT_CIRCLE'
+const OBJ2 = 'OBJECT_SQUARE'
+const TABLE1 = 'SHORT_TABLE' 
+const TABLE2 = 'TABLE'
+const TABLE3 = 'LONG_TABLE'
 
 const useStyles = makeStyles((theme) => ({
 	label: {
@@ -66,11 +63,11 @@ const useStyles = makeStyles((theme) => ({
 		display: `flex`
 	},
 	canvas: {
-		marginLeft: `1vw`,
+		marginLeft: `0vw`,
 		width: CSS_canvasWidth
 	},
 	sidebar: {
-		width: `25vw`,
+		width: `28vw`,
 		height: CSS_SidebarHeight,
 		backgroundColor: `#E5E5E5`,
 		display: `inline`
@@ -118,7 +115,8 @@ const useStyles = makeStyles((theme) => ({
 		paddingLeft: `20%`,
 		paddingRight: `20%`,
 		paddingTop: `10px`,
-		height: `110px`
+		height: `110px`,
+		border: `1px solid grey`
 	},
 	sliderBar: {
 		display: `none`
@@ -142,9 +140,9 @@ const initialRectangles = [
     width: TABLE_Width,
     height: TABLE_Height,
     guest: 4,
-    src: '/square4Available.png',
-    alt: 'table2',
-    type: 'table2',
+    src: '/LONG_TABLE.png',
+    alt: TABLE3,
+    type: TABLE3,
     name: 'rect1',
     id: 'rect1',
     rotation: 0,
@@ -155,9 +153,9 @@ const initialRectangles = [
     width: TABLE_Width,
     height: TABLE_Height,
     guest: 4,
-    src: '/rectangleAvailable.png',
-    type: 'table1',
-    alt: 'table1',
+    src: '/TABLE.png',
+    type: TABLE2,
+    alt: TABLE2,
     id: '999',
     name: '999',
     rotation: 0,
@@ -275,8 +273,8 @@ export default function Placement() {
 					{/* BODY_1 : Wall image drag & drop */}
 					<div id="slider1" className={classes.sliderBarSelected} >
 						<img
-							alt="wall1"
-							src="/wall1.png"
+							alt={WALL1}
+							src="/BLUE_WALL.png"
 							draggable="true"
 							width={WALL_Width}
 							height={WALL_Height}
@@ -291,8 +289,8 @@ export default function Placement() {
 						/>
 						{/* <div style={{width:100, height:100}}></div> */}
 						<img
-							alt="wall2"
-							src="/wall2.png"
+							alt={WALL2}
+							src="/BROWN_WALL.png"
 							draggable="true"
 							width={WALL_Width}
 							height={WALL_Height}
@@ -309,9 +307,9 @@ export default function Placement() {
 
 					{/* BODY_2 : Reservable/Table image drag & drop */}
 					<div id="slider2" className={classes.sliderBar} >
-						<img
-							alt="table2"
-							src="/square4Available.png"
+					<img
+							alt={TABLE1}
+							src="/SHORT_TABLE.png"
 							draggable="true"
 							width={TABLE_Width}
 							height={TABLE_Height}
@@ -322,9 +320,22 @@ export default function Placement() {
 								dragHeight.current = e.target.height
 							}}
 						/>
+					<img
+						alt={TABLE2}
+						src="/TABLE.png"
+						draggable="true"
+						width={TABLE_Width}
+						height={TABLE_Height}
+						onDragStart={e => {
+							dragUrl.current = e.target.src;
+							dragObject.current = e.target.alt
+							dragWidth.current = e.target.width
+							dragHeight.current = e.target.height
+						}}
+					/>
 						<img
-							alt="table1"
-							src="/rectangleAvailable.png"
+							alt={TABLE3}
+							src="/LONG_TABLE.png"
 							draggable="true"
 							width={LONG_TABLE_Width}
 							height={TABLE_Height}
@@ -342,8 +353,8 @@ export default function Placement() {
 					{/* BODY_3 : OTHER_Object image drag & drop */}
 					<div id="slider3" className={classes.sliderBar} >
 						<img
-							alt="object1"
-							src="/object1.png"
+							alt={OBJ1}
+							src="/OBJECT_CIRCLE.png"
 							draggable="true"
 							width={OBJ_Width}
 							height={OBJ_Height}
@@ -357,8 +368,8 @@ export default function Placement() {
 							}}
 						/>
 						<img
-							alt="object2"
-							src="/object2.png"
+							alt={OBJ2}
+							src="/OBJECT_SQUARE.png"
 							draggable="true"
 							width={OBJ_Width}
 							height={OBJ_Height}
@@ -385,7 +396,7 @@ export default function Placement() {
 						stageRef.current.setPointersPositions(e);
 						// ADD RESERVABLE object into list of table
 						console.log(dragObject.current)
-						if(dragObject.current=="table1"||dragObject.current=="table2"){
+						if(dragObject.current==TABLE1||dragObject.current==TABLE2||dragObject.current==TABLE3){
 						setImages(
 							images.concat([
 								{
@@ -411,12 +422,9 @@ export default function Placement() {
 									src: dragUrl.current,
 									type: dragObject.current,
 									width: dragWidth.current,
-									height: 100,
+									height: dragHeight.current,
 									id: tableId.current,
 									name: "",
-									// guest: 1,
-									// price: 100,
-									// id: tableId.current,
 								}
 							])
 						);
@@ -432,7 +440,7 @@ export default function Placement() {
 					className={classes.test}
 				>
 
-				{/*  */}
+				{/* --- creating canvas --- */}
 				<div className={classes.canvas}>
 					<Stage
 						width={canvasWidth}
@@ -522,7 +530,7 @@ export default function Placement() {
 							onChangeSidebar={(newAttrs) => {
 								console.log('newAettrs')
 								console.log(newAttrs)
-								if(newAttrs.type == 'table1' || newAttrs.type == 'table2'){
+								if(newAttrs.type == TABLE1 || newAttrs.type == TABLE2|| newAttrs.type == TABLE3){
 									const rects = images.slice();
 									var i = indexOfImage.current
 									console.log(rects)
@@ -541,7 +549,7 @@ export default function Placement() {
 						}}
 							onDelete={(newAttrs) => {
 								setImages(images.filter(img => img.id !== newAttrs));
-								if(selectShape.type == 'table1' || selectShape.type == 'table2'){
+								if(selectShape.type == TABLE1 || selectShape.type == TABLE2 || selectShape.type == TABLE3 ){
 									setImages(images.filter(img => img.id !== newAttrs));
 								}
 								else{
@@ -557,44 +565,4 @@ export default function Placement() {
 			</div>
 		</Layout>
 	);
-
-	//     <div className={classes.sidebar}>
-	//       <Sidebar
-	//         shapeProps = {selectedShape}
-	//         onChangeSidebar={(newAttrs) => {
-	//           console.log('newAettrs')
-	//           console.log(newAttrs)
-	//           if(newAttrs.type == 'table1' || newAttrs.type == 'table2'){
-	//             const rects = images.slice();
-	//             var i = indexOfImage.current
-	//             console.log(rects)
-	//             rects[i] = newAttrs;
-	//             setImages(rects);
-	//             console.log(rects)
-	//           }
-	//           else{
-	//             const rects = objects.slice();
-	//             var i = indexOfImage.current
-	//             console.log(rects)
-	//             rects[i] = newAttrs;
-	//             setObject(rects);
-	//             console.log(rects)
-	//           }
-	//       }}
-	//         onDelete={(newAttrs) => {
-	//           setImages(images.filter(img => img.id !== newAttrs));
-	//           if(selectShape.type == 'table1' || selectShape.type == 'table2'){
-	//             setImages(images.filter(img => img.id !== newAttrs));
-	//           }
-	//           else{
-	//             setObject(objects.filter(obj => obj.id !== newAttrs));
-	//           }
-	//         }}
-	//       />
-
-	//     </div>
-	//   </div>
-	//   <div><SavingButton /></div>
-	// </div>
-	// );
 }

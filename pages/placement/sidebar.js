@@ -7,6 +7,15 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 const canvasOutline = `800px`;
 
+// pre-define type
+const WALL1 = 'BLUE_WALL'
+const WALL2 = 'BROWN_WALL'
+const OBJ1 = 'OBJECT_CIRCLE'
+const OBJ2 = 'OBJECT_SQUARE'
+const TABLE1 = 'SHORT_TABLE' 
+const TABLE2 = 'TABLE'
+const TABLE3 = 'LONG_TABLE'
+
 const useStyles = makeStyles((theme) => ({
 	label: {
 		color: `rgba(0, 0, 0, 0.87)`,
@@ -148,18 +157,18 @@ const Sidebar = ({ shapeProps, onChangeSidebar, onDelete }) => {
 		const yValue = Math.round(shapeProps.y);
 		var isTable = false;
 		
-		if(shapeProps.type == 'table1' || shapeProps.type == 'table2'){
+		if(shapeProps.type == TABLE1 || shapeProps.type == TABLE2 || shapeProps.type == TABLE3){
 			isTable = true;
 		}
 		
 		var typeOfOBJ;
-		if(shapeProps.type == 'table1' || shapeProps.type == 'table2'){
+		if(shapeProps.type == TABLE1 || shapeProps.type == TABLE2 || shapeProps.type == TABLE3){
 			typeOfOBJ = 'Table'
 		}
-		if(shapeProps.type == 'wall1' || shapeProps.type == 'wall2'){
+		if(shapeProps.type == WALL1 || shapeProps.type == WALL2){
 			typeOfOBJ = 'Wall'
 		}
-		if(shapeProps.type == 'object1' || shapeProps.type == 'object2'){
+		if(shapeProps.type == OBJ1 || shapeProps.type == OBJ2){
 			typeOfOBJ = 'Object'
 		}
 		return (
