@@ -4,6 +4,9 @@ import { Stage, Layer, Rect, Transformer, Image, Text, Circle, Label } from 'rea
 
 import Layout from 'src/components/layout';
 import makeStyles from '@material-ui/core/styles/makeStyles'
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Button from '@material-ui/core/Button';
+
 import useImage from 'use-image';
 
 import Rectangle from './Rectangle';
@@ -39,26 +42,6 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: `0.75rem`,
 		margin: '0 0 3px 0'
 	},
-	textField: {
-		margin: `0 0 1.2rem 0`
-	},
-	selectField: {
-		'&.MuiSelect-root, &.Mui-disabled': {
-			margin: `0 0 1.2rem 0`
-		}
-	},
-	mapContainer: {
-		width: `100%`,
-		height: `300px`,
-		margin: `0 0 1.2rem 0`
-	},
-	displayCard: {
-		display: `flex`,
-		margin: `0.8rem auto 1.2rem auto`
-	},
-	displayImage: {
-		width: `300px`
-	},
 	test: {
 		display: `flex`
 	},
@@ -71,16 +54,6 @@ const useStyles = makeStyles((theme) => ({
 		height: CSS_SidebarHeight,
 		backgroundColor: `#E5E5E5`,
 		display: `inline`
-	},
-	headerSidebar: {
-		fontSize: `1.5rem`
-	},
-	inputGroup: {
-		padding: `10px`
-	},
-	inputGroup_Text: {
-		display: `inline`,
-		width: `6rem`
 	},
 	category: {
 		display: `flex`,
@@ -121,77 +94,79 @@ const useStyles = makeStyles((theme) => ({
 	sliderBar: {
 		display: `none`
 	},
-	navLink: {
-		width: `60%`,
-		display: `flex`,
-		justifyContent: `space-around`,
-		alignItems: `center`,
-		listStyle: `none`
-	},
-	link: {
-		color: `white`
-	}
+
 }));
+var initialID = 0
 
-const initialRectangles = [
-  {
-    x: 10,
-    y: 10,
-    width: TABLE_Width,
-    height: TABLE_Height,
-    guest: 4,
-    src: '/LONG_TABLE.png',
-    alt: TABLE3,
-    type: TABLE3,
-    name: 'rect1',
-    id: 'rect1',
-    rotation: 0,
-  },
-  {
-    x: 150,
-    y: 150,
-    width: TABLE_Width,
-    height: TABLE_Height,
-    guest: 4,
-    src: '/TABLE.png',
-    type: TABLE2,
-    alt: TABLE2,
-    id: '999',
-    name: '999',
-    rotation: 0,
-  },
+const initialTable = [
+  // {
+  //   x: 10,
+  //   y: 10,
+  //   width: TABLE_Width,
+  //   height: TABLE_Height,
+  //   space: 4,
+  //   src: '/LONG_TABLE.png',
+  //   alt: TABLE3,
+  //   type: TABLE3,
+  //   name: 'rect1',
+  //   id: 'rect1',
+  //   rotation: 0,
+  // },
+  // {
+  //   x: 150,
+  //   y: 150,
+  //   width: TABLE_Width,
+  //   height: TABLE_Height,
+  //   space: 4,
+  //   src: '/TABLE.png',
+  //   type: TABLE2,
+  //   alt: TABLE2,
+  //   id: '999',
+  //   name: '999',
+  //   rotation: 0,
+  // },
 ];
-
 const initialObjects = [];
 const initialWalls = [];
 
-// function simulateNetworkRequest() {
-//   return new Promise((resolve) => setTimeout(resolve, 2000));
-// }
-
-// function SavingButton() {
-//   const [isLoading, setLoading] = useState(false);
-
-//   React.useEffect(() => {
-//     if (isLoading) {
-//       simulateNetworkRequest().then(() => {
-//         setLoading(false);
-//       });
-//     }
-//   }, [isLoading]);
-
-//   const handleClick = () => setLoading(true);
-
-//   return (
-//     <Button
-//       variant="primary"
-//       disabled={isLoading}
-//       onClick={!isLoading ? handleClick : null}
-//     >
-//       {isLoading ? 'saving…' : 'save'}
-//     </Button>
-//   );
-// }
+// fetching data from server
+function fetching() {
+	// GET seats
+	
+		// data = fetching()
+	
+	//handle data
+	var i;
+	for(i=0;i<data.seat.length;i++){
+		if(data.seat[i].type == TABLE1 || data.seat[i].type == TABLE2 || data.seat[i].type == TABLE3){
+			var _src = '/'+data.seat[i].type+'.png'
+			initialTable.push({
+				...data.seat[i],
+				alt: data.seat[i].type,
+				id: initialID,
+				src: _src
+			})
+		}else if(data.seat[i].type == WALL1 || data.seat[i].type == WALL2){
+			var _src = '/'+data.seat[i].type+'.png'
+			initialWalls.push({
+				...data.seat[i],
+				alt: data.seat[i].type,
+				id: initialID,
+				src: _src
+			})
+		}else{
+			var _src = '/'+data.seat[i].type+'.png'
+			initialObjects.push({
+				...data.seat[i],
+				alt: data.seat[i].type,
+				id: initialID,
+				src: _src
+			})
+		}
+		initialID += 1
+	}
+	
+}
 
 export default function Placement() {
 	// INITIAL_SETUP
@@ -199,7 +174,7 @@ export default function Placement() {
 
 	// SET_STATE
 	const [id, setId] = useState('');
-	const [images,setImages] = useState(initialRectangles);
+	const [images,setImages] = useState(initialTable);
 	const [objects, setObject] = useState(initialObjects);
 	const [walls, setWall] = useState(initialWalls);
 	const [selectedId, selectShape] = useState(null);
@@ -213,7 +188,7 @@ export default function Placement() {
 	const dragWidth = React.useRef();
 	const dragHeight = React.useRef();
 	const stageRef = React.useRef();
-	const tableId = React.useRef(0);
+	const tableId = React.useRef(initialID);
 	const startDragId = React.useState();
 
 	// FUNCTION
@@ -227,6 +202,74 @@ export default function Placement() {
 		}
 	};
 	useEffect(() => setId(localStorage.getItem('_id')), []);
+
+	function simulateNetworkRequest() {
+		return new Promise((resolve) => {
+			setTimeout(resolve, 2000)
+			var data = {
+				width: canvasWidth,
+				height: canvasHeight,
+				seat: [
+				]
+			}
+
+			images.map((object, i) => {
+				data.seat.push({
+					name: object.name,
+					floor: object.floor,
+					type: object.type,
+					space: object.space,
+					x: object.x,
+					y: object.y,
+					width: object.width,
+					height: object.height,
+					rotation: object.rotation
+				})
+			})
+			objects.map((object, i) => {
+				data.seat.push({
+					name: object.name,
+					floor: object.floor,
+					type: object.type,
+					space: object.space,
+					x: object.x,
+					y: object.y,
+					width: object.width,
+					height: object.height,
+					rotation: object.rotation
+				})
+			})
+			console.log(data)
+		});
+	}
+	
+	function SavingButton() {
+		// set Loading status
+		const [isLoading, setLoading] = useState(false);
+		// saving
+		React.useEffect(() => {
+			if (isLoading) {
+				simulateNetworkRequest().then(() => {
+					setLoading(false);
+				});
+			}
+		}, [isLoading]);
+		// click handler 
+		const handleClick = () => setLoading(true);
+		// Button HTML
+		return (
+			<Button
+				variant="contained"
+				color="primary"
+				disabled={isLoading}
+				size="large"
+				onClick={!isLoading ? handleClick : null}
+			>
+				{isLoading ? <CircularProgress size={24}></CircularProgress> : ''}
+				{isLoading ? 'saving…' : 'save'}
+			</Button>
+		);
+	}
 
 	//
 	return (
@@ -407,7 +450,9 @@ export default function Placement() {
 									height: dragHeight.current,
 									id: tableId.current,
 									name: "",
-									guest: 1,
+									space: 1,
+									floor: 0,
+									rotation: 0,
 								}
 							])
 						);
@@ -425,6 +470,9 @@ export default function Placement() {
 									height: dragHeight.current,
 									id: tableId.current,
 									name: "",
+									space: 0,
+									floor: 0,
+									rotation: 0,
 								}
 							])
 						);
@@ -478,9 +526,6 @@ export default function Placement() {
 									onDelete={(newAttrs) => {
 										setImages(images.filter(img => img.id !== newAttrs));
 									}}
-
-									
-									//onDrop={}
 									rotation={rect.rotation}
 								></Rectangle>
 							);
@@ -509,7 +554,6 @@ export default function Placement() {
 										rects[i] = newAttrs;
 										setObject(rects);
 									}}
-									
 									onDelete={(newAttrs) => {
 										setObject(objects.filter(obj => obj.id !== newAttrs));
 									}}
@@ -558,10 +602,14 @@ export default function Placement() {
 								setShape()
 							}}
 						/>
-
 					</div>
 				</div>
 				{/* --- End Canvas section ---  */}
+				{/* --- Start of Save Button --- */}
+				<div className={classes.center}>
+					<SavingButton />
+				</div>
+				{/* --- End of Save Button --- */}
 			</div>
 		</Layout>
 	);

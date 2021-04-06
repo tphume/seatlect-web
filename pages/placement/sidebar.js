@@ -143,16 +143,15 @@ const useStyles = makeStyles((theme) => ({
 const Sidebar = ({ shapeProps, onChangeSidebar, onDelete }) => {
 	const classes = useStyles();
 	const maxGuest = React.useRef();
-	// const [guestValue, selectedGuest] = useState({value: shapeProps.guest});
 	console.log(shapeProps);
 	try {
 		console.log(shapeProps);
 		console.log(shapeProps.x);
 		console.log(shapeProps.y);
 		console.log(shapeProps.rotation);
-		console.log(shapeProps.guest);
+		console.log(shapeProps.space);
 		console.log(shapeProps.id);
-		maxGuest.current = shapeProps.guest;
+		maxGuest.current = shapeProps.space;
 		const xValue = Math.round(shapeProps.x);
 		const yValue = Math.round(shapeProps.y);
 		var isTable = false;
@@ -273,7 +272,7 @@ const Sidebar = ({ shapeProps, onChangeSidebar, onDelete }) => {
 								id="standard-full-width"
 								label="Max guest"
 								placeholder="Max number of guest"
-								defaultValue={shapeProps.guest}
+								defaultValue={shapeProps.space}
 								fullWidth
 								margin="normal"
 								InputLabelProps={{
