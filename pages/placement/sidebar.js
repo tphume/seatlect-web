@@ -308,7 +308,7 @@ const Sidebar = ({ shapeProps, onChangeSidebar, onDelete }) => {
 			</div>
 		);
 	} catch (error) {
-		console.log(error)
+		// console.log(error)
 		return (
 			<Grid container spacing={3}>
         <Grid item xs={12}>

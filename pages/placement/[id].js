@@ -435,6 +435,7 @@ export default function Placement() {
 						// table -> [images, setImage]
 						// wall or object -> [object, setObject]
 						// register event position
+						e.preventDefault()
 						stageRef.current.setPointersPositions(e);
 						// ADD RESERVABLE object into list of table
 						console.log(dragObject.current)
