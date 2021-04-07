@@ -46,6 +46,10 @@ const Rectangle = ({shapeProps,	isSelected,	onSelect,	onChange,	src, rotation, o
           }
           if(coordinateX > canvasWidth-shapeProps.width){
             coordinateX = canvasWidth-shapeProps.width
+            console.log(shapeProps.width)
+            console.log(shapeProps.height)
+            console.log(shapeProps.x)
+            console.log(coordinateX)
           }
           //console.log(coordinateX)
           //console.log(coordinateY)

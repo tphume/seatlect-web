@@ -19,7 +19,9 @@ const FreeStyleObject = ({shapeProps,	isSelected,	onSelect,	onChange,	src, rotat
     }
   }, [isSelected]);
 
+  function testhandler(){
 
+  }
 	return(
 		<React.Fragment>
 			<Image
@@ -41,11 +43,11 @@ const FreeStyleObject = ({shapeProps,	isSelected,	onSelect,	onChange,	src, rotat
           if(coordinateY < 0){
             coordinateY = 0
           }
-          if(coordinateY > canvasHeight-shapeProps.width){
-            coordinateY = canvasHeight-shapeProps.width
+          if(coordinateY > canvasHeight-shapeProps.height){
+            coordinateY = canvasHeight-shapeProps.height
           }
-          if(coordinateX > canvasWidth-shapeProps.height){
-            coordinateX = canvasWidth-shapeProps.height
+          if(coordinateX > canvasWidth-shapeProps.width){
+            coordinateX = canvasWidth-shapeProps.width
           }
           //console.log(coordinateX)
           //console.log(coordinateY)
