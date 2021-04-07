@@ -257,6 +257,7 @@ const Sidebar = ({ shapeProps, onChangeSidebar, onDelete }) => {
 								console.log(e.target.value)
 								console.log(shapeProps.type)
 								onChangeSidebar({...shapeProps,name: e.target.value});
+								shapeProps.name = e.target.value
 							}}
 							onClick={e => {
 								console.log(shapeProps.type)
@@ -280,7 +281,8 @@ const Sidebar = ({ shapeProps, onChangeSidebar, onDelete }) => {
 								}}
 								onChange={ e => {
 									// console.log(e.target.value)
-									onChangeSidebar({...shapeProps,name: e.target.value});
+									onChangeSidebar({...shapeProps,space: e.target.value});
+									shapeProps.space = e.target.value
 								}}
 							/>
 						</Grid>

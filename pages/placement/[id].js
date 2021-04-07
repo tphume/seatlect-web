@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Konva from 'konva';
 import { Stage, Layer, Rect, Transformer, Image, Text, Circle, Label } from 'react-konva';
 
 import Layout from 'src/components/layout';
