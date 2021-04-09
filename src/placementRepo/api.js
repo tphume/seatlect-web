@@ -35,7 +35,11 @@ class PlacementMockRepo {
 		// Uncomment the following if you want to test error
 		// throw 'Fake error';
 
-		return [];
+		return {
+			width: 800,
+			height: 800,
+			seats: []
+		};
 	}
 
 	async updatePlacement(args) {

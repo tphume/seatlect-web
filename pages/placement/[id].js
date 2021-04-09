@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Stage, Layer, Rect, Transformer, Image, Text, Circle, Label } from 'react-konva';
+import { getPlacementRepo } from 'src/placementRepo';
 
 import Layout from 'src/components/layout';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -94,78 +95,8 @@ const useStyles = makeStyles((theme) => ({
 		display: `none`
 	}
 }));
-var initialID = 0;
 
-const initialTable = [
-	// {
-	//   x: 10,
-	//   y: 10,
-	//   width: TABLE_Width,
-	//   height: TABLE_Height,
-	//   space: 4,
-	//   src: '/LONG_TABLE.png',
-	//   alt: TABLE3,
-	//   type: TABLE3,
-	//   name: 'rect1',
-	//   id: 'rect1',
-	//   rotation: 0,
-	// },
-	// {
-	//   x: 150,
-	//   y: 150,
-	//   width: TABLE_Width,
-	//   height: TABLE_Height,
-	//   space: 4,
-	//   src: '/TABLE.png',
-	//   type: TABLE2,
-	//   alt: TABLE2,
-	//   id: '999',
-	//   name: '999',
-	//   rotation: 0,
-	// },
-];
-const initialObjects = [];
-const initialWalls = [];
-
-// fetching data from server
-function fetching() {
-	// GET seats
-
-	// data = fetching()
-
-	//handle data
-	var i;
-	for (i = 0; i < data.seat.length; i++) {
-		if (data.seat[i].type == TABLE1 || data.seat[i].type == TABLE2 || data.seat[i].type == TABLE3) {
-			var _src = '/' + data.seat[i].type + '.png';
-			initialTable.push({
-				...data.seat[i],
-				alt: data.seat[i].type,
-				id: initialID,
-				src: _src
-			});
-		} else if (data.seat[i].type == WALL1 || data.seat[i].type == WALL2) {
-			var _src = '/' + data.seat[i].type + '.png';
-			initialWalls.push({
-				...data.seat[i],
-				alt: data.seat[i].type,
-				id: initialID,
-				src: _src
-			});
-		} else {
-			var _src = '/' + data.seat[i].type + '.png';
-			initialObjects.push({
-				...data.seat[i],
-				alt: data.seat[i].type,
-				id: initialID,
-				src: _src
-			});
-		}
-		initialID += 1;
-	}
-}
-
-export default function Placement() {
+export default function Placement({ initialTable, initialWalls, initialObjects, initialID }) {
 	// INITIAL_SETUP
 	const classes = useStyles();
 
@@ -178,7 +109,7 @@ export default function Placement() {
 	const [selectedShape, setShape] = useState(null);
 	const [activeIndex, Setheader] = useState(null);
 
-	// LOCAL REFERANCE
+	// LOCAL REFERENCE
 	const dragUrl = React.useRef();
 	const indexOfImage = React.useRef();
 	const dragObject = React.useRef();
@@ -210,7 +141,7 @@ export default function Placement() {
 			};
 
 			images.map((object, i) => {
-				data.seat.push({
+				data.seats.push({
 					name: object.name,
 					floor: object.floor,
 					type: object.type,
@@ -223,7 +154,7 @@ export default function Placement() {
 				});
 			});
 			objects.map((object, i) => {
-				data.seat.push({
+				data.seats.push({
 					name: object.name,
 					floor: object.floor,
 					type: object.type,
@@ -235,7 +166,7 @@ export default function Placement() {
 					rotation: object.rotation
 				});
 			});
-			console.log(data);
+			// console.log(data);
 		});
 	}
 
@@ -447,7 +378,7 @@ export default function Placement() {
 						e.preventDefault();
 						stageRef.current.setPointersPositions(e);
 						// ADD RESERVABLE object into list of table
-						console.log(dragObject.current);
+						// console.log(dragObject.current);
 						if (
 							dragObject.current == TABLE1 ||
 							dragObject.current == TABLE2 ||
@@ -494,8 +425,8 @@ export default function Placement() {
 					}}
 					onDragOver={(e) => e.preventDefault()}
 					onClick={(e) => {
-						console.log(images);
-						console.log(objects);
+						// console.log(images);
+						// console.log(objects);
 					}}
 					className={classes.test}
 				>
@@ -524,9 +455,9 @@ export default function Placement() {
 												selectShape(rect.id);
 												setShape(rect);
 												indexOfImage.current = i;
-												console.log(indexOfImage);
-												console.log(selectedId);
-												console.log(rect);
+												// console.log(indexOfImage);
+												// console.log(selectedId);
+												// console.log(rect);
 											}}
 											onChange={(newAttrs) => {
 												const rects = images.slice();
@@ -555,9 +486,9 @@ export default function Placement() {
 												selectShape(object.id);
 												setShape(object);
 												indexOfImage.current = i;
-												console.log(indexOfImage);
-												console.log(selectedId);
-												console.log(object);
+												// console.log(indexOfImage);
+												// console.log(selectedId);
+												// console.log(object);
 											}}
 											onChange={(newAttrs) => {
 												const rects = objects.slice();
@@ -582,22 +513,22 @@ export default function Placement() {
 						<Sidebar
 							shapeProps={selectedShape}
 							onChangeSidebar={(newAttrs) => {
-								console.log('newAettrs');
-								console.log(newAttrs);
+								// console.log('newAettrs');
+								// console.log(newAttrs);
 								if (newAttrs.type == TABLE1 || newAttrs.type == TABLE2 || newAttrs.type == TABLE3) {
 									const rects = images.slice();
 									var i = indexOfImage.current;
-									console.log(rects);
+									// console.log(rects);
 									rects[i] = newAttrs;
 									setImages(rects);
-									console.log(rects);
+									// console.log(rects);
 								} else {
 									const rects = objects.slice();
 									var i = indexOfImage.current;
-									console.log(rects);
+									// console.log(rects);
 									rects[i] = newAttrs;
 									setObject(rects);
-									console.log(rects);
+									// console.log(rects);
 								}
 							}}
 							onDelete={(newAttrs) => {
@@ -625,4 +556,76 @@ export default function Placement() {
 			</div>
 		</Layout>
 	);
+}
+
+export async function getServerSideProps(ctx) {
+	// Get params
+	let env = process.env.NEXT_PUBLIC_ENV;
+	let id = ctx.params.id;
+	let placement = {};
+
+	// Get initial data
+	let placementRepo = getPlacementRepo({ env, id, url: process.env.NEXT_PUBLIC_BE });
+	try {
+		placement = await placementRepo.getPlacement();
+	} catch (e) {
+		// TODO handle error
+	}
+
+	// parse data
+	let { initialTable, initialWalls, initialObjects, initialID } = parsingResponse(placement);
+
+	return {
+		props: {
+			initialTable,
+			initialWalls,
+			initialObjects,
+			initialID
+		}
+	};
+}
+
+// fetching data from server
+function parsingResponse(data) {
+	let initialTable = [];
+	let initialWalls = [];
+	let initialObjects = [];
+	let initialID = 0;
+
+	var i;
+	for (i = 0; i < data.seats.length; i++) {
+		if (
+			data.seats[i].type == TABLE1 ||
+			data.seats[i].type == TABLE2 ||
+			data.seats[i].type == TABLE3
+		) {
+			var _src = '/' + data.seats[i].type + '.png';
+			initialTable.push({
+				...data.seats[i],
+				alt: data.seats[i].type,
+				id: initialID,
+				src: _src
+			});
+		} else if (data.seats[i].type == WALL1 || data.seats[i].type == WALL2) {
+			var _src = '/' + data.seats[i].type + '.png';
+			initialWalls.push({
+				...data.seats[i],
+				alt: data.seats[i].type,
+				id: initialID,
+				src: _src
+			});
+		} else {
+			var _src = '/' + data.seats[i].type + '.png';
+			initialObjects.push({
+				...data.seats[i],
+				alt: data.seats[i].type,
+				id: initialID,
+				src: _src
+			});
+		}
+
+		initialID += 1;
+	}
+
+	return { initialTable, initialWalls, initialObjects, initialID };
 }
