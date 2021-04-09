@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import makeStyles from '@material-ui/core/styles/makeStyles'
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import shape from '@material-ui/core/styles/shape';
@@ -8,13 +8,13 @@ import DeleteIcon from '@material-ui/icons/Delete';
 const canvasOutline = `800px`;
 
 // pre-define type
-const WALL1 = 'BLUE_WALL'
-const WALL2 = 'BROWN_WALL'
-const OBJ1 = 'OBJECT_CIRCLE'
-const OBJ2 = 'OBJECT_SQUARE'
-const TABLE1 = 'SHORT_TABLE' 
-const TABLE2 = 'TABLE'
-const TABLE3 = 'LONG_TABLE'
+const WALL1 = 'BLUE_WALL';
+const WALL2 = 'BROWN_WALL';
+const OBJ1 = 'OBJECT_CIRCLE';
+const OBJ2 = 'OBJECT_SQUARE';
+const TABLE1 = 'SHORT_TABLE';
+const TABLE2 = 'TABLE';
+const TABLE3 = 'LONG_TABLE';
 
 const useStyles = makeStyles((theme) => ({
 	label: {
@@ -63,9 +63,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 	subHeaderSidebar: {
 		marginBlockStart: `0.25rem`,
-		marginBlockEnd: `0.5rem`,
+		marginBlockEnd: `0.5rem`
 	},
-	subHeaderSidebar_Inactive:{
+	subHeaderSidebar_Inactive: {
 		marginBlockStart: `0.25rem`,
 		marginBlockEnd: `0.5rem`,
 		color: `#9d9d9d`
@@ -125,17 +125,17 @@ const useStyles = makeStyles((theme) => ({
 	link: {
 		color: `white`
 	},
-	sideBarRow:{
+	sideBarRow: {
 		paddingTop: `0`
 	},
-	button:{
-		// backgroundColor: `red`,	
+	button: {
+		// backgroundColor: `red`,
 	},
-	centerAlign:{
+	centerAlign: {
 		display: `flex`,
 		justifyContent: `center`
 	},
-	primaryColor:{
+	primaryColor: {
 		color: theme.palette.primary.main
 	}
 }));
@@ -155,20 +155,20 @@ const Sidebar = ({ shapeProps, onChangeSidebar, onDelete }) => {
 		const xValue = Math.round(shapeProps.x);
 		const yValue = Math.round(shapeProps.y);
 		var isTable = false;
-		
-		if(shapeProps.type == TABLE1 || shapeProps.type == TABLE2 || shapeProps.type == TABLE3){
+
+		if (shapeProps.type == TABLE1 || shapeProps.type == TABLE2 || shapeProps.type == TABLE3) {
 			isTable = true;
 		}
-		
+
 		var typeOfOBJ;
-		if(shapeProps.type == TABLE1 || shapeProps.type == TABLE2 || shapeProps.type == TABLE3){
-			typeOfOBJ = 'Table'
+		if (shapeProps.type == TABLE1 || shapeProps.type == TABLE2 || shapeProps.type == TABLE3) {
+			typeOfOBJ = 'Table';
 		}
-		if(shapeProps.type == WALL1 || shapeProps.type == WALL2){
-			typeOfOBJ = 'Wall'
+		if (shapeProps.type == WALL1 || shapeProps.type == WALL2) {
+			typeOfOBJ = 'Wall';
 		}
-		if(shapeProps.type == OBJ1 || shapeProps.type == OBJ2){
-			typeOfOBJ = 'Object'
+		if (shapeProps.type == OBJ1 || shapeProps.type == OBJ2) {
+			typeOfOBJ = 'Object';
 		}
 		return (
 			<div className={classes.sidebar}>
@@ -177,13 +177,13 @@ const Sidebar = ({ shapeProps, onChangeSidebar, onDelete }) => {
 					<Grid item xs={12}>
 						<div className={`${classes.centerAlign} ${classes.primaryColor}`}>
 							<h1 className={classes.headerSidebar}>{typeOfOBJ} information</h1>
-						</div> 
+						</div>
 						<div className={`${classes.centerAlign} ${classes.primaryColor}`}>
-							<h3 className={classes.subHeaderSidebar}> : {shapeProps.name}</h3>						
-						</div> 
+							<h3 className={classes.subHeaderSidebar}> : {shapeProps.name}</h3>
+						</div>
 					</Grid>
 					<Grid item xs={12}>
-						<hr/> 
+						<hr />
 					</Grid>
 					{/*--- X coordinate ---*/}
 					<Grid item xs={12}></Grid>
@@ -200,7 +200,7 @@ const Sidebar = ({ shapeProps, onChangeSidebar, onDelete }) => {
 							disabled
 							margin="normal"
 							InputLabelProps={{
-								shrink: true,
+								shrink: true
 							}}
 						/>
 					</Grid>
@@ -217,7 +217,7 @@ const Sidebar = ({ shapeProps, onChangeSidebar, onDelete }) => {
 							disabled
 							margin="normal"
 							InputLabelProps={{
-								shrink: true,
+								shrink: true
 							}}
 						/>
 					</Grid>
@@ -235,7 +235,7 @@ const Sidebar = ({ shapeProps, onChangeSidebar, onDelete }) => {
 							disabled
 							margin="normal"
 							InputLabelProps={{
-								shrink: true,
+								shrink: true
 							}}
 						/>
 					</Grid>
@@ -251,21 +251,21 @@ const Sidebar = ({ shapeProps, onChangeSidebar, onDelete }) => {
 							fullWidth
 							margin="normal"
 							InputLabelProps={{
-								shrink: true,
+								shrink: true
 							}}
-							onChange={ e => {
-								console.log(e.target.value)
-								console.log(shapeProps.type)
-								onChangeSidebar({...shapeProps,name: e.target.value});
-								shapeProps.name = e.target.value
+							onChange={(e) => {
+								console.log(e.target.value);
+								console.log(shapeProps.type);
+								onChangeSidebar({ ...shapeProps, name: e.target.value });
+								shapeProps.name = e.target.value;
 							}}
-							onClick={e => {
-								console.log(shapeProps.type)
+							onClick={(e) => {
+								console.log(shapeProps.type);
 							}}
 						/>
 					</Grid>
 					{/*--- Max Guest ---*/}
-					{ isTable && (
+					{isTable && (
 						<Grid item xs={12}>
 							<TextField
 								className={classes.textField}
@@ -277,31 +277,31 @@ const Sidebar = ({ shapeProps, onChangeSidebar, onDelete }) => {
 								fullWidth
 								margin="normal"
 								InputLabelProps={{
-									shrink: true,
+									shrink: true
 								}}
-								onChange={ e => {
+								onChange={(e) => {
 									// console.log(e.target.value)
-									onChangeSidebar({...shapeProps,space: e.target.value});
-									shapeProps.space = e.target.value
+									onChangeSidebar({ ...shapeProps, space: e.target.value });
+									shapeProps.space = e.target.value;
 								}}
 							/>
 						</Grid>
-						)}
+					)}
 					{/*--- Delete Button ---*/}
 					<Grid item xs={12}>
 						<div className={classes.centerAlign}>
-						<Button
-							variant="contained"
-							color="primary"
-							className={classes.button}
-							startIcon={<DeleteIcon />}
-							onClick={(e)=>{
-								console.log('delete')
-								onDelete(shapeProps.id)
-							}}
-						>
-							Delete
-						</Button>
+							<Button
+								variant="contained"
+								color="primary"
+								className={classes.button}
+								startIcon={<DeleteIcon />}
+								onClick={(e) => {
+									console.log('delete');
+									onDelete(shapeProps.id);
+								}}
+							>
+								Delete
+							</Button>
 						</div>
 					</Grid>
 				</Grid>
@@ -311,16 +311,16 @@ const Sidebar = ({ shapeProps, onChangeSidebar, onDelete }) => {
 		// console.log(error)
 		return (
 			<Grid container spacing={3}>
-        <Grid item xs={12}>
+				<Grid item xs={12}>
 					<div className={`${classes.centerAlign} ${classes.primaryColor}`}>
 						<h1 className={classes.headerSidebar}>Object information</h1>
-					</div> 
+					</div>
 					<div className={`${classes.centerAlign} ${classes.primaryColor}`}>
-						<h3 className={classes.subHeaderSidebar_Inactive}> : object name </h3>						
-					</div> 
+						<h3 className={classes.subHeaderSidebar_Inactive}> : object name </h3>
+					</div>
 				</Grid>
 				<Grid item xs={12}>
-					<hr/> 
+					<hr />
 				</Grid>
 			</Grid>
 		);
