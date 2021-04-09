@@ -5,19 +5,10 @@ import useImage from 'use-image';
 const canvasHeight = 800;
 const canvasWidth = 800;
 
-const FreeStyleObject = ({
-	shapeProps,
-	isSelected,
-	onSelect,
-	onChange,
-	src,
-	rotation,
-	onDelete
-}) => {
+const Rectangle = ({ shapeProps, isSelected, onSelect, onChange, src, rotation, onDelete }) => {
 	const shapeRef = React.useRef();
 	const trRef = React.useRef();
 	const [img] = useImage(src);
-	var imgTest;
 
 	React.useEffect(() => {
 		if (isSelected) {
@@ -27,12 +18,13 @@ const FreeStyleObject = ({
 		}
 	}, [isSelected]);
 
-	function testhandler() {}
+	function testhandler(e) {
+		// console.log(shapeProps.name.length);
+	}
+
 	return (
 		<React.Fragment>
 			<Image
-				// onClick={onSelect,popUp}
-				// onClick={testhandler}
 				onClick={onSelect}
 				onTap={onSelect}
 				ref={shapeRef}
@@ -54,6 +46,10 @@ const FreeStyleObject = ({
 					}
 					if (coordinateX > canvasWidth - shapeProps.width) {
 						coordinateX = canvasWidth - shapeProps.width;
+						// console.log(shapeProps.width);
+						// console.log(shapeProps.height);
+						// console.log(shapeProps.x);
+						// console.log(coordinateX);
 					}
 					//console.log(coordinateX)
 					//console.log(coordinateY)
@@ -120,4 +116,4 @@ const FreeStyleObject = ({
 	);
 };
 
-export default FreeStyleObject;
+export default Rectangle;
