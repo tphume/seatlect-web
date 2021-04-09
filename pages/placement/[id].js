@@ -119,8 +119,14 @@ export default function Placement({ initialTable, initialWalls, initialObjects, 
 	const tableId = React.useRef(initialID);
 	const startDragId = React.useState();
 
-	// FUNCTION
+	// Setup repo
+	const repo = getPlacementRepo({
+		env: process.env.NEXT_PUBLIC_ENV,
+		url: process.env.NEXT_PUBLIC_BE,
+		id: id
+	});
 
+	// FUNCTION
 	const checkDeselect = (e) => {
 		// deselect when clicked on empty area
 		const clickedOnEmpty = e.target === e.target.getStage();
@@ -131,54 +137,60 @@ export default function Placement({ initialTable, initialWalls, initialObjects, 
 	};
 	useEffect(() => setId(localStorage.getItem('_id')), []);
 
-	function simulateNetworkRequest() {
-		return new Promise((resolve) => {
-			setTimeout(resolve, 2000);
-			var data = {
-				width: canvasWidth,
-				height: canvasHeight,
-				seat: []
-			};
-
-			images.map((object, i) => {
-				data.seats.push({
-					name: object.name,
-					floor: object.floor,
-					type: object.type,
-					space: object.space,
-					x: object.x,
-					y: object.y,
-					width: object.width,
-					height: object.height,
-					rotation: object.rotation
-				});
-			});
-			objects.map((object, i) => {
-				data.seats.push({
-					name: object.name,
-					floor: object.floor,
-					type: object.type,
-					space: object.space,
-					x: object.x,
-					y: object.y,
-					width: object.width,
-					height: object.height,
-					rotation: object.rotation
-				});
-			});
-			// console.log(data);
-		});
-	}
-
 	function SavingButton() {
 		// set Loading status
 		const [isLoading, setLoading] = useState(false);
+
+		// make placement object
+		var data = {
+			width: canvasWidth,
+			height: canvasHeight,
+			seats: []
+		};
+
+		images.map((object, i) => {
+			data.seats.push({
+				name: object.name,
+				floor: object.floor,
+				type: object.type,
+				space: object.space,
+				x: object.x,
+				y: object.y,
+				width: object.width,
+				height: object.height,
+				rotation: object.rotation
+			});
+		});
+		objects.map((object, i) => {
+			data.seats.push({
+				name: object.name,
+				floor: object.floor,
+				type: object.type,
+				space: object.space,
+				x: object.x,
+				y: object.y,
+				width: object.width,
+				height: object.height,
+				rotation: object.rotation
+			});
+		});
+		// console.log(data);
+
 		// saving
 		React.useEffect(() => {
 			if (isLoading) {
-				simulateNetworkRequest().then(() => {
+				async function callAPI() {
+					try {
+						await repo.updatePlacement(data);
+					} catch (e) {
+						// TODO Error handling
+						console.log(e);
+					}
+
 					setLoading(false);
-				});
+				}
+
+				callAPI();
 			}
 		}, [isLoading]);
 		// click handler
