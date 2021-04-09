@@ -143,14 +143,14 @@ const useStyles = makeStyles((theme) => ({
 const Sidebar = ({ shapeProps, onChangeSidebar, onDelete }) => {
 	const classes = useStyles();
 	const maxGuest = React.useRef();
-	console.log(shapeProps);
+	// console.log(shapeProps);
 	try {
-		console.log(shapeProps);
-		console.log(shapeProps.x);
-		console.log(shapeProps.y);
-		console.log(shapeProps.rotation);
-		console.log(shapeProps.space);
-		console.log(shapeProps.id);
+		// console.log(shapeProps);
+		// console.log(shapeProps.x);
+		// console.log(shapeProps.y);
+		// console.log(shapeProps.rotation);
+		// console.log(shapeProps.space);
+		// console.log(shapeProps.id);
 		maxGuest.current = shapeProps.space;
 		const xValue = Math.round(shapeProps.x);
 		const yValue = Math.round(shapeProps.y);

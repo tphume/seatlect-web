@@ -19,7 +19,7 @@ const Rectangle = ({ shapeProps, isSelected, onSelect, onChange, src, rotation, 
 	}, [isSelected]);
 
 	function testhandler(e) {
-		console.log(shapeProps.name.length);
+		// console.log(shapeProps.name.length);
 	}
 
 	return (
@@ -46,10 +46,10 @@ const Rectangle = ({ shapeProps, isSelected, onSelect, onChange, src, rotation, 
 					}
 					if (coordinateX > canvasWidth - shapeProps.width) {
 						coordinateX = canvasWidth - shapeProps.width;
-						console.log(shapeProps.width);
-						console.log(shapeProps.height);
-						console.log(shapeProps.x);
-						console.log(coordinateX);
+						// console.log(shapeProps.width);
+						// console.log(shapeProps.height);
+						// console.log(shapeProps.x);
+						// console.log(coordinateX);
 					}
 					//console.log(coordinateX)
 					//console.log(coordinateY)
@@ -83,9 +83,9 @@ const Rectangle = ({ shapeProps, isSelected, onSelect, onChange, src, rotation, 
 						// rotation: node.attrs.rotation,
 					});
 					// console.log(setImages(<Image/> ))
-					console.log(shapeProps);
-					console.log(node.attrs.id);
-					console.log(node.attrs.rotation);
+					// console.log(shapeProps);
+					// console.log(node.attrs.id);
+					// console.log(node.attrs.rotation);
 				}}
 				status={false}
 			/>

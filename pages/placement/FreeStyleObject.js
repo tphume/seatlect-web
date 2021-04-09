@@ -87,9 +87,9 @@ const FreeStyleObject = ({
 						// rotation: node.attrs.rotation,
 					});
 					// console.log(setImages(<Image/> ))
-					console.log(shapeProps);
-					console.log(node.attrs.id);
-					console.log(node.attrs.rotation);
+					// console.log(shapeProps);
+					// console.log(node.attrs.id);
+					// console.log(node.attrs.rotation);
 				}}
 				status={false}
 			/>
