@@ -3,6 +3,7 @@ import GoogleMapReact from 'google-map-react';
 
 import Layout from 'src/components/layout';
 import RequestFrom from 'src/components/RequestForm';
+import DIModal from 'src/components/DIModal';
 import { getBusinessRepo } from 'src/businessRepo';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -60,6 +61,12 @@ export default function Home({ business }) {
 	// Set if request form should be visible
 	const [requestForm, setRequestForm] = useState(false);
 
+	// Set if update display image modal should be visible
+	const [diModal, setDIModal] = useState(false);
+
+	// Set display image
+	const [di, setDI] = useState(business.displayImage);
+
 	// load initial id from local storage
 	useEffect(function () {
 		setId(localStorage.getItem('_id'));
@@ -94,6 +101,7 @@ export default function Home({ business }) {
 					address: business.address
 				}}
 			/>
+			<DIModal visible={diModal} setVisible={setDIModal} image={di} setImage={setDI} />
 			<Grid container spacing={1}>
 				<Grid item component="div" sm={6}>
 					<InputLabel className={classes.label}>Business Name</InputLabel>
@@ -171,12 +179,7 @@ export default function Home({ business }) {
 				</Grid>
 				<Grid item component="div" sm={6}>
 					<Card className={classes.displayCard} variant="outlined">
-						<CardMedia
-							className={classes.displayImage}
-							image={business.displayImage}
-							component="img"
-							height="180"
-						/>
+						<CardMedia className={classes.displayImage} image={di} component="img" height="180" />
 						<div>
 							<CardContent>
 								<Typography gutterBottom variant="h6" component="h2">
@@ -190,7 +193,7 @@ export default function Home({ business }) {
 							<CardActionArea />
 							<CardActions>
 								<Tooltip title="Replace the display image">
-									<Button size="small" color="primary">
+									<Button size="small" color="primary" onClick={() => setDIModal(true)}>
 										Edit
 									</Button>
 								</Tooltip>
