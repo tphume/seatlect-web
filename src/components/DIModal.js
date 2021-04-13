@@ -55,7 +55,6 @@ export default function DIModal({ visible, setVisible, image, setImage, id }) {
 			const res = await repo.updateDI({ displayImage: tmp });
 			setSuccess(true);
 			setImage(res);
-			s;
 		} catch (e) {
 			// TODO: Snackbar error?
 		}
@@ -63,14 +62,32 @@ export default function DIModal({ visible, setVisible, image, setImage, id }) {
 		setLoading(false);
 	}
 
+	async function handleFile(e) {
+		try {
+			const img = await toBase64(e.target.files[0]);
+			setTmp(img);
+		} catch (e) {
+			// TODO: Error handling
+		}
+	}
+
+	// Helper function
+	const toBase64 = (file) =>
+		new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = () => resolve(reader.result);
+			reader.onerror = (error) => reject(error);
+		});
+
 	return (
 		<Dialog open={visible} onClose={handleClose} fullWidth>
 			{loading && <LinearProgress />}
 			<DialogTitle>Update Display Image</DialogTitle>
 			<DialogContent>
 				<Card variant="outlined">
-					<CardMedia image={tmp} alt="Display image to use" component="img" width="300" />
-					<input type="file" onChange={(e) => setTmp(URL.createObjectURL(e.target.files[0]))} />
+					<CardMedia image={tmp} component="img" width="300" />
+					<input type="file" onChange={handleFile} />
 				</Card>
 				<Button
 					variant="contained"

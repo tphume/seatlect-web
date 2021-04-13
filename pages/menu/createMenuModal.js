@@ -142,6 +142,24 @@ export default function CreateMenuModal({ id, menu, setMenu, onClickClose }) {
 		}
 	}
 
+	async function handleFile(e) {
+		try {
+			const img = await toBase64(e.target.files[0]);
+			setImage(img);
+		} catch (e) {
+			// TODO: Error handling
+		}
+	}
+
+	// Helper function
+	const toBase64 = (file) =>
+		new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = () => resolve(reader.result);
+			reader.onerror = (error) => reject(error);
+		});
+
 	return (
 		<Card className={classes.root}>
 			<h1>New menu Item</h1>
@@ -151,11 +169,10 @@ export default function CreateMenuModal({ id, menu, setMenu, onClickClose }) {
 						<CardMedia
 							className={classes.displayImage}
 							image={image}
-							alt="food image"
 							component="img"
 							height="250"
 						/>
-						<input type="file" onChange={(e) => setImage(URL.createObjectURL(e.target.files[0]))} />
+						<input type="file" onChange={handleFile} />
 					</Card>
 				</Grid>
 				<Grid item xs={8}>

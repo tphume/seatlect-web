@@ -20,7 +20,7 @@ class BusinessRepo {
 	async updateDI(args) {
 		try {
 			const res = await axios.put(this.url + this.endpoint + '/displayImage', args);
-			return res.data.image;
+			return res.data.displayImage;
 		} catch (e) {
 			// TODO add better error handling
 			console.log(e);
