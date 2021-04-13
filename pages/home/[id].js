@@ -101,7 +101,7 @@ export default function Home({ business }) {
 					address: business.address
 				}}
 			/>
-			<DIModal visible={diModal} setVisible={setDIModal} image={di} setImage={setDI} />
+			<DIModal visible={diModal} setVisible={setDIModal} image={di} setImage={setDI} id={id} />
 			<Grid container spacing={1}>
 				<Grid item component="div" sm={6}>
 					<InputLabel className={classes.label}>Business Name</InputLabel>
@@ -193,7 +193,7 @@ export default function Home({ business }) {
 							<CardActionArea />
 							<CardActions>
 								<Tooltip title="Replace the display image">
-									<Button size="small" color="primary" onClick={() => setDIModal(true)} id={id}>
+									<Button size="small" color="primary" onClick={() => setDIModal(true)}>
 										Edit
 									</Button>
 								</Tooltip>

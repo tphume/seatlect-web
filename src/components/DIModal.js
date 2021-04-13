@@ -31,7 +31,8 @@ export default function DIModal({ visible, setVisible, image, setImage, id }) {
 	// Setup repo
 	const repo = getBusinessRepo({
 		env: process.env.NEXT_PUBLIC_ENV,
-		url: process.env.NEXT_PUBLIC_BE
+		url: process.env.NEXT_PUBLIC_BE,
+		id
 	});
 
 	// Handlers
@@ -51,9 +52,13 @@ export default function DIModal({ visible, setVisible, image, setImage, id }) {
 		setLoading(true);
 
 		try {
-			await repo.updateDI({ displayImage: tmp });
+			const res = await repo.updateDI({ displayImage: tmp });
 			setSuccess(true);
-		} catch (e) {}
+			setImage(res);
+			s;
+		} catch (e) {
+			// TODO: Snackbar error?
+		}
 
 		setLoading(false);
 	}
