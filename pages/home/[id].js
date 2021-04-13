@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 
 import Layout from 'src/components/layout';
-import RequestFrom from 'src/components/RequestForm';
+import RequestForm from 'src/components/RequestForm';
 import DIModal from 'src/components/DIModal';
 import { getBusinessRepo } from 'src/businessRepo';
 
@@ -88,7 +88,7 @@ export default function Home({ business }) {
 
 	return (
 		<Layout id={id}>
-			<RequestFrom
+			<RequestForm
 				visible={requestForm}
 				setVisible={setRequestForm}
 				id={id}
@@ -193,7 +193,7 @@ export default function Home({ business }) {
 							<CardActionArea />
 							<CardActions>
 								<Tooltip title="Replace the display image">
-									<Button size="small" color="primary" onClick={() => setDIModal(true)}>
+									<Button size="small" color="primary" onClick={() => setDIModal(true)} id={id}>
 										Edit
 									</Button>
 								</Tooltip>

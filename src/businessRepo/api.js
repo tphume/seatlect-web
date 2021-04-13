@@ -37,6 +37,13 @@ class BusinessMockRepo {
 			images: ['https://i.imgur.com/g17EY2i.jpg', 'https://i.imgur.com/RjFgQSZ.jpeg']
 		};
 	}
+
+	async updateDI(args) {
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		// Uncomment the following if you want to test error
+		// throw 'Fake error';
+	}
 }
 
 function getBusinessRepo({ url, env, id }) {
