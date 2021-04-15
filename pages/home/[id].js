@@ -21,6 +21,9 @@ import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Tooltip from '@material-ui/core/Tooltip';
+import Paper from '@material-ui/core/Paper';
+
+import Carousel from 'react-material-ui-carousel';
 
 const useStyles = makeStyles((theme) => ({
 	label: {
@@ -45,9 +48,6 @@ const useStyles = makeStyles((theme) => ({
 	displayCard: {
 		display: `flex`,
 		margin: `0.8rem auto 1.2rem auto`
-	},
-	displayImage: {
-		width: 300
 	}
 }));
 
@@ -66,6 +66,9 @@ export default function Home({ business }) {
 
 	// Set display image
 	const [di, setDI] = useState(business.displayImage);
+
+	// Set images list
+	const [img, setImg] = useState(business.images);
 
 	// load initial id from local storage
 	useEffect(function () {
@@ -200,11 +203,49 @@ export default function Home({ business }) {
 							</CardActions>
 						</div>
 					</Card>
-					{/* TODO: Add business.images slideshow card */}
+					<Carousel indicators={true} navButtonsAlwaysInvisible>
+						{img.map((src, i) => (
+							<Card className={classes.displayCard} variant="outlined">
+								<Image src={di} width={300} height={180} />
+								<div>
+									<CardContent>
+										<Typography gutterBottom variant="h6" component="h2">
+											Image slider
+										</Typography>
+										<Typography variant="body2" color="textSecondary" component="p">
+											Will be shown to the mobile application in an image slider
+										</Typography>
+									</CardContent>
+									<CardActionArea />
+									<CardActions>
+										<Tooltip title="Add a new image to the images list">
+											<Button
+												size="small"
+												color="primary"
+												variant="outlined"
+												onClick={() => setDIModal(true)}
+											>
+												Add
+											</Button>
+										</Tooltip>
+										<Tooltip title="Delete the current image for the images list">
+											<Button size="small" color="secondary" variant="contained">
+												Delete
+											</Button>
+										</Tooltip>
+									</CardActions>
+								</div>
+							</Card>
+						))}
+					</Carousel>
 				</Grid>
 			</Grid>
 		</Layout>
 	);
+}
+
+function ImageItem({ src }) {
+	return <Image src={src} layout="fill" />;
 }
 
 export async function getServerSideProps(ctx) {
