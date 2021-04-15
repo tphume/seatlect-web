@@ -38,6 +38,16 @@ class BusinessRepo {
 			throw 'Network error';
 		}
 	}
+
+	async deleteImage(pos) {
+		try {
+			const res = await axios.delete(this.url + this.endpoint + '/images/' + pos);
+		} catch (e) {
+			// TODO add better error handling
+			console.log(e);
+			throw 'Network error';
+		}
+	}
 }
 
 class BusinessMockRepo {
@@ -74,6 +84,13 @@ class BusinessMockRepo {
 		// throw 'Fake error';
 
 		return 'https://images.all-free-download.com/images/graphicthumb/food_picture_05_hd_picture_167519.jpg';
+	}
+
+	async deleteImage(pos) {
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		// Uncomment the following if you want to test error
+		// throw 'Fake error';
 	}
 }
 

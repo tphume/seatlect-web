@@ -79,6 +79,13 @@ export default function Home({ business }) {
 		setId(localStorage.getItem('_id'));
 	}, []);
 
+	// Setup repo
+	const repo = getBusinessRepo({
+		env: process.env.NEXT_PUBLIC_ENV,
+		url: process.env.NEXT_PUBLIC_BE,
+		id
+	});
+
 	// Check that data is loaded correctly
 	if (Object.keys(business).length === 0 && business.constructor === Object) {
 		return (
@@ -90,8 +97,19 @@ export default function Home({ business }) {
 		);
 	}
 
-	// TODO: displayImage modal and handlers
-	// TODO: images modal and handlers
+	// Handlers
+	async function handleDeleteImage(pos) {
+		try {
+			await repo.deleteImage(pos);
+
+			let tmp = [...img];
+			tmp.splice(pos, 1);
+
+			setImg(tmp);
+		} catch (e) {
+			// TODO: Error handling
+		}
+	}
 
 	return (
 		<Layout id={id}>
@@ -240,7 +258,12 @@ export default function Home({ business }) {
 											</Button>
 										</Tooltip>
 										<Tooltip title="Delete the current image for the images list">
-											<Button size="small" color="secondary" variant="contained">
+											<Button
+												size="small"
+												color="secondary"
+												variant="contained"
+												onClick={() => handleDeleteImage(i)}
+											>
 												Delete
 											</Button>
 										</Tooltip>
