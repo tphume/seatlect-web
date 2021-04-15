@@ -17,7 +17,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
@@ -109,14 +108,7 @@ export default function MenuCard({ id, index, openEdit, menu, setMenu }) {
 			<Box display="flex" justifyContent="space-between">
 				{/* <img alt="food image" /> */}
 				<Card className={classes.displayCard} variant="outlined">
-					<CardMedia
-						className={classes.displayImage}
-						image={menu[index].image}
-						alt="food image"
-						component="img"
-						height="75"
-						width="88"
-					/>
+					<Image src={menu[index].image} width={88} height={75} />
 				</Card>
 				<Box alignSelf="center" width="80%">
 					<div>{menu[index].name}</div>

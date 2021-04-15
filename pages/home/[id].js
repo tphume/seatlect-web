@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import GoogleMapReact from 'google-map-react';
 
 import Layout from 'src/components/layout';
@@ -13,7 +14,6 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -179,7 +179,7 @@ export default function Home({ business }) {
 				</Grid>
 				<Grid item component="div" sm={6}>
 					<Card className={classes.displayCard} variant="outlined">
-						<CardMedia className={classes.displayImage} image={di} component="img" height="180" />
+						<Image src={di} width={300} height={180} />
 						<div>
 							<CardContent>
 								<Typography gutterBottom variant="h6" component="h2">
