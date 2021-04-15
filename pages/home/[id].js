@@ -5,6 +5,7 @@ import GoogleMapReact from 'google-map-react';
 import Layout from 'src/components/layout';
 import RequestForm from 'src/components/RequestForm';
 import DIModal from 'src/components/DIModal';
+import AppendImage from 'src/components/AppendImage';
 import { getBusinessRepo } from 'src/businessRepo';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -64,6 +65,9 @@ export default function Home({ business }) {
 	// Set if update display image modal should be visible
 	const [diModal, setDIModal] = useState(false);
 
+	// Set if append image modal should be visible
+	const [appendModal, setAppendModal] = useState(false);
+
 	// Set display image
 	const [di, setDI] = useState(business.displayImage);
 
@@ -105,6 +109,13 @@ export default function Home({ business }) {
 				}}
 			/>
 			<DIModal visible={diModal} setVisible={setDIModal} image={di} setImage={setDI} id={id} />
+			<AppendImage
+				visible={appendModal}
+				setVisible={setAppendModal}
+				images={img}
+				setImages={setImg}
+				id={id}
+			/>
 			<Grid container spacing={1}>
 				<Grid item component="div" sm={6}>
 					<InputLabel className={classes.label}>Business Name</InputLabel>
@@ -206,7 +217,7 @@ export default function Home({ business }) {
 					<Carousel indicators={true} navButtonsAlwaysInvisible>
 						{img.map((src, i) => (
 							<Card className={classes.displayCard} variant="outlined">
-								<Image src={di} width={300} height={180} />
+								<Image src={src} width={300} height={180} />
 								<div>
 									<CardContent>
 										<Typography gutterBottom variant="h6" component="h2">
@@ -223,7 +234,7 @@ export default function Home({ business }) {
 												size="small"
 												color="primary"
 												variant="outlined"
-												onClick={() => setDIModal(true)}
+												onClick={() => setAppendModal(true)}
 											>
 												Add
 											</Button>

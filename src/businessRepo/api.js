@@ -72,6 +72,8 @@ class BusinessMockRepo {
 
 		// Uncomment the following if you want to test error
 		// throw 'Fake error';
+
+		return 'https://images.all-free-download.com/images/graphicthumb/food_picture_05_hd_picture_167519.jpg';
 	}
 }
 
