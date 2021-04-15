@@ -232,6 +232,33 @@ export default function Home({ business }) {
 							</CardActions>
 						</div>
 					</Card>
+					{img.length == 0 && (
+						<Card className={classes.displayCard} variant="outlined">
+							<div>
+								<CardContent>
+									<Typography gutterBottom variant="h6" component="h2">
+										Image slider
+									</Typography>
+									<Typography variant="body2" color="textSecondary" component="p">
+										Will be shown to the mobile application in an image slider
+									</Typography>
+								</CardContent>
+								<CardActionArea />
+								<CardActions>
+									<Tooltip title="Add a new image to the images list">
+										<Button
+											size="small"
+											color="primary"
+											variant="outlined"
+											onClick={() => setAppendModal(true)}
+										>
+											Add
+										</Button>
+									</Tooltip>
+								</CardActions>
+							</div>
+						</Card>
+					)}
 					<Carousel indicators={true} navButtonsAlwaysInvisible>
 						{img.map((src, i) => (
 							<Card className={classes.displayCard} variant="outlined">
