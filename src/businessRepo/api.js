@@ -19,6 +19,17 @@ class BusinessRepo {
 
 	async updateDI(args) {
 		try {
+			const res = await axios.put(this.url + this.endpoint + '/images', args);
+			return res.data.image;
+		} catch (e) {
+			// TODO add better error handling
+			console.log(e);
+			throw 'Network error';
+		}
+	}
+
+	async appendImage(args) {
+		try {
 			const res = await axios.put(this.url + this.endpoint + '/displayImage', args);
 			return res.data.displayImage;
 		} catch (e) {
@@ -50,6 +61,13 @@ class BusinessMockRepo {
 	}
 
 	async updateDI(args) {
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		// Uncomment the following if you want to test error
+		// throw 'Fake error';
+	}
+
+	async appendImage(args) {
 		await new Promise((resolve) => setTimeout(resolve, 1000));
 
 		// Uncomment the following if you want to test error
