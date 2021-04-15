@@ -19,8 +19,8 @@ class BusinessRepo {
 
 	async updateDI(args) {
 		try {
-			const res = await axios.put(this.url + this.endpoint + '/images', args);
-			return res.data.image;
+			const res = await axios.put(this.url + this.endpoint + '/displayImage', args);
+			return res.data.displayImage;
 		} catch (e) {
 			// TODO add better error handling
 			console.log(e);
@@ -30,8 +30,8 @@ class BusinessRepo {
 
 	async appendImage(args) {
 		try {
-			const res = await axios.put(this.url + this.endpoint + '/displayImage', args);
-			return res.data.displayImage;
+			const res = await axios.post(this.url + this.endpoint + '/images', args);
+			return res.data.image;
 		} catch (e) {
 			// TODO add better error handling
 			console.log(e);

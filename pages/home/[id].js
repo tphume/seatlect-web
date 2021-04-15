@@ -211,7 +211,7 @@ export default function Home({ business }) {
 				</Grid>
 				<Grid item component="div" sm={6}>
 					<Card className={classes.displayCard} variant="outlined">
-						<Image src={di} width={300} height={180} />
+						{di != '' && <Image src={di} width={300} height={180} />}
 						<div>
 							<CardContent>
 								<Typography gutterBottom variant="h6" component="h2">
@@ -261,7 +261,7 @@ export default function Home({ business }) {
 					)}
 					<Carousel indicators={true} navButtonsAlwaysInvisible>
 						{img.map((src, i) => (
-							<Card className={classes.displayCard} variant="outlined">
+							<Card className={classes.displayCard} variant="outlined" key={i}>
 								<Image src={src} width={300} height={180} />
 								<div>
 									<CardContent>
