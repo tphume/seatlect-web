@@ -75,9 +75,6 @@ export default function RequestForm({ visible, setVisible, id, initial }) {
 		try {
 			await repo.createRequest(req);
 			setSuccess(true);
-
-			await new Promise((resolve) => setTimeout(resolve, 1000));
-			setVisible(false);
 		} catch (e) {}
 
 		setLoading(false);

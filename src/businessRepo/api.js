@@ -16,6 +16,38 @@ class BusinessRepo {
 			throw 'Network error';
 		}
 	}
+
+	async updateDI(args) {
+		try {
+			const res = await axios.put(this.url + this.endpoint + '/displayImage', args);
+			return res.data.displayImage;
+		} catch (e) {
+			// TODO add better error handling
+			console.log(e);
+			throw 'Network error';
+		}
+	}
+
+	async appendImage(args) {
+		try {
+			const res = await axios.post(this.url + this.endpoint + '/images', args);
+			return res.data.image;
+		} catch (e) {
+			// TODO add better error handling
+			console.log(e);
+			throw 'Network error';
+		}
+	}
+
+	async deleteImage(pos) {
+		try {
+			const res = await axios.delete(this.url + this.endpoint + '/images/' + pos);
+		} catch (e) {
+			// TODO add better error handling
+			console.log(e);
+			throw 'Network error';
+		}
+	}
 }
 
 class BusinessMockRepo {
@@ -36,6 +68,29 @@ class BusinessMockRepo {
 			displayImage: 'https://i.imgur.com/g17EY2i.jpg',
 			images: ['https://i.imgur.com/g17EY2i.jpg', 'https://i.imgur.com/RjFgQSZ.jpeg']
 		};
+	}
+
+	async updateDI(args) {
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		// Uncomment the following if you want to test error
+		// throw 'Fake error';
+	}
+
+	async appendImage(args) {
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		// Uncomment the following if you want to test error
+		// throw 'Fake error';
+
+		return 'https://images.all-free-download.com/images/graphicthumb/food_picture_05_hd_picture_167519.jpg';
+	}
+
+	async deleteImage(pos) {
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		// Uncomment the following if you want to test error
+		// throw 'Fake error';
 	}
 }
 
