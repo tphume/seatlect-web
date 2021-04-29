@@ -51,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
 		display: `flex`,
 		justifyContent: `flex-end`,
 	},
+  modal:{
+    width: `500px`
+  },
 }));
 
 const defaultData = [
@@ -140,7 +143,8 @@ export default function Schedule() {
 					aria-describedby="simple-modal-description"
 				>
 					<CreateScheduleModal
-						className={classes.paper}
+						className={classes.modal}
+            date={today} 
 						// ------------------------------------------------------------------------origjvnoetpowqi
 						onClickClose={() => {
 							handleCloseCreate();
