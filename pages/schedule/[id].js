@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 	paper2: {
     width:`100%`,
+    paddingBottom: `15px`,
   },
 	paper_padding: {
     padding: `10px`,
@@ -152,7 +153,7 @@ export default function Schedule() {
 					/>
 				</Modal>
 				{/* --- Calendar section --- */}
-        <Grid item xs={3}>
+        <Grid item xs={4}>
 					<Paper className={classes.paper}>
 						<div>
 							<h2>Today : {/*day[today.getDay()]*/} {month[today.getMonth()]}  {today.getDate()}, {today.getFullYear()}</h2>
@@ -185,7 +186,7 @@ export default function Schedule() {
         </Grid>
 
 				{/* --- Month/Day section --- */}
-				<Grid item xs={6}>
+				<Grid item xs={8}>
 					<Paper className={classes.paper2}>
 						{/* --- Start of Header Section --- */}
 						<Grid container spacing={5} className={classes.row}>
@@ -224,15 +225,15 @@ export default function Schedule() {
 						{/* --- End of Header Section --- */}
 
 						{ viewOption ? <MonthCard /> : <DayCard /> }
-						<p>schedule section</p>
+						{/* <p>schedule section</p>
 						<h3>Viewing month</h3>
 						<p>Current viewing month : {month[view_month]}</p>
-						<p>Current viewing year  : {view_year}</p>
+						<p>Current viewing year  : {view_year}</p> */}
 					</Paper>
         </Grid>
 				
 				{/* --- Info section --- */}
-				<Grid item xs={3}>
+				{/* <Grid item xs={3}>
 					<Paper className={classes.paper}>
 						<p>info section</p>
 						<h3>Seleted reservation info</h3>
@@ -243,11 +244,8 @@ export default function Schedule() {
 						<p>start : {startTime}</p> 
 						<p>end   : {endTime}</p>
 						<Button variant="contained" onClick={handleTime}>console.log(break down time)</Button> 
-						{/*  */}
-						{/*  */}
-						{/*  */}
 					</Paper>
-        </Grid>
+        </Grid> */}
       </Grid>
 		</Layout>
 	);

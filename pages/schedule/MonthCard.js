@@ -4,13 +4,14 @@ import Layout from 'src/components/layout';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import DayCard from './DayCard';
+import DayCard2 from './DayCard2';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   paper: {
-    backgroundColor: `#E2C5E1`,
+    backgroundColor: `#ffffff`,
     margin: `10px`
   },
 	paper_padding: {
@@ -30,7 +31,43 @@ const useStyles = makeStyles((theme) => ({
 const initialDatas = [
   {
     "name": "Mr.Bright",
-    "start": "2020-05-20T19:00:00+0700",
+    "start": "2020-05-20T11:00:00+0700",
+    "end":   "2020-05-20T14:30:00+0700",
+    "placement": {
+      "width": 0,
+      "height": 0,
+      "seats": [
+        {
+          "name": "A3",
+          "floor": 0,
+          "type": "string",
+          "space": 0,
+          "user": "string",
+          "status": "string",
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "rotation": 0
+        },{
+          "name": "A4",
+          "floor": 0,
+          "type": "string",
+          "space": 0,
+          "user": "string",
+          "status": "string",
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "rotation": 0
+        }
+      ]
+    }
+  },
+  {
+    "name": "Mr.Gribio",
+    "start": "2020-05-20T18:00:00+0700",
     "end":   "2020-05-20T22:00:00+0700",
     "placement": {
       "width": 0,
@@ -122,12 +159,34 @@ export default function MonthCard() {
 	const [view_month,setView_Month] = useState(today.getMonth());
 	const [view_year,setView_Year] = useState(today.getFullYear());
   const [sidebarINFO, setSidebarInfo] = useState();
-  
+  var dict = {}
+
+  for(var i=0;i<reservations.length;i++){
+    try{
+      var date = new Date(reservations[i].start)
+      console.log(date.getDate())
+      var num = date.getDate()
+      var oldReservation = dict[num]
+      if(oldReservation == undefined){
+        throw(undefined)
+      }
+      oldReservation.push(reservations[i])
+      console.log(oldReservation)
+      // console.log(newReservation)
+      dict[num] = oldReservation
+    }catch(e){
+      console.log(e)
+      dict[num] = [reservations[i]]
+    }
+  }
+  console.log(dict[20])
+  console.log(dict[21])
+  console.log(dict)
 	useEffect(() => setId(localStorage.getItem('_id')), []);
 
 	return (
-		<Paper className={classes.paper}>
-      {reservations.map((reservation,i)=>{
+		<div className={classes.paper}>
+      {/* {reservations.map((reservation,i)=>{
         return(
           <DayCard 
             key={i}
@@ -141,7 +200,15 @@ export default function MonthCard() {
             }}
           />
         )
+      })} */}
+      {Object.keys(dict).map((key, i)=>{
+        return(
+          <DayCard2 
+            key={i}
+            reservation={dict[key]}
+          />
+        )
       })}
-    </Paper>
+    </div>
 	);
 }
