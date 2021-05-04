@@ -55,6 +55,13 @@ const useStyles = makeStyles((theme) => ({
   modal:{
     width: `500px`
   },
+  flex:{
+    display:`flex`,
+    justifyContent:`center`,
+  },
+  todayHaeader:{
+    padding: `10px 25px 0px 25px`
+  },
 }));
 
 const defaultData = [
@@ -65,6 +72,129 @@ const defaultData = [
 
 	}
 ];
+
+const initialDatas = [
+	{
+	  "name": "Mr.Bright",
+	  "start": "2021-05-20T11:00:00+0700",
+	  "end":   "2021-05-20T14:30:00+0700",
+	  "placement": {
+		"width": 0,
+		"height": 0,
+		"seats": [
+		  {
+			"name": "A3",
+			"floor": 0,
+			"type": "string",
+			"space": 0,
+			"user": "string",
+			"status": "string",
+			"x": 0,
+			"y": 0,
+			"width": 0,
+			"height": 0,
+			"rotation": 0
+		  },{
+			"name": "A4",
+			"floor": 0,
+			"type": "string",
+			"space": 0,
+			"user": "string",
+			"status": "string",
+			"x": 0,
+			"y": 0,
+			"width": 0,
+			"height": 0,
+			"rotation": 0
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "Mr.Gribio",
+	  "start": "2021-05-20T18:00:00+0700",
+	  "end":   "2021-05-20T22:00:00+0700",
+	  "placement": {
+		"width": 0,
+		"height": 0,
+		"seats": [
+		  {
+			"name": "A1",
+			"floor": 0,
+			"type": "string",
+			"space": 0,
+			"user": "string",
+			"status": "string",
+			"x": 0,
+			"y": 0,
+			"width": 0,
+			"height": 0,
+			"rotation": 0
+		  },{
+			"name": "A2",
+			"floor": 0,
+			"type": "string",
+			"space": 0,
+			"user": "string",
+			"status": "string",
+			"x": 0,
+			"y": 0,
+			"width": 0,
+			"height": 0,
+			"rotation": 0
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "Mr.Pawaris",
+	  "start": "2021-05-21T19:40:00+0700",
+	  "end":   "2021-05-21T23:00:00+0700",
+	  "placement": {
+		"width": 0,
+		"height": 0,
+		"seats": [
+		  {
+			"name": "A2",
+			"floor": 0,
+			"type": "string",
+			"space": 0,
+			"user": "string",
+			"status": "string",
+			"x": 0,
+			"y": 0,
+			"width": 0,
+			"height": 0,
+			"rotation": 0
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "Mr.Phume",
+	  "start": "2021-05-21T18:15:00+0700",
+	  "end":   "2021-05-21T23:00:00+0700",
+	  "placement": {
+		"width": 0,
+		"height": 0,
+		"seats": [
+		  {
+			"name": "A5",
+			"floor": 0,
+			"type": "string",
+			"space": 0,
+			"user": "string",
+			"status": "string",
+			"x": 0,
+			"y": 0,
+			"width": 0,
+			"height": 0,
+			"rotation": 0
+		  }
+		]
+	  }
+	}
+  ];
 
 export default function Schedule() {
 	const classes = useStyles();
@@ -77,6 +207,7 @@ export default function Schedule() {
 	const [view_month,setView_Month] = useState(today.getMonth());
 	const [view_year,setView_Year] = useState(today.getFullYear());
 	const [viewOption, setViewOption] = React.useState(true)
+	const [reservations, setReservation] = useState(initialDatas);
 	const [name,setName] = React.useState("Mr.Anonymous")
 	const [startTime,setStartTime] = React.useState("19:00")
 	const [endTime,setEndTime] = React.useState("23:00")
@@ -153,11 +284,11 @@ export default function Schedule() {
 					/>
 				</Modal>
 				{/* --- Calendar section --- */}
-        <Grid item xs={4}>
+        <Grid item xs={3}>
 					<Paper className={classes.paper}>
-						<div>
-							<h2>Today : {/*day[today.getDay()]*/} {month[today.getMonth()]}  {today.getDate()}, {today.getFullYear()}</h2>
-							<Calendar
+						<h2 className={classes.todayHaeader}>Today : {/*day[today.getDay()]*/} {month[today.getMonth()]}  {today.getDate()}, {today.getFullYear()}</h2>
+						<div className={classes.flex}>
+              <Calendar
 								calendarType="US"
 								onClickDay={()=>{
 									console.log(value.getFullYear())
@@ -165,17 +296,18 @@ export default function Schedule() {
 									console.log(value)
 								}}
 								onActiveStartDateChange={({ activeStartDate, value, view }) => {
-									console.log(activeStartDate)
-									console.log(activeStartDate.getMonth())
-									console.log(activeStartDate.getFullYear())
+									// console.log(activeStartDate)
+									// console.log(activeStartDate.getMonth())
+									// console.log(activeStartDate.getFullYear())
 									setView_Month(activeStartDate.getMonth())
 									setView_Year(activeStartDate.getFullYear())
-									console.log(view_month)
-									console.log(view_year)
-									// console.log(value)
-								}}
+									// console.log(view_month)
+									// console.log(view_year)
+                  // new data go rewrite reservation
+                  console.log("fetch new data")
+                }}
 								onClick={(e)=>{
-									console.log("testestett")
+									console.log("....")
 								}}
 								onChange={onChange}
 								value={value}
@@ -186,17 +318,11 @@ export default function Schedule() {
         </Grid>
 
 				{/* --- Month/Day section --- */}
-				<Grid item xs={8}>
+				<Grid item xs={9}>
 					<Paper className={classes.paper2}>
 						{/* --- Start of Header Section --- */}
 						<Grid container spacing={5} className={classes.row}>
 							<Grid item xs={4}>
-								{/* <Autocomplete
-									id="choose_display"
-									options={[{title: `Month`}]}
-									getOptionLabel={(option) => option.title}
-									renderInput={(params) => <TextField {...params} label="Display options" variant="outlined" />}
-								/> */}
 								<TextField
 									disabled
 									id="outlined-disabled"
@@ -224,28 +350,10 @@ export default function Schedule() {
 						</Grid>
 						{/* --- End of Header Section --- */}
 
-						{ viewOption ? <MonthCard /> : <DayCard /> }
-						{/* <p>schedule section</p>
-						<h3>Viewing month</h3>
-						<p>Current viewing month : {month[view_month]}</p>
-						<p>Current viewing year  : {view_year}</p> */}
+						{ viewOption ? <MonthCard reservations={reservations} /> : <DayCard /> }
+						
 					</Paper>
         </Grid>
-				
-				{/* --- Info section --- */}
-				{/* <Grid item xs={3}>
-					<Paper className={classes.paper}>
-						<p>info section</p>
-						<h3>Seleted reservation info</h3>
-						<p>Date  : {value.getDate()}</p>
-						<p>Month : {month[value.getMonth()]} ==  {value.getMonth()+1}</p>
-						<p>Year  : {value.getFullYear()}</p>
-						<p>name  : {name}</p> 
-						<p>start : {startTime}</p> 
-						<p>end   : {endTime}</p>
-						<Button variant="contained" onClick={handleTime}>console.log(break down time)</Button> 
-					</Paper>
-        </Grid> */}
       </Grid>
 		</Layout>
 	);

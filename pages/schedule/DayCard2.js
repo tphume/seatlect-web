@@ -51,22 +51,13 @@ export default function DayCard2({ reservation}) {
     const [showDetail,setShowDetailStatus] = useState(true)
     const [time,setTime] = useState(reservation)
     
-    // var dateStart = new Date(start)
-    // var dateEnd = new Date(end)
-    // var startTime = dateStart.getHours() + " : "+ dateStart.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
-    // var endTime = dateEnd.getHours() + " : "+ dateEnd.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
-    // var seat = seats[0].name
 
-    console.log(reservation)
+    // console.log(reservation)
     var date = new Date(reservation[0].start)
     var dateSTR = date.toDateString()
     dateSTR = dateSTR.substring(4,)
     var dateList = dateSTR.split(' ')
-    console.log(dateList)
-    // var i;
-    // for (i = 1; i < seats.length; i++) {
-    //     seat += ", "+seats[i].name
-    // }
+    // console.log(dateList)
     useEffect(() => setId(localStorage.getItem('_id')), []);
 
     function showHandler(){

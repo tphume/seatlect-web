@@ -26,17 +26,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DayCard2({ time}) {
   const classes = useStyles();
-  console.log(time)
-
-
+  // console.log(time)
   var dateStart = new Date(time.start)
   var dateEnd = new Date(time.end)
   var startTime = dateStart.getHours() + " : "+ dateStart.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
   var endTime = dateEnd.getHours() + " : "+ dateEnd.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
   var seat = time.placement.seats[0].name
 
-  console.log(dateStart)
-  console.log(dateEnd)
+  // console.log(dateStart)
+  // console.log(dateEnd)
   var i;
   for (i = 1; i < time.placement.seats.length; i++) {
     seat += ", "+time.placement.seats[i].name
