@@ -83,6 +83,16 @@ class ReservationRepo {
 			throw 'Network error';
 		}
 	}
+
+	async createReservation(args) {
+		try {
+			const response = await axios.post(`${url}/${endpoint}/${id}`, args);
+			return response;
+		} catch (e) {
+			// TODO add better error handling
+			throw 'Network error';
+		}
+	}
 }
 
 class ReservationMockRepo {
@@ -93,6 +103,15 @@ class ReservationMockRepo {
 		// throw 'Fake error';
 
 		return [exampleReservation, exampleReservation, exampleReservation];
+	}
+
+	async createReservation(args) {
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		// Uncomment the following if you want to test error
+		// throw 'Fake error';
+
+		return exampleReservation;
 	}
 }
 
