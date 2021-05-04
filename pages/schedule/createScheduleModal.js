@@ -16,7 +16,6 @@ import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import InputLabel from '@material-ui/core/InputLabel';
 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -96,82 +95,89 @@ const useStyles = makeStyles((theme) => ({
 		marginRight: `1.25rem`
 	},
 	container: {
-    display: 'flex',
-    flexWrap: 'wrap',
+		display: 'flex',
+		flexWrap: 'wrap',
 		margin: '0 0px 20px -10px'
-  },
-  textField2: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-	row:{
-		display : `flex`,
+	},
+	textField2: {
+		marginLeft: theme.spacing(1),
+		marginRight: theme.spacing(1)
+	},
+	row: {
+		display: `flex`,
 		margin: `15px 0px -20px 0px`
 	},
-	marginRightBot:{
+	marginRightBot: {
 		margin: `0px 0px 15px 0px`
 	},
-	marginBot:{
+	marginBot: {
 		margin: `60px 0px 0px 0px`
 	},
-	showError:{
+	showError: {
 		color: `red`,
 		margin: `30px 10px -50px 0`
-	},
+	}
 }));
 
 export default function CreateScheduleModal({ date, onClickClose }) {
 	const classes = useStyles();
-	const _date = new Date(date)
-	const TIME_ZONE = "+0700"
-	const SECOND = "00"
-	const [_day,   setDay]   = useState(null)
-	const [_start, setStart] = useState(null)
-	const [_end,   setEnd]   = useState(null)
-	const [_required,setRequiredStatus] = useState(false)
-	const [_showRequired,setShowRequired] = useState(false)
-	const [_showText,setShowText] = useState(false)
+	const _date = new Date(date);
+	const TIME_ZONE = '+0700';
+	const SECOND = '00';
+	const [_day, setDay] = useState(null);
+	const [_start, setStart] = useState(null);
+	const [_end, setEnd] = useState(null);
+	const [_required, setRequiredStatus] = useState(false);
+	const [_showRequired, setShowRequired] = useState(false);
+	const [_showText, setShowText] = useState(false);
 
-
-	function timeCoverter(day,time){
-		var result = ""
-		result += day+"T"+time+TIME_ZONE
-		return result
+	function timeCoverter(day, time) {
+		var result = '';
+		result += day + 'T' + time + TIME_ZONE;
+		return result;
 	}
 
-	function dayHandler(day){setDay(day); console.log(_day);}
-	function startHandler(time){setStart(time+':'+SECOND); console.log(_start);}
-	function endHandler(time){setEnd(time+':'+SECOND); console.log(_end);}
-
+	function dayHandler(day) {
+		setDay(day);
+		console.log(_day);
+	}
+	function startHandler(time) {
+		setStart(time + ':' + SECOND);
+		console.log(_start);
+	}
+	function endHandler(time) {
+		setEnd(time + ':' + SECOND);
+		console.log(_end);
+	}
 
 	function appendItem(e) {
 		e.preventDefault();
 		try {
-			if(_day == null || _start == null || _end == null){
-				throw("*** Please fill up all the information")
-			}else{
-				setRequiredStatus(true)
+			if (_day == null || _start == null || _end == null) {
+				throw '*** Please fill up all the information';
+			} else {
+				setRequiredStatus(true);
 			}
-			if(_required){
-				setShowRequired(false)
-				var startTime = timeCoverter(_day,_start)
-				var endTime = timeCoverter(_day,_end)
-				console.log(startTime)
-				console.log(endTime)
+			if (_required) {
+				setShowRequired(false);
+				var startTime = timeCoverter(_day, _start);
+				var endTime = timeCoverter(_day, _end);
+				console.log(startTime);
+				console.log(endTime);
 				// 2006-01-02T15:04:05-0700
 				// 2021-04-13T23:59:00+7000
-				var time1 = new Date(startTime)
-				var time2 = new Date(endTime)
-				if(time2-time1 < 0){
-					console.log(time2-time1)
-					throw("*** Invalid time")
+				var time1 = new Date(startTime);
+				var time2 = new Date(endTime);
+				if (time2 - time1 < 0) {
+					console.log(time2 - time1);
+					throw '*** Invalid time';
 				}
 			}
 			// onClickClose();
 		} catch (e) {
-			setShowRequired(true)
-			setShowText(e)
-			console.log(e)
+			setShowRequired(true);
+			setShowText(e);
+			console.log(e);
 		}
 	}
 
@@ -190,12 +196,12 @@ export default function CreateScheduleModal({ date, onClickClose }) {
 							label="Schedule date"
 							type="date"
 							className={classes.textField2}
-							onChange={(e)=>{
+							onChange={(e) => {
 								// console.log(e.target.value)
-								dayHandler(e.target.value)
+								dayHandler(e.target.value);
 							}}
 							InputLabelProps={{
-								shrink: true,
+								shrink: true
 							}}
 							focused
 						/>
@@ -212,10 +218,12 @@ export default function CreateScheduleModal({ date, onClickClose }) {
 							type="time"
 							defaultValue="123"
 							className={classes.textField}
-							onChange={(e)=>{startHandler(e.target.value)}}
+							onChange={(e) => {
+								startHandler(e.target.value);
+							}}
 							focused
-						/> -  
-						{/* --- End time --- */}
+						/>{' '}
+						-{/* --- End time --- */}
 						<TextField
 							variant="outlined"
 							size="small"
@@ -224,14 +232,13 @@ export default function CreateScheduleModal({ date, onClickClose }) {
 							type="time"
 							defaultValue="321"
 							className={classes.textField}
-							onChange={(e)=>{endHandler(e.target.value)}}
+							onChange={(e) => {
+								endHandler(e.target.value);
+							}}
 							focused
 						/>
 					</div>
-					{_showRequired?
-					<div className={classes.showError}>
-						{_showText}
-					</div>:""}
+					{_showRequired ? <div className={classes.showError}>{_showText}</div> : ''}
 					{/* --- Cancel button --- */}
 					<Box className={classes.marginBot} display="flex" justifyContent="flex-end">
 						<Button
@@ -256,7 +263,7 @@ export default function CreateScheduleModal({ date, onClickClose }) {
 						>
 							Save
 						</Button>
-					</Box>		
+					</Box>
 				</Grid>
 			</Grid>
 			<Box display="flex" justifyContent="space-between">
