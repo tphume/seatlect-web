@@ -17,6 +17,7 @@ import Edit from '@material-ui/icons/Edit';
 import MenuBook from '@material-ui/icons/MenuBook';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import Group from '@material-ui/icons/Group';
 
 const drawerWidth = 240;
 
@@ -168,6 +169,24 @@ export default function Layout({ children, id }) {
 								<MenuBook style={setIconColor('/menu/')} />
 							</ListItemIcon>
 							<ListItemText primary="Menu" classes={{ root: setTextColor('/menu/') }} />
+						</ListItem>
+						{/* ------------------------------------------------------------------------- */}
+						{/* Employee */}
+						<ListItem
+							button
+							dense
+							selected={'/employee/[id]' === router.pathname}
+							className={classes.item}
+							onClick={() => router.push('/employee/' + id)}
+						>
+							<ListItemIcon>
+								<Group style={setIconColor('/employee/')} />
+							</ListItemIcon>
+							<ListItemText
+								primary="Employee"
+								classes={{ root: setTextColor('/employee/') }}
+								selected={'/employee/[id]' === router.pathname}
+							/>
 						</ListItem>
 					</List>
 					<Divider />
