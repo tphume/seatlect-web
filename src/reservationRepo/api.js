@@ -93,6 +93,16 @@ class ReservationRepo {
 			throw 'Network error';
 		}
 	}
+
+	async cancelReservation(id) {
+		try {
+			const response = await axios.patch(`${url}/${endpoint}/${id}/status`, { status: 0 });
+			return response;
+		} catch (e) {
+			// TODO add better error handling
+			throw 'Network error';
+		}
+	}
 }
 
 class ReservationMockRepo {
@@ -112,6 +122,13 @@ class ReservationMockRepo {
 		// throw 'Fake error';
 
 		return exampleReservation;
+	}
+
+	async cancelReservation(args) {
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		// Uncomment the following if you want to test error
+		// throw 'Fake error';
 	}
 }
 
