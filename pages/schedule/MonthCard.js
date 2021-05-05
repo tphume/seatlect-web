@@ -3,7 +3,6 @@ import Layout from 'src/components/layout';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import DayCard from './DayCard';
 import DayCard2 from './DayCard2';
 
 const useStyles = makeStyles((theme) => ({

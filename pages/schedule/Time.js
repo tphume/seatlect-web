@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function DayCard2({ time }) {
+export default function Time({ time }) {
 	const classes = useStyles();
 	// console.log(time)
 	var dateStart = new Date(time.start);
@@ -37,13 +37,18 @@ export default function DayCard2({ time }) {
 		dateEnd.getHours() +
 		' : ' +
 		dateEnd.getMinutes().toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
-	var seat = time.placement.seats[0].name;
+	var seat = '';
 
 	// console.log(dateStart)
 	// console.log(dateEnd)
-	var i;
-	for (i = 1; i < time.placement.seats.length; i++) {
-		seat += ', ' + time.placement.seats[i].name;
+	for (let i = 0; i < time.placement.seats.length; i++) {
+		if (time.placement.seats[i].status === 'TAKEN') {
+			if (seat === '') {
+				seat += time.placement.seats[i].name;
+			} else {
+				seat += ', ' + time.placement.seats[i].name;
+			}
+		}
 	}
 
 	return (

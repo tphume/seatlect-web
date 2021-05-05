@@ -20,12 +20,6 @@ import DayCard from './DayCard';
 import CreateScheduleModal from './createScheduleModal';
 
 const paperHeight = `82vh`;
-
-const START_PRESET = `T00:00:00+7000`;
-const END_PRESET = `T23:59:59+7000`;
-const TIME_ZONE = '+7000';
-const SPLITER = 'T';
-
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1
@@ -84,10 +78,10 @@ function formatDate(date) {
 
 export default function Schedule({ initialData }) {
 	const classes = useStyles();
-	const day = ['Sundat', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+	const day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 	const month = [
 		'January',
-		'Febuary',
+		'February',
 		'March',
 		'April',
 		'May',
