@@ -94,6 +94,7 @@ export default function Schedule({ initialData }) {
 		'December'
 	];
 
+	// setup state
 	const [id, setId] = useState('');
 	const [value, onChange] = useState(new Date());
 	const today = new Date();
@@ -101,8 +102,16 @@ export default function Schedule({ initialData }) {
 	const [view_year, setView_Year] = useState(today.getFullYear());
 	const [viewOption, setViewOption] = React.useState(true);
 	const [reservations, setReservation] = useState(initialData);
-
 	const [openCreate, setOpenCreate] = React.useState(false);
+
+	// setup repo
+	const repo = getReservationRepo({
+		env: process.env.NEXT_PUBLIC_ENV,
+		url: process.env.NEXT_PUBLIC_BE,
+		id: id
+	});
+
+	// setup handlers
 	const handleOpenCreate = () => {
 		setOpenCreate(true);
 	};
@@ -111,6 +120,15 @@ export default function Schedule({ initialData }) {
 		setOpenCreate(false);
 	};
 	useEffect(() => setId(localStorage.getItem('_id')), []);
+
+	async function fetchReservations({ start, end }) {
+		try {
+			const reservations = await repo.listReservation({ start, end });
+			setReservation(reservations);
+		} catch (e) {
+			// TODO handle error
+		}
+	}
 
 	return (
 		<Layout id={id}>
@@ -161,7 +179,19 @@ export default function Schedule({ initialData }) {
 									// console.log(view_month)
 									// console.log(view_year)
 									// new data go rewrite reservation
-									console.log('fetch new data');
+									console.log(formatDate(activeStartDate));
+									console.log(
+										formatDate(
+											new Date(
+												activeStartDate.getFullYear(),
+												activeStartDate.getMonth() + 1,
+												0,
+												23,
+												59,
+												59
+											)
+										)
+									);
 								}}
 								onClick={(e) => {
 									console.log('....');

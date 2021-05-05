@@ -77,7 +77,7 @@ class ReservationRepo {
 	async listReservation({ start, end }) {
 		try {
 			const response = await axios.get(`${url}/${endpoint}/${id}?start=${start}&end=${end}`);
-			return response;
+			return response.data.reservations;
 		} catch (e) {
 			// TODO add better error handling
 			throw 'Network error';
@@ -87,7 +87,7 @@ class ReservationRepo {
 	async createReservation(args) {
 		try {
 			const response = await axios.post(`${url}/${endpoint}/${id}`, args);
-			return response;
+			return response.data.reservation;
 		} catch (e) {
 			// TODO add better error handling
 			throw 'Network error';
@@ -97,7 +97,6 @@ class ReservationRepo {
 	async cancelReservation(id) {
 		try {
 			const response = await axios.patch(`${url}/${endpoint}/${id}/status`, { status: 0 });
-			return response;
 		} catch (e) {
 			// TODO add better error handling
 			throw 'Network error';
