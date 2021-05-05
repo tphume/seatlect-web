@@ -73,7 +73,7 @@ function formatDate(date) {
 	hours = hours < 10 ? '0' + hours : hours;
 	minutes = minutes < 10 ? '0' + minutes : minutes;
 
-	return `${year}-${month}-${day}T${hours}:${minutes}:00+0000`;
+	return `${year}-${month}-${day}T${hours}:${minutes}:00%2B0000`;
 }
 
 export default function Schedule({ initialData }) {
@@ -171,17 +171,12 @@ export default function Schedule({ initialData }) {
 									console.log(value);
 								}}
 								onActiveStartDateChange={({ activeStartDate, value, view }) => {
-									// console.log(activeStartDate)
-									// console.log(activeStartDate.getMonth())
-									// console.log(activeStartDate.getFullYear())
 									setView_Month(activeStartDate.getMonth());
 									setView_Year(activeStartDate.getFullYear());
-									// console.log(view_month)
-									// console.log(view_year)
-									// new data go rewrite reservation
-									console.log(formatDate(activeStartDate));
-									console.log(
-										formatDate(
+
+									fetchReservations({
+										start: formatDate(activeStartDate),
+										end: formatDate(
 											new Date(
 												activeStartDate.getFullYear(),
 												activeStartDate.getMonth() + 1,
@@ -191,7 +186,7 @@ export default function Schedule({ initialData }) {
 												59
 											)
 										)
-									);
+									});
 								}}
 								onClick={(e) => {
 									console.log('....');
