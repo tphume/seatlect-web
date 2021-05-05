@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 		left: `30vw`,
 		top: `30vh`,
 		width: `40vw`,
-		height: `40vh`,
+		height: `45vh`,
 		backgroundColor: `white`,
 		border: '2px solid #000',
 		boxShadow: theme.shadows[5],

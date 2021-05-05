@@ -27,20 +27,10 @@ const useStyles = makeStyles((theme) => ({
 export default function Time({ time }) {
 	const classes = useStyles();
 	// console.log(time)
-	var dateStart = new Date(time.start);
-	var dateEnd = new Date(time.end);
-	var startTime =
-		dateStart.getHours() +
-		' : ' +
-		dateStart.getMinutes().toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
-	var endTime =
-		dateEnd.getHours() +
-		' : ' +
-		dateEnd.getMinutes().toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
-	var seat = '';
+	var startTime = time.start.slice(0, 16);
+	var endTime = time.end.slice(0, 16);
 
-	// console.log(dateStart)
-	// console.log(dateEnd)
+	var seat = '';
 	for (let i = 0; i < time.placement.seats.length; i++) {
 		if (time.placement.seats[i].status === 'TAKEN') {
 			if (seat === '') {
@@ -54,7 +44,9 @@ export default function Time({ time }) {
 	return (
 		<Paper className={classes.paper}>
 			<p>
-				<b>Time: </b> {startTime}-{endTime}
+				<b>Start: </b> {startTime}
+				<br></br>
+				<b>End: </b> {endTime}
 			</p>
 			<p>
 				<b>Reserved table :</b> {seat}{' '}
