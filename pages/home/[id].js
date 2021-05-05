@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import GoogleMapReact from 'google-map-react';
 
 import Layout from 'src/components/layout';
-import RequestFrom from 'src/components/RequestForm';
+import RequestForm from 'src/components/RequestForm';
+import DIModal from 'src/components/DIModal';
+import AppendImage from 'src/components/AppendImage';
 import { getBusinessRepo } from 'src/businessRepo';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -12,7 +15,6 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -20,6 +22,9 @@ import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Tooltip from '@material-ui/core/Tooltip';
+import Paper from '@material-ui/core/Paper';
+
+import Carousel from 'react-material-ui-carousel';
 
 const useStyles = makeStyles((theme) => ({
 	label: {
@@ -44,9 +49,6 @@ const useStyles = makeStyles((theme) => ({
 	displayCard: {
 		display: `flex`,
 		margin: `0.8rem auto 1.2rem auto`
-	},
-	displayImage: {
-		width: 300
 	}
 }));
 
@@ -60,10 +62,29 @@ export default function Home({ business }) {
 	// Set if request form should be visible
 	const [requestForm, setRequestForm] = useState(false);
 
+	// Set if update display image modal should be visible
+	const [diModal, setDIModal] = useState(false);
+
+	// Set if append image modal should be visible
+	const [appendModal, setAppendModal] = useState(false);
+
+	// Set display image
+	const [di, setDI] = useState(business.displayImage);
+
+	// Set images list
+	const [img, setImg] = useState(business.images);
+
 	// load initial id from local storage
 	useEffect(function () {
 		setId(localStorage.getItem('_id'));
 	}, []);
+
+	// Setup repo
+	const repo = getBusinessRepo({
+		env: process.env.NEXT_PUBLIC_ENV,
+		url: process.env.NEXT_PUBLIC_BE,
+		id
+	});
 
 	// Check that data is loaded correctly
 	if (Object.keys(business).length === 0 && business.constructor === Object) {
@@ -76,12 +97,23 @@ export default function Home({ business }) {
 		);
 	}
 
-	// TODO: displayImage modal and handlers
-	// TODO: images modal and handlers
+	// Handlers
+	async function handleDeleteImage(pos) {
+		try {
+			await repo.deleteImage(pos);
+
+			let tmp = [...img];
+			tmp.splice(pos, 1);
+
+			setImg(tmp);
+		} catch (e) {
+			// TODO: Error handling
+		}
+	}
 
 	return (
 		<Layout id={id}>
-			<RequestFrom
+			<RequestForm
 				visible={requestForm}
 				setVisible={setRequestForm}
 				id={id}
@@ -93,6 +125,14 @@ export default function Home({ business }) {
 					location: business.location,
 					address: business.address
 				}}
+			/>
+			<DIModal visible={diModal} setVisible={setDIModal} image={di} setImage={setDI} id={id} />
+			<AppendImage
+				visible={appendModal}
+				setVisible={setAppendModal}
+				images={img}
+				setImages={setImg}
+				id={id}
 			/>
 			<Grid container spacing={1}>
 				<Grid item component="div" sm={6}>
@@ -171,12 +211,7 @@ export default function Home({ business }) {
 				</Grid>
 				<Grid item component="div" sm={6}>
 					<Card className={classes.displayCard} variant="outlined">
-						<CardMedia
-							className={classes.displayImage}
-							image={business.displayImage}
-							component="img"
-							height="180"
-						/>
+						{di != '' && <Image src={di} width={300} height={180} />}
 						<div>
 							<CardContent>
 								<Typography gutterBottom variant="h6" component="h2">
@@ -190,28 +225,93 @@ export default function Home({ business }) {
 							<CardActionArea />
 							<CardActions>
 								<Tooltip title="Replace the display image">
-									<Button size="small" color="primary">
+									<Button size="small" color="primary" onClick={() => setDIModal(true)}>
 										Edit
 									</Button>
 								</Tooltip>
 							</CardActions>
 						</div>
 					</Card>
-					{/* TODO: Add business.images slideshow card */}
+					{img.length == 0 && (
+						<Card className={classes.displayCard} variant="outlined">
+							<div>
+								<CardContent>
+									<Typography gutterBottom variant="h6" component="h2">
+										Image slider
+									</Typography>
+									<Typography variant="body2" color="textSecondary" component="p">
+										Will be shown to the mobile application in an image slider
+									</Typography>
+								</CardContent>
+								<CardActionArea />
+								<CardActions>
+									<Tooltip title="Add a new image to the images list">
+										<Button
+											size="small"
+											color="primary"
+											variant="outlined"
+											onClick={() => setAppendModal(true)}
+										>
+											Add
+										</Button>
+									</Tooltip>
+								</CardActions>
+							</div>
+						</Card>
+					)}
+					<Carousel indicators={true} navButtonsAlwaysInvisible>
+						{img.map((src, i) => (
+							<Card className={classes.displayCard} variant="outlined" key={i}>
+								<Image src={src} width={300} height={180} />
+								<div>
+									<CardContent>
+										<Typography gutterBottom variant="h6" component="h2">
+											Image slider
+										</Typography>
+										<Typography variant="body2" color="textSecondary" component="p">
+											Will be shown to the mobile application in an image slider
+										</Typography>
+									</CardContent>
+									<CardActionArea />
+									<CardActions>
+										<Tooltip title="Add a new image to the images list">
+											<Button
+												size="small"
+												color="primary"
+												variant="outlined"
+												onClick={() => setAppendModal(true)}
+											>
+												Add
+											</Button>
+										</Tooltip>
+										<Tooltip title="Delete the current image for the images list">
+											<Button
+												size="small"
+												color="secondary"
+												variant="contained"
+												onClick={() => handleDeleteImage(i)}
+											>
+												Delete
+											</Button>
+										</Tooltip>
+									</CardActions>
+								</div>
+							</Card>
+						))}
+					</Carousel>
 				</Grid>
 			</Grid>
 		</Layout>
 	);
 }
 
-export async function getServerSideProps(ctx) {
-	// If already logged in - redirect to homepage
-	if (ctx.req.cookies.token == undefined) {
-		return { redirect: { destination: '/login', permanent: false } };
-	}
+function ImageItem({ src }) {
+	return <Image src={src} layout="fill" />;
+}
 
+export async function getServerSideProps(ctx) {
 	// Get params
-	let env = process.env.NODE_ENV;
+	let env = process.env.NEXT_PUBLIC_ENV;
 	let id = ctx.params.id;
 	let business = {};
 

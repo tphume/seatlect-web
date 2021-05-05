@@ -16,6 +16,8 @@ import CalendarToday from '@material-ui/icons/CalendarToday';
 import Edit from '@material-ui/icons/Edit';
 import MenuBook from '@material-ui/icons/MenuBook';
 import ExitToApp from '@material-ui/icons/ExitToApp';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import Group from '@material-ui/icons/Group';
 
 const drawerWidth = 240;
 
@@ -103,6 +105,8 @@ export default function Layout({ children, id }) {
 				<Toolbar />
 				<div className={classes.drawerContainer}>
 					<List>
+						{/* ------------------------------------------------------------------------- */}
+						{/* Home */}
 						<ListItem
 							button
 							dense
@@ -115,6 +119,8 @@ export default function Layout({ children, id }) {
 							</ListItemIcon>
 							<ListItemText primary="Home" classes={{ root: setTextColor('/home/') }} />
 						</ListItem>
+						{/* ------------------------------------------------------------------------- */}
+						{/* Schedule */}
 						<ListItem
 							button
 							dense
@@ -131,6 +137,9 @@ export default function Layout({ children, id }) {
 								selected={'/schedule/[id]' === router.pathname}
 							/>
 						</ListItem>
+
+						{/* ------------------------------------------------------------------------- */}
+						{/* Placment */}
 						<ListItem
 							button
 							dense
@@ -147,6 +156,8 @@ export default function Layout({ children, id }) {
 								selected={'/placement/[id]' === router.pathname}
 							/>
 						</ListItem>
+						{/* ------------------------------------------------------------------------- */}
+						{/* Menu */}
 						<ListItem
 							button
 							dense
@@ -158,6 +169,24 @@ export default function Layout({ children, id }) {
 								<MenuBook style={setIconColor('/menu/')} />
 							</ListItemIcon>
 							<ListItemText primary="Menu" classes={{ root: setTextColor('/menu/') }} />
+						</ListItem>
+						{/* ------------------------------------------------------------------------- */}
+						{/* Employee */}
+						<ListItem
+							button
+							dense
+							selected={'/employee/[id]' === router.pathname}
+							className={classes.item}
+							onClick={() => router.push('/employee/' + id)}
+						>
+							<ListItemIcon>
+								<Group style={setIconColor('/employee/')} />
+							</ListItemIcon>
+							<ListItemText
+								primary="Employee"
+								classes={{ root: setTextColor('/employee/') }}
+								selected={'/employee/[id]' === router.pathname}
+							/>
 						</ListItem>
 					</List>
 					<Divider />
