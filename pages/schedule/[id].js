@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getReservationRepo } from 'src/reservationRepo';
 import Layout from 'src/components/layout';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -58,139 +59,30 @@ const useStyles = makeStyles((theme) => ({
 		display: `flex`,
 		justifyContent: `center`
 	},
-	todayHaeader: {
+	todayHeader: {
 		padding: `10px 25px 0px 25px`
 	}
 }));
 
-const defaultData = [{}, {}];
+// helper function
+function formatDate(date) {
+	// initial
+	let year = date.getFullYear();
+	let month = date.getMonth() + 1;
+	let day = date.getDate();
+	let hours = date.getHours();
+	let minutes = date.getMinutes();
 
-const initialDatas = [
-	{
-		name: 'Mr.Bright',
-		start: '2021-05-20T11:00:00+0700',
-		end: '2021-05-20T14:30:00+0700',
-		placement: {
-			width: 0,
-			height: 0,
-			seats: [
-				{
-					name: 'A3',
-					floor: 0,
-					type: 'string',
-					space: 0,
-					user: 'string',
-					status: 'string',
-					x: 0,
-					y: 0,
-					width: 0,
-					height: 0,
-					rotation: 0
-				},
-				{
-					name: 'A4',
-					floor: 0,
-					type: 'string',
-					space: 0,
-					user: 'string',
-					status: 'string',
-					x: 0,
-					y: 0,
-					width: 0,
-					height: 0,
-					rotation: 0
-				}
-			]
-		}
-	},
-	{
-		name: 'Mr.Gribio',
-		start: '2021-05-20T18:00:00+0700',
-		end: '2021-05-20T22:00:00+0700',
-		placement: {
-			width: 0,
-			height: 0,
-			seats: [
-				{
-					name: 'A1',
-					floor: 0,
-					type: 'string',
-					space: 0,
-					user: 'string',
-					status: 'string',
-					x: 0,
-					y: 0,
-					width: 0,
-					height: 0,
-					rotation: 0
-				},
-				{
-					name: 'A2',
-					floor: 0,
-					type: 'string',
-					space: 0,
-					user: 'string',
-					status: 'string',
-					x: 0,
-					y: 0,
-					width: 0,
-					height: 0,
-					rotation: 0
-				}
-			]
-		}
-	},
-	{
-		name: 'Mr.Pawaris',
-		start: '2021-05-21T19:40:00+0700',
-		end: '2021-05-21T23:00:00+0700',
-		placement: {
-			width: 0,
-			height: 0,
-			seats: [
-				{
-					name: 'A2',
-					floor: 0,
-					type: 'string',
-					space: 0,
-					user: 'string',
-					status: 'string',
-					x: 0,
-					y: 0,
-					width: 0,
-					height: 0,
-					rotation: 0
-				}
-			]
-		}
-	},
-	{
-		name: 'Mr.Phume',
-		start: '2021-05-21T18:15:00+0700',
-		end: '2021-05-21T23:00:00+0700',
-		placement: {
-			width: 0,
-			height: 0,
-			seats: [
-				{
-					name: 'A5',
-					floor: 0,
-					type: 'string',
-					space: 0,
-					user: 'string',
-					status: 'string',
-					x: 0,
-					y: 0,
-					width: 0,
-					height: 0,
-					rotation: 0
-				}
-			]
-		}
-	}
-];
+	// format 0 in front
+	month = month < 10 ? '0' + month : month;
+	day = day < 10 ? '0' + day : day;
+	hours = hours < 10 ? '0' + hours : hours;
+	minutes = minutes < 10 ? '0' + minutes : minutes;
 
-export default function Schedule() {
+	return `${year}-${month}-${day}T${hours}:${minutes}:00+0000`;
+}
+
+export default function Schedule({ initialData }) {
 	const classes = useStyles();
 	const day = ['Sundat', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 	const month = [
@@ -214,10 +106,7 @@ export default function Schedule() {
 	const [view_month, setView_Month] = useState(today.getMonth());
 	const [view_year, setView_Year] = useState(today.getFullYear());
 	const [viewOption, setViewOption] = React.useState(true);
-	const [reservations, setReservation] = useState(initialDatas);
-	const [name, setName] = React.useState('Mr.Anonymous');
-	const [startTime, setStartTime] = React.useState('19:00');
-	const [endTime, setEndTime] = React.useState('23:00');
+	const [reservations, setReservation] = useState(initialData);
 
 	const [openCreate, setOpenCreate] = React.useState(false);
 	const handleOpenCreate = () => {
@@ -228,43 +117,6 @@ export default function Schedule() {
 		setOpenCreate(false);
 	};
 	useEffect(() => setId(localStorage.getItem('_id')), []);
-
-	function handleTime(e) {
-		var ts = new Date('2020-05-20T19:00:00+0700');
-		var ts2 = new Date();
-		var ts3 = new Date();
-		const _time = '2020-05-20T19:00:00+0700';
-		console.log(ts.toLocaleTimeString());
-		console.log(ts.toLocaleDateString());
-		console.log(ts2.toLocaleTimeString());
-		console.log(ts2.toLocaleDateString());
-		console.log(ts2.toISOString());
-		console.log(ts2.toUTCString());
-		console.log(ts2.toJSON());
-		console.log(ts2.toString());
-		// -------------------------------
-		// if(value.getMonth() == ts2.getMonth()){
-		// 	console.log(month[value.getMonth()])
-		// 	console.log("show")
-		// 	var time = ts2.toISOString()
-		// 	var result = ""
-		// 	for(var i=0;i<10;i++){
-		// 		result += time[i];
-		// 	}
-		// 	result += START_PRESET
-		// 	console.log(result)
-		// }
-
-		ts3.setHours(20, 30, 0);
-
-		var result = ts2.toISOString().substring(0, 11);
-		result += ts2.getHours() + ':' + ts2.getMinutes() + ':' + ts2.getSeconds() + TIME_ZONE;
-		console.log(result);
-
-		var result3 = ts3.toISOString().substring(0, 11);
-		result3 += ts3.getHours() + ':' + ts3.getMinutes() + ':' + ts3.getSeconds() + TIME_ZONE;
-		console.log(result3);
-	}
 
 	return (
 		<Layout id={id}>
@@ -294,7 +146,7 @@ export default function Schedule() {
 				{/* --- Calendar section --- */}
 				<Grid item xs={3}>
 					<Paper className={classes.paper}>
-						<h2 className={classes.todayHaeader}>
+						<h2 className={classes.todayHeader}>
 							Today : {/*day[today.getDay()]*/} {month[today.getMonth()]} {today.getDate()},{' '}
 							{today.getFullYear()}
 						</h2>
@@ -367,4 +219,30 @@ export default function Schedule() {
 			</Grid>
 		</Layout>
 	);
+}
+
+export async function getServerSideProps(ctx) {
+	// Get params
+	let env = process.env.NEXT_PUBLIC_ENV;
+	let id = ctx.params.id;
+	let reservations = {};
+
+	// args
+	const startDate = new Date();
+	const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0, 23, 59, 59);
+	const args = { start: formatDate(startDate), end: formatDate(endDate) };
+
+	// Get initial data
+	let resRepo = getReservationRepo({ env, id, url: process.env.NEXT_PUBLIC_BE });
+	try {
+		reservations = await resRepo.listReservation(args);
+	} catch (e) {
+		// TODO handle error
+	}
+
+	return {
+		props: {
+			initialData: reservations
+		}
+	};
 }
