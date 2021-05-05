@@ -149,7 +149,7 @@ export default function Schedule({ initialData }) {
 					<CreateScheduleModal
 						className={classes.modal}
 						date={today}
-						// ------------------------------------------------------------------------origjvnoetpowqi
+						id={id}
 						onClickClose={() => {
 							handleCloseCreate();
 						}}

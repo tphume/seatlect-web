@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
+import { getReservationRepo } from 'src/reservationRepo';
 import Layout from 'src/components/layout';
-import { makeStyles } from '@material-ui/core/styles';
 
+import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -119,10 +120,10 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function CreateScheduleModal({ date, onClickClose }) {
+export default function CreateScheduleModal({ date, id, onClickClose }) {
 	const classes = useStyles();
 	const _date = new Date(date);
-	const TIME_ZONE = '+0700';
+	const TIME_ZONE = '+0000';
 	const SECOND = '00';
 	const [_day, setDay] = useState(null);
 	const [_start, setStart] = useState(null);
@@ -131,27 +132,33 @@ export default function CreateScheduleModal({ date, onClickClose }) {
 	const [_showRequired, setShowRequired] = useState(false);
 	const [_showText, setShowText] = useState(false);
 
-	function timeCoverter(day, time) {
+	// setup repo
+	const repo = getReservationRepo({
+		env: process.env.NEXT_PUBLIC_ENV,
+		url: process.env.NEXT_PUBLIC_BE,
+		id: id
+	});
+
+	function timeConverter(day, time) {
 		var result = '';
 		result += day + 'T' + time + TIME_ZONE;
 		return result;
 	}
 
+	// setup handlers
 	function dayHandler(day) {
 		setDay(day);
-		console.log(_day);
 	}
 	function startHandler(time) {
 		setStart(time + ':' + SECOND);
-		console.log(_start);
 	}
 	function endHandler(time) {
 		setEnd(time + ':' + SECOND);
-		console.log(_end);
 	}
 
-	function appendItem(e) {
+	async function appendItem(e) {
 		e.preventDefault();
+
 		try {
 			if (_day == null || _start == null || _end == null) {
 				throw '*** Please fill up all the information';
@@ -160,18 +167,20 @@ export default function CreateScheduleModal({ date, onClickClose }) {
 			}
 			if (_required) {
 				setShowRequired(false);
-				var startTime = timeCoverter(_day, _start);
-				var endTime = timeCoverter(_day, _end);
-				console.log(startTime);
-				console.log(endTime);
-				// 2006-01-02T15:04:05-0700
-				// 2021-04-13T23:59:00+7000
+
+				var startTime = timeConverter(_day, _start);
+				var endTime = timeConverter(_day, _end);
+
 				var time1 = new Date(startTime);
 				var time2 = new Date(endTime);
 				if (time2 - time1 < 0) {
 					console.log(time2 - time1);
 					throw '*** Invalid time';
 				}
+
+				console.log(startTime);
+				console.log(endTime);
+				await repo.createReservation({ name: '', start: startTime, end: endTime });
 			}
 			// onClickClose();
 		} catch (e) {
