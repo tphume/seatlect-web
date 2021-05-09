@@ -35,13 +35,36 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const initialData = [
+	{
+		username: 'user1',
+    password: 'admin'
+	},
+  {
+		username: 'user2',
+    password: 'admin'
+	},
+  {
+		username: 'user3',
+    password: 'admin'
+	},
+  {
+		username: 'user4',
+    password: 'admin'
+	},
+  {
+		username: 'user5',
+    password: 'admin'
+	},
+]
+
 export default function Employee() {
 	// Initial setup
 	const classes = useStyles();
 
 	// Id state is the id of the business
 	const [id, setId] = useState('');
-	// const [data, setData] = useState(menu);
+	const [data,setData] = useState(initialData);
 	
 	
 	const [openCreate, setOpenCreate] = React.useState(false);
@@ -101,14 +124,41 @@ export default function Employee() {
 				>
 					<CreateEmployee
 						className={classes.modal}
-						// ------------------------------------------------------------------------origjvnoetpowqi
 						onClickClose={() => {
 							handleCloseCreate();
 						}}
 					/>
 				</Modal>
-				
-				
+
+        {/*   ----- Modal edit section -----   */}
+				<Modal
+					open={openEdit}
+					onClose={handleCloseEdit}
+					aria-labelledby="simple-modal-title"
+					aria-describedby="simple-modal-description"
+				>
+					<EditEmployee
+						className={classes.paper}
+						employeeInfo={selectedEmployee}
+						onClickClose={() => {
+							handleCloseEdit();
+						}}
+					/>
+				</Modal>
+
+        {/* --- Body section : employee card --- */}
+        {data.map((employee, i) => {
+					return (
+            <Grid item xs={12}>
+							<EmployeeCard
+								key={employee.username}
+								employeeInfo={employee}
+								setEmployee={setData}
+								openEdit={() => handleOpenEdit(employee)}
+							></EmployeeCard>
+            </Grid>
+					);
+				})}
 			</Grid>
 		</Layout>
 	);

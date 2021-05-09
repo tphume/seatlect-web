@@ -5,25 +5,18 @@ import StarIcon from '@material-ui/icons/Star';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import Image from 'next/image';
-import { withStyles } from '@material-ui/core/styles';
-import { green, grey } from '@material-ui/core/colors';
-import Box from '@material-ui/core/Box';
-import { Button } from '@material-ui/core';
-import Tooltip from '@material-ui/core/Tooltip';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import { NoEncryption } from '@material-ui/icons';
 import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
-import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import InputLabel from '@material-ui/core/InputLabel';
-import { NoEncryption } from '@material-ui/icons';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import FormControl from '@material-ui/core/FormControl';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const drawerWidth = 240;
 
@@ -31,9 +24,9 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 		position: 'absolute',
 		left: `25vw`,
-		top: `15vh`,
+		top: `25vh`,
 		width: `50vw`,
-		height: `70vh`,
+		height: `50vh`,
 		backgroundColor: `white`,
 		border: '2px solid #000',
 		boxShadow: theme.shadows[5],
@@ -79,8 +72,7 @@ const useStyles = makeStyles((theme) => ({
 		}
 	},
 	displayImage: {
-		height: 75,
-		width: 88
+		height: 200
 	},
 	paper: {
 		padding: theme.spacing(2),
@@ -88,10 +80,7 @@ const useStyles = makeStyles((theme) => ({
 		color: theme.palette.text.secondary
 	},
 	label: {
-		color: `rgba(0, 0, 0, 0.87)`,
-		fontWeight: `500`,
-		fontSize: `1rem`,
-		marginRight: `1rem`
+		padding:`0px 0px 15px 0px`
 	},
 	textField: {
 		margin: `0 0 1.25rem 0`
@@ -102,88 +91,171 @@ const useStyles = makeStyles((theme) => ({
 	cancelButton: {
 		width: `6.5rem`,
 		marginRight: `1.25rem`
-	}
+	},
+  flex:{
+    display: `flex`,
+    justifyContent: `flex-end`,
+    marginTop: `20px`,
+  },
+  flex2:{
+    display: `flex`,
+    justifyContent: `flex-start`,
+    marginTop: `20px`,
+  },
+  fullWidth:{
+    width: `100%`
+  },
+  paddingBot:{
+    paddingBottom: `15px`
+  },
+  headerText:{
+    marginBottom: `10px`,
+  },
+  errorText:{
+    color: `red`,
+    justifyContent: `flex-start`
+  }
 }));
 
-export default function EditEmployee({ foodInfo, onClickClose }) {
+export default function EditEmployee({ employeeInfo, onClickClose }) {
 	const classes = useStyles();
+
+  const [username, setUsername] = useState(employeeInfo.username);
+	const [password, setPassword] = useState(employeeInfo.password);
+  const [cpassword, setCPassword] = useState(employeeInfo.password);
+	const [showPassword, setShowPassword] = useState(false);
+	const [showCPassword, setShowCPassword] = useState(false);
+  const [error,setError] = useState('')
+  const [showError, setShowError] = useState(false);
+
+	// Setup repo
+	// const repo = getMenuRepo({
+	// 	env: process.env.NEXT_PUBLIC_ENV,
+	// 	url: process.env.NEXT_PUBLIC_BE,
+	// 	id: id
+	// });
+
+	async function appendItem(e) {
+		e.preventDefault();
+
+		try {
+
+      if(password != cpassword){
+        setError('Password and confirm password is not the same')
+        setShowError(true)
+        throw('Password and confirm password is not the same')
+      }
+
+      console.log(username)
+      console.log(password)
+			// setEmployee([...employee, req]);
+
+			onClickClose();
+		} catch (e) {
+			console.log(e);
+		}
+	}
 
 	return (
 		<Card className={classes.root}>
-			<h1>Edit menu</h1>
-			<Grid container spacing={2}>
-				<Grid item xs={4}>
-					<Paper className={classes.paper}>image upload</Paper>
-				</Grid>
-				<Grid item xs={8}>
-					<Box display="flex" alignItems="center" className={classes.textField}>
-						<Grid xs={3} className={classes.label}>
-							<Box textAlign="right">Name</Box>
-						</Grid>
-						<Grid xs={9}>
-							<TextField
-								variant="outlined"
-								size="small"
-								// disabled
-								fullWidth
-								defaultValue={foodInfo.name}
-							/>
-						</Grid>
-					</Box>
-					<Box display="flex" alignItems="center" className={classes.textField}>
-						<Grid xs={3} className={classes.label}>
-							<Box textAlign="right">Price</Box>
-						</Grid>
-						<Grid xs={9}>
-							<TextField variant="outlined" size="small" fullWidth defaultValue={foodInfo.price} />
-						</Grid>
-					</Box>
-					<Box display="flex" alignItems="center" className={classes.textField}>
-						<Grid xs={3} className={classes.label}>
-							<Box textAlign="right">Description</Box>
-						</Grid>
-						<Grid xs={9}>
-							<TextField
-								variant="outlined"
-								size="small"
-								// disabled
-								fullWidth
-								multiline
-								defaultValue={foodInfo.description}
-							/>
-						</Grid>
-					</Box>
-					<Box display="flex" justifyContent="flex-end">
-						<Button
-							variant="contained"
-							className={classes.cancelButton}
-							color="primary"
-							size="large"
-							disableElevation
-							onClick={() => {
-								onClickClose();
-							}}
-						>
-							Cancel
-						</Button>
-						<Button
-							variant="contained"
-							className={classes.Button}
-							color="primary"
-							size="large"
-							disableElevation
-							onClick={() => {
-								handleOpen();
-							}}
-						>
-							Save
-						</Button>
-					</Box>
-				</Grid>
-			</Grid>
-			<Box display="flex" justifyContent="space-between">
-				{/* <img alt="food image" /> */}
-			</Box>
+			<h1 className={classes.headerText}>Edit employee account</h1>
+			<Grid container spacing={0}>
+        <Grid item xs={12}>
+          <InputLabel className={classes.label}>Enter new username</InputLabel>
+          {/* --- Start time --- */}
+          <TextField
+            variant="outlined"
+            fullWidth
+            placeholder="name"
+            defaultValue={username}
+            className={classes.textField}
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+          />
+        </Grid>
+
+        {/* --- Password textfield --- */}
+        <Grid item xs={12} className={classes.paddingBot}>
+          <InputLabel className={classes.label}>Enter new password</InputLabel>
+          <FormControl  className={classes.fullWidth} variant="outlined">
+              <OutlinedInput
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e)=>{setPassword(e.target.value)}}
+                endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={()=>{setShowPassword(!showPassword)}}
+                    onMouseDown={(e)=>{e.preventDefault()}}
+                    edge="end"
+                  >
+                    {showCPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+        </Grid>
+        
+        {/* --- Confirm password textfield --- */}
+        <Grid item xs={12}>
+          <InputLabel className={classes.label}>Confirm Password</InputLabel>
+          <FormControl  className={classes.fullWidth} variant="outlined">
+              <OutlinedInput
+                type={showCPassword ? 'text' : 'password'}
+                value={cpassword}
+                onChange={(e)=>{setCPassword(e.target.value)}}
+                endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={()=>{setShowCPassword(!showCPassword)}}
+                    onMouseDown={(e)=>{e.preventDefault()}}
+                    edge="end"
+                  >
+                    {showCPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+        </Grid>
+
+        
+        {/* --- Error massage + Button --- */}
+        <Grid item xs={6} className={classes.flex2}>
+          {/* --- Error text ---- */}
+          {showError? <p className={classes.errorText}>{error}</p>: ''}
+        </Grid>
+        <Grid item xs={6} className={classes.flex}>
+          {/* --- Cancel Button --- */}
+          <Button
+						variant="contained"
+						className={classes.cancelButton}
+						color="primary"
+						size="large"
+						disableElevation
+						onClick={() => {
+							onClickClose();
+						}}
+					>
+						Cancel
+					</Button>
+          {/* --- Save Button --- */}
+					<Button
+						variant="contained"
+						className={classes.Button}
+						color="primary"
+						size="large"
+						disableElevation
+						onClick={appendItem}
+					>
+						Save
+					</Button>
+        </Grid>
+      </Grid>
 		</Card>
 	);
 }
