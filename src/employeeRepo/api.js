@@ -16,6 +16,16 @@ class EmployeeRepo {
 			throw 'Network error';
 		}
 	}
+
+	async createEmployee(args) {
+		try {
+			const response = await axios.post(this.url + this.endpoint, args)
+			return response.data
+		} catch (e) {
+			// TODO add better error handling
+			throw 'Network error';
+		}
+	}
 }
 
 class EmployeeMockRepo {
@@ -30,6 +40,15 @@ class EmployeeMockRepo {
 			{ username: "Summur", password: "ExamplePassword" },
 			{ username: "Chodata", password: "WeakPassword" }
 		];
+	}
+
+	async getEmployee() {
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		// Uncomment the following if you want to test error
+		// throw 'Fake error';
+
+		return { username: "Jiaroach", password: "ExamplePassword" }
 	}
 }
 
