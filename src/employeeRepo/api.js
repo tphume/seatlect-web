@@ -26,6 +26,15 @@ class EmployeeRepo {
 			throw 'Network error';
 		}
 	}
+
+	async deleteEmployee({ username }) {
+		try {
+			await axios.delete(`${this.url + this.endpoint}/${username}`)
+		} catch (e) {
+			// TODO add better error handling
+			throw 'Network error';
+		}
+	}
 }
 
 class EmployeeMockRepo {
@@ -42,13 +51,20 @@ class EmployeeMockRepo {
 		];
 	}
 
-	async getEmployee() {
+	async getEmployee(args) {
 		await new Promise((resolve) => setTimeout(resolve, 1000));
 
 		// Uncomment the following if you want to test error
 		// throw 'Fake error';
 
 		return { username: "Jiaroach", password: "ExamplePassword" }
+	}
+
+	async deleteEmployee(args) {
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		// Uncomment the following if you want to test error
+		// throw 'Fake error';
 	}
 }
 
