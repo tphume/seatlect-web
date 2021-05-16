@@ -99,6 +99,9 @@ export default function Employee({ employees }) {
 				>
 					<CreateEmployee
 						className={classes.modal}
+						id={id}
+						employee={data}
+						setEmployee={setData}
 						onClickClose={() => {
 							handleCloseCreate();
 						}}

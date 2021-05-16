@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-import { getMenuRepo } from 'src/menuRepo';
-
+import { getEmployeeRepo } from 'src/employeeRepo';
 import Layout from 'src/components/layout';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -28,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 		left: `25vw`,
 		top: `25vh`,
 		width: `50vw`,
-		height: `50vh`,
+		height: `60vh`,
 		backgroundColor: `white`,
 		border: '2px solid #000',
 		boxShadow: theme.shadows[5],
@@ -131,7 +130,7 @@ export default function CreateEmployee({ id, employee, setEmployee, onClickClose
 	const [showError, setShowError] = useState(false);
 
 	// Setup repo
-	const repo = getMenuRepo({
+	const repo = getEmployeeRepo({
 		env: process.env.NEXT_PUBLIC_ENV,
 		url: process.env.NEXT_PUBLIC_BE,
 		id: id
@@ -147,9 +146,8 @@ export default function CreateEmployee({ id, employee, setEmployee, onClickClose
 				throw 'Password and confirm password is not the same';
 			}
 
-			console.log(username);
-			console.log(password);
-			// setEmployee([...employee, req]);
+			const res = await repo.createEmployee({ username, password });
+			setEmployee([...employee, res]);
 
 			onClickClose();
 		} catch (e) {
