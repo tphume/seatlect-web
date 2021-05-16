@@ -110,10 +110,6 @@ export default function EmployeeCard({ id, index, openEdit, employeeInfo }) {
 		}
 	}
 
-	const handleChange = (event) => {
-		setShowRecipe({ ...showRecipe, [event.target.name]: event.target.checked });
-	};
-
 	return (
 		<Card className={classes.root}>
 			<Grid container className={classes.root} spacing={2}>
@@ -126,6 +122,7 @@ export default function EmployeeCard({ id, index, openEdit, employeeInfo }) {
 						placeholder="name"
 						className={classes.textField}
 						value={username}
+						InputProps={{ readOnly: true }}
 					/>
 				</Grid>
 
@@ -136,9 +133,6 @@ export default function EmployeeCard({ id, index, openEdit, employeeInfo }) {
 						<OutlinedInput
 							type={showPassword ? 'text' : 'password'}
 							value={password}
-							onChange={(e) => {
-								setPassword(e.target.value);
-							}}
 							endAdornment={
 								<InputAdornment position="end">
 									<IconButton

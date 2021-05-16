@@ -124,7 +124,7 @@ export default function Employee({ employees }) {
 				{/* --- Body section : employee card --- */}
 				{data.map((employee, i) => {
 					return (
-						<Grid item xs={12}>
+						<Grid item xs={12} key={employee.username}>
 							<EmployeeCard
 								key={employee.username}
 								employeeInfo={employee}
