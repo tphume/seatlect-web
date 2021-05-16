@@ -25,13 +25,12 @@ import TextField from '@material-ui/core/TextField';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 		marginTop: `-10px`,
-    padding: `10px`
+		padding: `10px`
 	},
 	heroImage: {
 		width: 62.6953125,
@@ -72,23 +71,23 @@ const useStyles = makeStyles((theme) => ({
 			backgroundColor: theme.palette.error.main
 		}
 	},
-  fullWidth:{
-    width: `100%`
-  },
+	fullWidth: {
+		width: `100%`
+	},
 	displayEnd: {
-		display:`flex`,
-    justifyContent: `space-around`,
+		display: `flex`,
+		justifyContent: `space-around`
 	}
 }));
 
-export default function EmployeeCard({ id, index, openEdit, employeeInfo}) {
+export default function EmployeeCard({ id, index, openEdit, employeeInfo }) {
 	const classes = useStyles();
-	
-  const [username, setUsername] = useState(employeeInfo.username);
+
+	const [username, setUsername] = useState(employeeInfo.username);
 	const [password, setPassword] = useState(employeeInfo.password);
-  const [showPassword, setShowPassword] = useState(false);
+	const [showPassword, setShowPassword] = useState(false);
 	const [showCPassword, setShowCPassword] = useState(false);
-  
+
 	// Setup repo
 	// const repo = getMenuRepo({
 	// 	env: process.env.NEXT_PUBLIC_ENV,
@@ -118,59 +117,59 @@ export default function EmployeeCard({ id, index, openEdit, employeeInfo}) {
 	return (
 		<Card className={classes.root}>
 			<Grid container className={classes.root} spacing={2}>
-        {/* --- username section --- */}
-        <Grid item xs={5}>
-          <InputLabel className={classes.label}>Username</InputLabel>
-          <TextField
-            variant="outlined"
-            fullWidth
-            placeholder="name"
-            className={classes.textField}
-            value={username}
-          />
-        </Grid>
-        
-        {/* --- password section --- */}
-        <Grid item xs={5}>
-          <InputLabel className={classes.label}>Password</InputLabel>
-          <FormControl  className={classes.fullWidth} variant="outlined">
-              <OutlinedInput
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(e)=>{setPassword(e.target.value)}}
-                endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={()=>{setShowPassword(!showPassword)}}
-                    onMouseDown={(e)=>{e.preventDefault()}}
-                    edge="end"
-                  >
-                    {showCPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-        </Grid>
-        
+				{/* --- username section --- */}
+				<Grid item xs={5}>
+					<InputLabel className={classes.label}>Username</InputLabel>
+					<TextField
+						variant="outlined"
+						fullWidth
+						placeholder="name"
+						className={classes.textField}
+						value={username}
+					/>
+				</Grid>
 
-        <Grid item xs={2} className={classes.displayEnd}>
-          {/* --- edit button section --- */}
-          <Button
-						size="large"
-						disableElevation
-						onClick={() => openEdit()}
-					>
+				{/* --- password section --- */}
+				<Grid item xs={5}>
+					<InputLabel className={classes.label}>Password</InputLabel>
+					<FormControl className={classes.fullWidth} variant="outlined">
+						<OutlinedInput
+							type={showPassword ? 'text' : 'password'}
+							value={password}
+							onChange={(e) => {
+								setPassword(e.target.value);
+							}}
+							endAdornment={
+								<InputAdornment position="end">
+									<IconButton
+										aria-label="toggle password visibility"
+										onClick={() => {
+											setShowPassword(!showPassword);
+										}}
+										onMouseDown={(e) => {
+											e.preventDefault();
+										}}
+										edge="end"
+									>
+										{showCPassword ? <Visibility /> : <VisibilityOff />}
+									</IconButton>
+								</InputAdornment>
+							}
+						/>
+					</FormControl>
+				</Grid>
+
+				<Grid item xs={2} className={classes.displayEnd}>
+					{/* --- edit button section --- */}
+					<Button size="large" disableElevation onClick={() => openEdit()}>
 						<EditIcon color="primary" />
 					</Button>
-          {/* --------------------------------------- */}
-          {/* --- delete button section --- */}
-          <Button size="large" disableElevation onClick={deleteItem}>
+					{/* --------------------------------------- */}
+					{/* --- delete button section --- */}
+					<Button size="large" disableElevation onClick={deleteItem}>
 						<DeleteOutlineIcon color="primary" />
 					</Button>
-        </Grid>
-				
+				</Grid>
 			</Grid>
 		</Card>
 	);

@@ -1,4 +1,6 @@
-	import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { getEmployeeRepo } from 'src/employeeRepo';
 import Layout from 'src/components/layout';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,7 +14,6 @@ import { Button } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Modal from '@material-ui/core/Modal';
-
 
 import EmployeeCard from './employeeCard';
 import CreateEmployee from './createEmployee';
@@ -29,47 +30,23 @@ const useStyles = makeStyles((theme) => ({
 	control: {
 		padding: theme.spacing(2)
 	},
-  createButton:{
-    display: `flex`,
-    justifyContent: `flex-end`
-  }
+	createButton: {
+		display: `flex`,
+		justifyContent: `flex-end`
+	}
 }));
 
-const initialData = [
-	{
-		username: 'user1',
-    password: 'admin'
-	},
-  {
-		username: 'user2',
-    password: 'admin'
-	},
-  {
-		username: 'user3',
-    password: 'admin'
-	},
-  {
-		username: 'user4',
-    password: 'admin'
-	},
-  {
-		username: 'user5',
-    password: 'admin'
-	},
-]
-
-export default function Employee() {
+export default function Employee({ employees }) {
 	// Initial setup
 	const classes = useStyles();
 
 	// Id state is the id of the business
 	const [id, setId] = useState('');
-	const [data,setData] = useState(initialData);
-	
-	
+	const [data, setData] = useState(employees);
+
 	const [openCreate, setOpenCreate] = React.useState(false);
 	const [openEdit, setOpenEdit] = React.useState(false);
-	
+
 	// employee username + password
 	const [selectedEmployee, setEmployeeInfo] = React.useState('');
 	const handleOpenCreate = () => {
@@ -88,7 +65,6 @@ export default function Employee() {
 		setOpenEdit(false);
 	};
 
-	
 	// Set if request form should be visible
 	const [requestForm, setRequestForm] = useState(false);
 
@@ -107,15 +83,14 @@ export default function Employee() {
 	return (
 		<Layout id={id}>
 			<Grid container className={classes.root} spacing={2}>
-				
-        {/* --- Create button ---*/}
+				{/* --- Create button ---*/}
 				<Grid item xs={12} className={classes.createButton}>
 					<Button color="primary" variant="contained" onClick={() => handleOpenCreate()}>
 						Create
 					</Button>
 				</Grid>
-				
-        {/*   ----- Modal create section -----   */}
+
+				{/*   ----- Modal create section -----   */}
 				<Modal
 					open={openCreate}
 					onClose={handleCloseCreate}
@@ -130,7 +105,7 @@ export default function Employee() {
 					/>
 				</Modal>
 
-        {/*   ----- Modal edit section -----   */}
+				{/*   ----- Modal edit section -----   */}
 				<Modal
 					open={openEdit}
 					onClose={handleCloseEdit}
@@ -146,20 +121,41 @@ export default function Employee() {
 					/>
 				</Modal>
 
-        {/* --- Body section : employee card --- */}
-        {data.map((employee, i) => {
+				{/* --- Body section : employee card --- */}
+				{data.map((employee, i) => {
 					return (
-            <Grid item xs={12}>
+						<Grid item xs={12}>
 							<EmployeeCard
 								key={employee.username}
 								employeeInfo={employee}
 								setEmployee={setData}
 								openEdit={() => handleOpenEdit(employee)}
 							></EmployeeCard>
-            </Grid>
+						</Grid>
 					);
 				})}
 			</Grid>
 		</Layout>
 	);
+}
+
+export async function getServerSideProps(ctx) {
+	// Get params
+	let env = process.env.NEXT_PUBLIC_ENV;
+	let id = ctx.params.id;
+	let employees = [];
+
+	// Get initial data
+	let empRepo = getEmployeeRepo({ env, id, url: process.env.NEXT_PUBLIC_BE });
+	try {
+		employees = await empRepo.getEmployee();
+	} catch (e) {
+		// TODO handle error
+	}
+
+	return {
+		props: {
+			employees: employees
+		}
+	};
 }
