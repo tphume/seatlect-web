@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import { getMenuRepo } from 'src/menuRepo';
-
+import { getEmployeeRepo } from 'src/employeeRepo';
 import Layout from 'src/components/layout';
+
 import { makeStyles } from '@material-ui/core/styles';
 import StarIcon from '@material-ui/icons/Star';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -80,7 +80,14 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function EmployeeCard({ id, index, openEdit, employeeInfo }) {
+export default function EmployeeCard({
+	id,
+	index,
+	openEdit,
+	employeeInfo,
+	setEmployee,
+	employees
+}) {
 	const classes = useStyles();
 
 	const [username, setUsername] = useState(employeeInfo.username);
@@ -89,19 +96,19 @@ export default function EmployeeCard({ id, index, openEdit, employeeInfo }) {
 	const [showCPassword, setShowCPassword] = useState(false);
 
 	// Setup repo
-	// const repo = getMenuRepo({
-	// 	env: process.env.NEXT_PUBLIC_ENV,
-	// 	url: process.env.NEXT_PUBLIC_BE,
-	// 	id: id
-	// });
+	const repo = getEmployeeRepo({
+		env: process.env.NEXT_PUBLIC_ENV,
+		url: process.env.NEXT_PUBLIC_BE,
+		id: id
+	});
 
 	async function deleteItem(e) {
 		e.preventDefault();
 
 		try {
-			await repo.deleteItem(employee[index].name);
+			await repo.deleteEmployee({ username });
 
-			let tmp = [...employee];
+			let tmp = [...employees];
 			tmp.splice(index, 1);
 
 			setEmployee(tmp);

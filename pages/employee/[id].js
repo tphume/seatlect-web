@@ -130,7 +130,9 @@ export default function Employee({ employees }) {
 						<Grid item xs={12} key={employee.username}>
 							<EmployeeCard
 								key={employee.username}
+								id={id}
 								employeeInfo={employee}
+								employees={data}
 								setEmployee={setData}
 								openEdit={() => handleOpenEdit(employee)}
 							></EmployeeCard>
