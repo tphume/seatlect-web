@@ -147,7 +147,7 @@ export default function CreateEmployee({ id, employee, setEmployee, onClickClose
 			}
 
 			const res = await repo.createEmployee({ username, password });
-			setEmployee([...employee, res]);
+			setEmployee([...employee, { username, password }]);
 
 			onClickClose();
 		} catch (e) {
