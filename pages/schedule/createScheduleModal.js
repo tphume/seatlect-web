@@ -128,7 +128,6 @@ export default function CreateScheduleModal({ date, id, onClickClose }) {
 	const [_day, setDay] = useState(null);
 	const [_start, setStart] = useState(null);
 	const [_end, setEnd] = useState(null);
-	const [_required, setRequiredStatus] = useState(false);
 	const [_showRequired, setShowRequired] = useState(false);
 	const [_showText, setShowText] = useState(false);
 
@@ -163,9 +162,6 @@ export default function CreateScheduleModal({ date, id, onClickClose }) {
 			if (_day == null || _start == null || _end == null) {
 				throw '*** Please fill up all the information';
 			} else {
-				setRequiredStatus(true);
-			}
-			if (_required) {
 				setShowRequired(false);
 
 				var startTime = timeConverter(_day, _start);
