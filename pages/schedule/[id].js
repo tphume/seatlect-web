@@ -11,12 +11,13 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
 import MonthCard from './MonthCard';
-import DayCard from './DayCard';
 import CreateScheduleModal from './createScheduleModal';
 
 const paperHeight = `82vh`;
@@ -55,6 +56,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 	todayHeader: {
 		padding: `10px 25px 0px 25px`
+	},
+	backdrop: {
+		zIndex: theme.zIndex.drawer + 1,
+		color: '#fff'
+	},
+	loadingSpace: {
+		width: `1rem`
 	}
 }));
 
@@ -103,7 +111,7 @@ export default function Schedule({ initialData }) {
 	const [viewOption, setViewOption] = React.useState(true);
 	const [reservations, setReservation] = useState(initialData);
 	const [openCreate, setOpenCreate] = React.useState(false);
-
+	const [open, setOpen] = React.useState(false);
 	// setup repo
 	const repo = getReservationRepo({
 		env: process.env.NEXT_PUBLIC_ENV,
@@ -118,7 +126,27 @@ export default function Schedule({ initialData }) {
 
 	const handleCloseCreate = () => {
 		setOpenCreate(false);
+		handleToggle();
+		console.log('open back drop for 2 sec');
 	};
+
+	const handleFinishCreate = () => {
+		handleClose();
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	const handleToggle = () => {
+		setOpen(!open);
+	};
+
+	const updateOnCancel = (id) => {
+		let tmp = [...reservations].filter((r) => r.id != id);
+		setReservation(tmp);
+	};
+
 	useEffect(() => setId(localStorage.getItem('_id')), []);
 
 	async function fetchReservations({ start, end }) {
@@ -152,6 +180,9 @@ export default function Schedule({ initialData }) {
 						id={id}
 						onClickClose={() => {
 							handleCloseCreate();
+						}}
+						onFinishCreate={() => {
+							handleFinishCreate();
 						}}
 					/>
 				</Modal>
@@ -231,11 +262,21 @@ export default function Schedule({ initialData }) {
 							</Grid>
 						</Grid>
 						{/* --- End of Header Section --- */}
-
-						{viewOption ? <MonthCard reservations={reservations} /> : <DayCard />}
+						{viewOption ? (
+							<MonthCard reservations={reservations} updateOnCancel={updateOnCancel} />
+						) : (
+							''
+						)}
 					</Paper>
 				</Grid>
 			</Grid>
+
+			{/* --- Loading screen --- */}
+			<Backdrop className={classes.backdrop} open={open}>
+				<CircularProgress color="inherit" />
+				<div className={classes.loadingSpace}></div>
+				<h2>Creating new schedule ...</h2>
+			</Backdrop>
 		</Layout>
 	);
 }
