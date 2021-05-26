@@ -100,7 +100,7 @@ class ReservationRepo {
 	async cancelReservation(id) {
 		try {
 			const response = await axios.patch(
-				`${this.url}/${this.endpoint}/${this.businessId}}/status`,
+				`${this.url}/${this.endpoint}/${id}/status`,
 				{ status: 0 }
 			);
 		} catch (e) {

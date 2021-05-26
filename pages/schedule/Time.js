@@ -92,6 +92,7 @@ export default function Time({ time }) {
 
 	const cancel = async () => {
 		try {
+			console.log(time);
 			await repo.cancelReservation(time.id);
 		} catch (e) {
 			console.log(e);
