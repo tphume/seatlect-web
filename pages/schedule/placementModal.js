@@ -7,32 +7,16 @@ import Layout from 'src/components/layout';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
 import { Button } from '@material-ui/core';
-import Tooltip from '@material-ui/core/Tooltip';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import InputLabel from '@material-ui/core/InputLabel';
+
 
 import Rectangle from '../placement/Rectangle';
 import FreeStyleObject from '../placement/FreeStyleObject';
 
 // pre-define number
-const CSS_canvasWidth = `800px`;
-const CSS_SidebarHeight = `802px`;
 const canvasWidth = 800;
 const canvasHeight = 800;
-const TABLE_Height = 80;
-const TABLE_Width = 80;
-const LONG_TABLE_Width = 120;
-const WALL_Width = 13;
-const WALL_Height = 80;
-const OBJ_Width = 80;
-const OBJ_Height = 80;
+
 const drawerWidth = 240;
 
 // pre-define type

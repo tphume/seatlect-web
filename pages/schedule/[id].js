@@ -11,12 +11,13 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
 import MonthCard from './MonthCard';
-import DayCard from './DayCard';
 import CreateScheduleModal from './createScheduleModal';
 
 const paperHeight = `82vh`;
@@ -55,7 +56,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 	todayHeader: {
 		padding: `10px 25px 0px 25px`
-	}
+	},
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+  loadingSpace:{
+    width: `1rem`,
+  },
 }));
 
 // helper function
@@ -75,213 +83,6 @@ function formatDate(date) {
 
 	return `${year}-${month}-${day}T${hours}:${minutes}:00%2B0000`;
 }
-
-const _initialData = [
-	{
-		"id": "string",
-		"name": "string",
-		"start": "2021-05-25T11:00:00+0700",
-		"end": "2021-05-25T14:30:00+0700",
-		"placement": {
-			"width": 800,
-			"height": 800,
-			"seats": [
-				{
-					"name": "A1",
-					"floor": 1,
-					"type": "TABLE",
-					"space": 4,
-					"user": "Bright",
-					"username": "Bright123",
-					"status": "TAKEN",
-					"x": 100,
-					"y": 100,
-					"width": 80,
-					"height": 80,
-					"rotation": 0
-				},
-        {
-					"name": "A2",
-					"floor": 1,
-					"type": "TABLE",
-					"space": 4,
-					"user": "",
-					"username": "",
-					"status": "FREE",
-					"x": 400,
-					"y": 100,
-					"width": 80,
-					"height": 80,
-					"rotation": 0
-				},
-				{
-					"name": "A3",
-					"floor": 1,
-					"type": "TABLE",
-					"space": 4,
-					"user": "Grib",
-					"username": "Gribio",
-					"status": "TAKEN",
-					"x": 100,
-					"y": 400,
-					"width": 80,
-					"height": 80,
-					"rotation": 0
-				},
-        {
-					"name": "A4",
-					"floor": 1,
-					"type": "TABLE",
-					"space": 4,
-					"user": "",
-					"username": "",
-					"status": "FREE",
-					"x": 400,
-					"y": 400,
-					"width": 80,
-					"height": 80,
-					"rotation": 0
-				},
-			]
-		}
-	},
-	{
-		"id": "string",
-		"name": "string",
-		"start": "2021-05-25T18:30:00+0700",
-		"end": "2021-05-25T23:00:00+0700",
-		"placement": {
-			"width": 800,
-			"height": 800,
-			"seats": [
-				{
-					"name": "A1",
-					"floor": 1,
-					"type": "TABLE",
-					"space": 4,
-					"user": "Bright",
-					"username": "Bright123",
-					"status": "TAKEN",
-					"x": 100,
-					"y": 100,
-					"width": 80,
-					"height": 80,
-					"rotation": 0
-				},
-        {
-					"name": "A2",
-					"floor": 1,
-					"type": "TABLE",
-					"space": 4,
-					"user": "",
-					"username": "",
-					"status": "FREE",
-					"x": 400,
-					"y": 100,
-					"width": 80,
-					"height": 80,
-					"rotation": 0
-				},
-				{
-					"name": "A3",
-					"floor": 1,
-					"type": "TABLE",
-					"space": 4,
-					"user": "",
-					"username": "",
-					"status": "FREE",
-					"x": 100,
-					"y": 400,
-					"width": 80,
-					"height": 80,
-					"rotation": 0
-				},
-        {
-					"name": "A4",
-					"floor": 1,
-					"type": "TABLE",
-					"space": 4,
-					"user": "",
-					"username": "",
-					"status": "FREE",
-					"x": 400,
-					"y": 400,
-					"width": 80,
-					"height": 80,
-					"rotation": 0
-				},
-			]
-		}
-	},
-	{
-		"id": "string",
-		"name": "string",
-		"start": "2021-05-26T11:30:00+0700",
-		"end": "2021-05-26T22:30:00+0700",
-		"placement": {
-			"width": 800,
-			"height": 800,
-			"seats": [
-				{
-					"name": "A1",
-					"floor": 1,
-					"type": "TABLE",
-					"space": 4,
-					"user": "Bright",
-					"username": "Bright123",
-					"status": "TAKEN",
-					"x": 100,
-					"y": 100,
-					"width": 80,
-					"height": 80,
-					"rotation": 0
-				},
-        {
-					"name": "A2",
-					"floor": 1,
-					"type": "TABLE",
-					"space": 4,
-					"user": "",
-					"username": "",
-					"status": "FREE",
-					"x": 400,
-					"y": 100,
-					"width": 80,
-					"height": 80,
-					"rotation": 0
-				},
-				{
-					"name": "A3",
-					"floor": 1,
-					"type": "TABLE",
-					"space": 4,
-					"user": "Grib",
-					"username": "Gribio",
-					"status": "TAKEN",
-					"x": 100,
-					"y": 400,
-					"width": 80,
-					"height": 80,
-					"rotation": 0
-				},
-        {
-					"name": "A4",
-					"floor": 1,
-					"type": "TABLE",
-					"space": 4,
-					"user": "",
-					"username": "",
-					"status": "FREE",
-					"x": 400,
-					"y": 400,
-					"width": 80,
-					"height": 80,
-					"rotation": 0
-				},
-			]
-		}
-	}
-]
 
 export default function Schedule({ initialData }) {
 	const classes = useStyles();
@@ -308,9 +109,9 @@ export default function Schedule({ initialData }) {
 	const [view_month, setView_Month] = useState(today.getMonth());
 	const [view_year, setView_Year] = useState(today.getFullYear());
 	const [viewOption, setViewOption] = React.useState(true);
-	const [reservations, setReservation] = useState(_initialData);
+	const [reservations, setReservation] = useState(initialData);
 	const [openCreate, setOpenCreate] = React.useState(false);
-
+  const [open, setOpen] = React.useState(false);
 	// setup repo
 	const repo = getReservationRepo({
 		env: process.env.NEXT_PUBLIC_ENV,
@@ -325,7 +126,23 @@ export default function Schedule({ initialData }) {
 
 	const handleCloseCreate = () => {
 		setOpenCreate(false);
+    handleToggle();
+    console.log("open back drop for 2 sec")
 	};
+
+  const handleFinishCreate = () =>{
+    handleClose();
+    console.log("close back drop")
+  };
+  
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleToggle = () => {
+    setOpen(!open);
+  };
+
 	useEffect(() => setId(localStorage.getItem('_id')), []);
 
 	async function fetchReservations({ start, end }) {
@@ -360,6 +177,9 @@ export default function Schedule({ initialData }) {
 						onClickClose={() => {
 							handleCloseCreate();
 						}}
+            onFinishCreate={()=>{
+              handleFinishCreate();
+            }}
 					/>
 				</Modal>
 				{/* --- Calendar section --- */}
@@ -438,11 +258,17 @@ export default function Schedule({ initialData }) {
 							</Grid>
 						</Grid>
 						{/* --- End of Header Section --- */}
-
-						{viewOption ? <MonthCard reservations={reservations} /> : <DayCard />}
+						{viewOption ? <MonthCard reservations={reservations} /> : ""}
 					</Paper>
 				</Grid>
 			</Grid>
+
+      {/* --- Loading screen --- */}
+      <Backdrop className={classes.backdrop} open={open}>
+        <CircularProgress color="inherit" />
+        <div className={classes.loadingSpace}></div>
+        <h2>Creating new schedule ...</h2>
+      </Backdrop>
 		</Layout>
 	);
 }

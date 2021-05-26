@@ -6,16 +6,11 @@ import Layout from 'src/components/layout';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
 import { Button } from '@material-ui/core';
-import Tooltip from '@material-ui/core/Tooltip';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import InputLabel from '@material-ui/core/InputLabel';
+
 
 const drawerWidth = 240;
 
@@ -85,7 +80,6 @@ const useStyles = makeStyles((theme) => ({
 		marginRight: `1rem`
 	},
 	textField: {
-		// margin: `0 0 1.25rem 0`
 		width: `150px`
 	},
 	Button: {
@@ -120,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function CreateScheduleModal({ date, id, onClickClose }) {
+export default function CreateScheduleModal({ date, id, onClickClose, onFinishCreate }) {
 	const classes = useStyles();
 	const _date = new Date(date);
 	const TIME_ZONE = '+0000';
@@ -130,6 +124,8 @@ export default function CreateScheduleModal({ date, id, onClickClose }) {
 	const [_end, setEnd] = useState(null);
 	const [_showRequired, setShowRequired] = useState(false);
 	const [_showText, setShowText] = useState(false);
+  // const [open, setOpen] = React.useState(false);
+  
 
 	// setup repo
 	const repo = getReservationRepo({
@@ -155,30 +151,40 @@ export default function CreateScheduleModal({ date, id, onClickClose }) {
 		setEnd(time + ':' + SECOND);
 	}
 
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
+  // const handleToggle = () => {
+  //   setOpen(!open);
+  // };
+
 	async function appendItem(e) {
 		e.preventDefault();
 
 		try {
-			if (_day == null || _start == null || _end == null) {
-				throw '*** Please fill up all the information';
+			
+      if (_day == null || _start == null || _end == null) {
+				throw 'Please fill up all the information';
 			} else {
 				setShowRequired(false);
+        onClickClose();
+				
+        // var startTime = timeConverter(_day, _start);
+				// var endTime = timeConverter(_day, _end);
 
-				var startTime = timeConverter(_day, _start);
-				var endTime = timeConverter(_day, _end);
+				// var time1 = new Date(startTime);
+				// var time2 = new Date(endTime);
+				// if (time2 - time1 < 0) {
+				// 	console.log(time2 - time1);
+				// 	throw 'Invalid time';
+				// }
 
-				var time1 = new Date(startTime);
-				var time2 = new Date(endTime);
-				if (time2 - time1 < 0) {
-					console.log(time2 - time1);
-					throw '*** Invalid time';
-				}
-
-				console.log(startTime);
-				console.log(endTime);
-				await repo.createReservation({ name: '', start: startTime, end: endTime });
+				// console.log(startTime);
+				// console.log(endTime);
+				// await repo.createReservation({ name: '', start: startTime, end: endTime });
+        setTimeout(() => {  onFinishCreate(); }, 3000);
 			}
-			// onClickClose();
+      handleToggle();
 		} catch (e) {
 			setShowRequired(true);
 			setShowText(e);
@@ -254,6 +260,7 @@ export default function CreateScheduleModal({ date, id, onClickClose }) {
 							disableElevation
 							onClick={() => {
 								onClickClose();
+                onFinishCreate();
 							}}
 						>
 							Cancel

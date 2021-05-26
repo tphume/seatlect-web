@@ -1,0 +1,206 @@
+const _initialData = [
+	{
+		"id": "string",
+		"name": "string",
+		"start": "2021-05-25T11:00:00+0700",
+		"end": "2021-05-25T14:30:00+0700",
+		"placement": {
+			"width": 800,
+			"height": 800,
+			"seats": [
+				{
+					"name": "A1",
+					"floor": 1,
+					"type": "TABLE",
+					"space": 4,
+					"user": "Bright",
+					"username": "Bright123",
+					"status": "TAKEN",
+					"x": 100,
+					"y": 100,
+					"width": 80,
+					"height": 80,
+					"rotation": 0
+				},
+        {
+					"name": "A2",
+					"floor": 1,
+					"type": "TABLE",
+					"space": 4,
+					"user": "",
+					"username": "",
+					"status": "FREE",
+					"x": 400,
+					"y": 100,
+					"width": 80,
+					"height": 80,
+					"rotation": 0
+				},
+				{
+					"name": "A3",
+					"floor": 1,
+					"type": "TABLE",
+					"space": 4,
+					"user": "Grib",
+					"username": "Gribio",
+					"status": "TAKEN",
+					"x": 100,
+					"y": 400,
+					"width": 80,
+					"height": 80,
+					"rotation": 0
+				},
+        {
+					"name": "A4",
+					"floor": 1,
+					"type": "TABLE",
+					"space": 4,
+					"user": "",
+					"username": "",
+					"status": "FREE",
+					"x": 400,
+					"y": 400,
+					"width": 80,
+					"height": 80,
+					"rotation": 0
+				},
+			]
+		}
+	},
+	{
+		"id": "string",
+		"name": "string",
+		"start": "2021-05-25T18:30:00+0700",
+		"end": "2021-05-25T23:00:00+0700",
+		"placement": {
+			"width": 800,
+			"height": 800,
+			"seats": [
+				{
+					"name": "A1",
+					"floor": 1,
+					"type": "TABLE",
+					"space": 4,
+					"user": "Bright",
+					"username": "Bright123",
+					"status": "TAKEN",
+					"x": 100,
+					"y": 100,
+					"width": 80,
+					"height": 80,
+					"rotation": 0
+				},
+        {
+					"name": "A2",
+					"floor": 1,
+					"type": "TABLE",
+					"space": 4,
+					"user": "",
+					"username": "",
+					"status": "FREE",
+					"x": 400,
+					"y": 100,
+					"width": 80,
+					"height": 80,
+					"rotation": 0
+				},
+				{
+					"name": "A3",
+					"floor": 1,
+					"type": "TABLE",
+					"space": 4,
+					"user": "",
+					"username": "",
+					"status": "FREE",
+					"x": 100,
+					"y": 400,
+					"width": 80,
+					"height": 80,
+					"rotation": 0
+				},
+        {
+					"name": "A4",
+					"floor": 1,
+					"type": "TABLE",
+					"space": 4,
+					"user": "",
+					"username": "",
+					"status": "FREE",
+					"x": 400,
+					"y": 400,
+					"width": 80,
+					"height": 80,
+					"rotation": 0
+				},
+			]
+		}
+	},
+	{
+		"id": "string",
+		"name": "string",
+		"start": "2021-05-26T11:30:00+0700",
+		"end": "2021-05-26T22:30:00+0700",
+		"placement": {
+			"width": 800,
+			"height": 800,
+			"seats": [
+				{
+					"name": "A1",
+					"floor": 1,
+					"type": "TABLE",
+					"space": 4,
+					"user": "Bright",
+					"username": "Bright123",
+					"status": "TAKEN",
+					"x": 100,
+					"y": 100,
+					"width": 80,
+					"height": 80,
+					"rotation": 0
+				},
+        {
+					"name": "A2",
+					"floor": 1,
+					"type": "TABLE",
+					"space": 4,
+					"user": "",
+					"username": "",
+					"status": "TAKEN",
+					"x": 400,
+					"y": 100,
+					"width": 80,
+					"height": 80,
+					"rotation": 0
+				},
+				{
+					"name": "A3",
+					"floor": 1,
+					"type": "TABLE",
+					"space": 4,
+					"user": "Grib",
+					"username": "Gribio",
+					"status": "TAKEN",
+					"x": 100,
+					"y": 400,
+					"width": 80,
+					"height": 80,
+					"rotation": 0
+				},
+        {
+					"name": "A4",
+					"floor": 1,
+					"type": "TABLE",
+					"space": 4,
+					"user": "",
+					"username": "",
+					"status": "FREE",
+					"x": 400,
+					"y": 400,
+					"width": 80,
+					"height": 80,
+					"rotation": 0
+				},
+			]
+		}
+	}
+]
