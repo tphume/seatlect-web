@@ -57,13 +57,13 @@ const useStyles = makeStyles((theme) => ({
 	todayHeader: {
 		padding: `10px 25px 0px 25px`
 	},
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: '#fff',
-  },
-  loadingSpace:{
-    width: `1rem`,
-  },
+	backdrop: {
+		zIndex: theme.zIndex.drawer + 1,
+		color: '#fff'
+	},
+	loadingSpace: {
+		width: `1rem`
+	}
 }));
 
 // helper function
@@ -111,7 +111,7 @@ export default function Schedule({ initialData }) {
 	const [viewOption, setViewOption] = React.useState(true);
 	const [reservations, setReservation] = useState(initialData);
 	const [openCreate, setOpenCreate] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = React.useState(false);
 	// setup repo
 	const repo = getReservationRepo({
 		env: process.env.NEXT_PUBLIC_ENV,
@@ -126,22 +126,22 @@ export default function Schedule({ initialData }) {
 
 	const handleCloseCreate = () => {
 		setOpenCreate(false);
-    handleToggle();
-    console.log("open back drop for 2 sec")
+		handleToggle();
+		console.log('open back drop for 2 sec');
 	};
 
-  const handleFinishCreate = () =>{
-    handleClose();
-    console.log("close back drop")
-  };
-  
-  const handleClose = () => {
-    setOpen(false);
-  };
+	const handleFinishCreate = () => {
+		handleClose();
+		console.log('close back drop');
+	};
 
-  const handleToggle = () => {
-    setOpen(!open);
-  };
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	const handleToggle = () => {
+		setOpen(!open);
+	};
 
 	useEffect(() => setId(localStorage.getItem('_id')), []);
 
@@ -177,9 +177,9 @@ export default function Schedule({ initialData }) {
 						onClickClose={() => {
 							handleCloseCreate();
 						}}
-            onFinishCreate={()=>{
-              handleFinishCreate();
-            }}
+						onFinishCreate={() => {
+							handleFinishCreate();
+						}}
 					/>
 				</Modal>
 				{/* --- Calendar section --- */}
@@ -258,17 +258,17 @@ export default function Schedule({ initialData }) {
 							</Grid>
 						</Grid>
 						{/* --- End of Header Section --- */}
-						{viewOption ? <MonthCard reservations={reservations} /> : ""}
+						{viewOption ? <MonthCard reservations={reservations} /> : ''}
 					</Paper>
 				</Grid>
 			</Grid>
 
-      {/* --- Loading screen --- */}
-      <Backdrop className={classes.backdrop} open={open}>
-        <CircularProgress color="inherit" />
-        <div className={classes.loadingSpace}></div>
-        <h2>Creating new schedule ...</h2>
-      </Backdrop>
+			{/* --- Loading screen --- */}
+			<Backdrop className={classes.backdrop} open={open}>
+				<CircularProgress color="inherit" />
+				<div className={classes.loadingSpace}></div>
+				<h2>Creating new schedule ...</h2>
+			</Backdrop>
 		</Layout>
 	);
 }

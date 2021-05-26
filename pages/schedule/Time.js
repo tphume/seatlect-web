@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 	paper: {
 		backgroundColor: `#F2D5F1`,
 		margin: `10px`,
-		padding: `1px 20px 1px 20px`,
+		padding: `1px 20px 1px 20px`
 	},
 	paper_padding: {
 		padding: `10px`
@@ -30,24 +30,24 @@ const useStyles = makeStyles((theme) => ({
 	paragraph: {
 		marginBlockStart: `0rem`,
 		marginBlockEnd: `0rem`,
-		color: 'red',
+		color: 'red'
 	},
-	cancelButton:{
+	cancelButton: {
 		backgroundColor: `#F57070`,
 		color: theme.palette.error.contrastText,
-		"&:hover":{
-				backgroundColor: theme.palette.error.dark
+		'&:hover': {
+			backgroundColor: theme.palette.error.dark
 		},
-		"&:disabled":{
-				backgroundColor: theme.palette.error.light
+		'&:disabled': {
+			backgroundColor: theme.palette.error.light
 		}
 	},
-	spacing:{
+	spacing: {
 		width: `10px`
 	},
-	marginButtonRow:{
+	marginButtonRow: {
 		marginTop: `-0.7rem`,
-		marginBottom: `0.5rem`,
+		marginBottom: `0.5rem`
 	}
 }));
 
@@ -56,9 +56,9 @@ export default function Time({ time }) {
 	// console.log(time)
 	var startTime = time.start.slice(0, 16);
 	var endTime = time.end.slice(0, 16);
-	const [seats,setSeats]= useState();
-  const [openCreate, setOpenCreate] = React.useState(false);
-	
+	const [seats, setSeats] = useState();
+	const [openCreate, setOpenCreate] = React.useState(false);
+
 	var seat = '';
 	for (let i = 0; i < time.placement.seats.length; i++) {
 		if (time.placement.seats[i].status === 'TAKEN') {
@@ -69,19 +69,19 @@ export default function Time({ time }) {
 			}
 		}
 	}
-	
-	console.log(seat.split(", "))
-	
-  // setup handlers
+
+	console.log(seat.split(', '));
+
+	// setup handlers
 	const handleOpenCreate = () => {
 		setOpenCreate(true);
 	};
 
-  const handleCloseCreate = () => {
+	const handleCloseCreate = () => {
 		setOpenCreate(false);
 	};
 	// useEffect(() => setId(localStorage.getItem('_id')), []);
-	
+
 	return (
 		<Paper className={classes.paper}>
 			<p classname={classes.paragraph}>
@@ -101,8 +101,7 @@ export default function Time({ time }) {
 					disableElevation
 					onClick={() => handleOpenCreate()}
 				>
-					view placment
-
+					View placement
 				</Button>
 				<div className={classes.spacing}></div>
 				<Button
@@ -110,25 +109,27 @@ export default function Time({ time }) {
 					className={classes.cancelButton}
 					size="small"
 					disableElevation
-					onClick={()=>{console.log("clicked cancel reservation")}}
+					onClick={() => {
+						console.log('clicked cancel reservation');
+					}}
 				>
-					cancel reservation
+					Cancel
 				</Button>
 			</Box>
-      <Modal
-					open={openCreate}
-					onClose={handleCloseCreate}
-					aria-labelledby="simple-modal-title"
-					aria-describedby="simple-modal-description"
-				>
-					<PlacementModal
-						className={classes.modal}
-            reservation={time}
-						onClickClose={() => {
-							handleCloseCreate();
-						}}
-					/>
-				</Modal>
+			<Modal
+				open={openCreate}
+				onClose={handleCloseCreate}
+				aria-labelledby="simple-modal-title"
+				aria-describedby="simple-modal-description"
+			>
+				<PlacementModal
+					className={classes.modal}
+					reservation={time}
+					onClickClose={() => {
+						handleCloseCreate();
+					}}
+				/>
+			</Modal>
 		</Paper>
 	);
 }

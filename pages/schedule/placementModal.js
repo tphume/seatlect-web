@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stage, Layer} from 'react-konva';
+import { Stage, Layer } from 'react-konva';
 
 import { getReservationRepo } from 'src/reservationRepo';
 import Layout from 'src/components/layout';
@@ -8,7 +8,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import { Button } from '@material-ui/core';
-
 
 import Rectangle from '../placement/Rectangle';
 import FreeStyleObject from '../placement/FreeStyleObject';
@@ -28,14 +27,13 @@ const TABLE1 = 'SHORT_TABLE';
 const TABLE2 = 'TABLE';
 const TABLE3 = 'LONG_TABLE';
 
-
 const useStyles = makeStyles((theme) => ({
 	root: {
 		position: `absolute`,
-    top: `50%`,
-    left: `50%`,
-    transform: `translate(-50%, -55%)`,
-    marginTop: `2rem`,
+		top: `50%`,
+		left: `50%`,
+		transform: `translate(-50%, -55%)`,
+		marginTop: `2rem`,
 		width: `870px`,
 		height: `870px`,
 		backgroundColor: `white`,
@@ -130,31 +128,31 @@ const useStyles = makeStyles((theme) => ({
 		color: `red`,
 		margin: `30px 10px -50px 0`
 	},
-  closeButton:{
+	closeButton: {
 		backgroundColor: `#F57070`,
 		color: theme.palette.error.contrastText,
-		"&:hover":{
-				backgroundColor: theme.palette.error.dark
+		'&:hover': {
+			backgroundColor: theme.palette.error.dark
 		},
-		"&:disabled":{
-				backgroundColor: theme.palette.error.light
+		'&:disabled': {
+			backgroundColor: theme.palette.error.light
 		}
 	},
-  marginButtonRow:{
+	marginButtonRow: {
 		marginTop: `-0.7rem`,
-		marginBottom: `0.5rem`,
+		marginBottom: `0.5rem`
 	}
 }));
 
 export default function PlacementModal({ reservation, onClickClose }) {
 	const classes = useStyles();
 
-  let initialTable = [];
+	let initialTable = [];
 	let initialWalls = [];
 	let initialObjects = [];
 	let initialID = 0;
-  
-  console.log(reservation.placement);
+
+	console.log(reservation.placement);
 
 	var i;
 	for (i = 0; i < reservation.placement.seats.length; i++) {
@@ -163,12 +161,11 @@ export default function PlacementModal({ reservation, onClickClose }) {
 			reservation.placement.seats[i].type == TABLE2 ||
 			reservation.placement.seats[i].type == TABLE3
 		) {
-			if(reservation.placement.seats[i].status == 'TAKEN'){
-        var _src = '/' + reservation.placement.seats[i].type + '_BUSY.png'  
-      }
-      else{
-        var _src = '/' + reservation.placement.seats[i].type + '.png';
-      }
+			if (reservation.placement.seats[i].status == 'TAKEN') {
+				var _src = '/' + reservation.placement.seats[i].type + '_BUSY.png';
+			} else {
+				var _src = '/' + reservation.placement.seats[i].type + '.png';
+			}
 
 			initialTable.push({
 				...reservation.placement.seats[i],
@@ -176,7 +173,10 @@ export default function PlacementModal({ reservation, onClickClose }) {
 				id: initialID,
 				src: _src
 			});
-		} else if (reservation.placement.seats[i].type == WALL1 || reservation.placement.seats[i].type == WALL2) {
+		} else if (
+			reservation.placement.seats[i].type == WALL1 ||
+			reservation.placement.seats[i].type == WALL2
+		) {
 			var _src = '/' + reservation.placement.seats[i].type + '.png';
 			initialWalls.push({
 				...reservation.placement.seats[i],
@@ -197,18 +197,18 @@ export default function PlacementModal({ reservation, onClickClose }) {
 		initialID += 1;
 	}
 
-  // SET_STATE
+	// SET_STATE
 	const [id, setId] = useState('');
 	const [images, setImages] = useState(initialTable);
 	const [objects, setObject] = useState(initialObjects);
-  const [walls, setWall] = useState(initialWalls);
+	const [walls, setWall] = useState(initialWalls);
 	const [selectedId, selectShape] = useState(null);
 	const [selectedShape, setShape] = useState(null);
 
-  // LOCAL REFERENCE
+	// LOCAL REFERENCE
 	const indexOfImage = React.useRef();
 	const stageRef = React.useRef();
-  const tableId = React.useRef(initialID);
+	const tableId = React.useRef(initialID);
 
 	// setup repo
 	const repo = getReservationRepo({
@@ -217,27 +217,26 @@ export default function PlacementModal({ reservation, onClickClose }) {
 		id: id
 	});
 
-
 	// setup handlers
 
-	
-
 	return (
-    <Card className={classes.root}>
-      <Box className={classes.marginButtonRow} display="flex" justifyContent="flex-end">
+		<Card className={classes.root}>
+			<Box className={classes.marginButtonRow} display="flex" justifyContent="flex-end">
 				<div className={classes.spacing}></div>
 				<Button
 					variant="contained"
 					className={classes.closeButton}
 					size="small"
 					disableElevation
-					onClick={()=>{onClickClose();}}
+					onClick={() => {
+						onClickClose();
+					}}
 				>
-          X
+					X
 				</Button>
-      </Box>
-      {/* --- Start of Canvas --- */}
-      <div className={classes.canvas}>
+			</Box>
+			{/* --- Start of Canvas --- */}
+			<div className={classes.canvas}>
 				<Stage
 					width={canvasWidth}
 					height={canvasHeight}
@@ -284,7 +283,7 @@ export default function PlacementModal({ reservation, onClickClose }) {
 					</Layer>
 				</Stage>
 			</div>
-      {/* --- End of Canvas --- */}
-    </Card>
+			{/* --- End of Canvas --- */}
+		</Card>
 	);
 }

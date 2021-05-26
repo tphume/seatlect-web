@@ -11,7 +11,6 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -124,8 +123,7 @@ export default function CreateScheduleModal({ date, id, onClickClose, onFinishCr
 	const [_end, setEnd] = useState(null);
 	const [_showRequired, setShowRequired] = useState(false);
 	const [_showText, setShowText] = useState(false);
-  // const [open, setOpen] = React.useState(false);
-  
+	// const [open, setOpen] = React.useState(false);
 
 	// setup repo
 	const repo = getReservationRepo({
@@ -151,25 +149,24 @@ export default function CreateScheduleModal({ date, id, onClickClose, onFinishCr
 		setEnd(time + ':' + SECOND);
 	}
 
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-  // const handleToggle = () => {
-  //   setOpen(!open);
-  // };
+	// const handleClose = () => {
+	//   setOpen(false);
+	// };
+	// const handleToggle = () => {
+	//   setOpen(!open);
+	// };
 
 	async function appendItem(e) {
 		e.preventDefault();
 
 		try {
-			
-      if (_day == null || _start == null || _end == null) {
+			if (_day == null || _start == null || _end == null) {
 				throw 'Please fill up all the information';
 			} else {
 				setShowRequired(false);
-        onClickClose();
-				
-        // var startTime = timeConverter(_day, _start);
+				onClickClose();
+
+				// var startTime = timeConverter(_day, _start);
 				// var endTime = timeConverter(_day, _end);
 
 				// var time1 = new Date(startTime);
@@ -182,9 +179,11 @@ export default function CreateScheduleModal({ date, id, onClickClose, onFinishCr
 				// console.log(startTime);
 				// console.log(endTime);
 				// await repo.createReservation({ name: '', start: startTime, end: endTime });
-        setTimeout(() => {  onFinishCreate(); }, 3000);
+				setTimeout(() => {
+					onFinishCreate();
+				}, 3000);
 			}
-      handleToggle();
+			handleToggle();
 		} catch (e) {
 			setShowRequired(true);
 			setShowText(e);
@@ -260,7 +259,7 @@ export default function CreateScheduleModal({ date, id, onClickClose, onFinishCr
 							disableElevation
 							onClick={() => {
 								onClickClose();
-                onFinishCreate();
+								onFinishCreate();
 							}}
 						>
 							Cancel
