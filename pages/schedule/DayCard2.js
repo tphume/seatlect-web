@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function DayCard2({ reservation }) {
+export default function DayCard2({ reservation, updateOnCancel }) {
 	const classes = useStyles();
 	const [id, setId] = useState('');
 	const [value, onChange] = useState(new Date());
@@ -89,7 +89,7 @@ export default function DayCard2({ reservation }) {
 			</Grid>
 			{show
 				? reservation.map((time, i) => {
-						return <Time key={i} time={time} />;
+						return <Time key={i} time={time} updateOnCancel={updateOnCancel} />;
 				  })
 				: ''}
 		</Paper>
