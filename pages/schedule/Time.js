@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Layout from 'src/components/layout';
+import { getReservationRepo } from 'src/reservationRepo';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -53,7 +54,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Time({ time }) {
 	const classes = useStyles();
-	// console.log(time)
+
+	const [id, setId] = useState('');
+	useEffect(() => setId(localStorage.getItem('_id')), []);
+
+	// setup repo
+	const repo = getReservationRepo({
+		env: process.env.NEXT_PUBLIC_ENV,
+		url: process.env.NEXT_PUBLIC_BE,
+		id: id
+	});
+
 	var startTime = time.start.slice(0, 16);
 	var endTime = time.end.slice(0, 16);
 	const [seats, setSeats] = useState();
@@ -70,8 +81,6 @@ export default function Time({ time }) {
 		}
 	}
 
-	console.log(seat.split(', '));
-
 	// setup handlers
 	const handleOpenCreate = () => {
 		setOpenCreate(true);
@@ -80,7 +89,14 @@ export default function Time({ time }) {
 	const handleCloseCreate = () => {
 		setOpenCreate(false);
 	};
-	// useEffect(() => setId(localStorage.getItem('_id')), []);
+
+	const cancel = async () => {
+		try {
+			await repo.cancelReservation(time.id);
+		} catch (e) {
+			console.log(e);
+		}
+	};
 
 	return (
 		<Paper className={classes.paper}>
@@ -109,9 +125,7 @@ export default function Time({ time }) {
 					className={classes.cancelButton}
 					size="small"
 					disableElevation
-					onClick={() => {
-						console.log('clicked cancel reservation');
-					}}
+					onClick={cancel}
 				>
 					Cancel
 				</Button>

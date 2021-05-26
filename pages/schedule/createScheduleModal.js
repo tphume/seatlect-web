@@ -166,22 +166,19 @@ export default function CreateScheduleModal({ date, id, onClickClose, onFinishCr
 				setShowRequired(false);
 				onClickClose();
 
-				// var startTime = timeConverter(_day, _start);
-				// var endTime = timeConverter(_day, _end);
+				var startTime = timeConverter(_day, _start);
+				var endTime = timeConverter(_day, _end);
 
-				// var time1 = new Date(startTime);
-				// var time2 = new Date(endTime);
-				// if (time2 - time1 < 0) {
-				// 	console.log(time2 - time1);
-				// 	throw 'Invalid time';
-				// }
+				var time1 = new Date(startTime);
+				var time2 = new Date(endTime);
+				if (time2 - time1 < 0) {
+					console.log(time2 - time1);
+					throw 'Invalid time';
+				}
 
-				// console.log(startTime);
-				// console.log(endTime);
-				// await repo.createReservation({ name: '', start: startTime, end: endTime });
-				setTimeout(() => {
-					onFinishCreate();
-				}, 3000);
+				console.log(startTime);
+				console.log(endTime);
+				await repo.createReservation({ name: '', start: startTime, end: endTime });
 			}
 			handleToggle();
 		} catch (e) {
