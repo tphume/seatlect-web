@@ -132,7 +132,6 @@ export default function Schedule({ initialData }) {
 
 	const handleFinishCreate = () => {
 		handleClose();
-		console.log('close back drop');
 	};
 
 	const handleClose = () => {
@@ -141,6 +140,11 @@ export default function Schedule({ initialData }) {
 
 	const handleToggle = () => {
 		setOpen(!open);
+	};
+
+	const updateOnCancel = (id) => {
+		let tmp = [...reservations].filter((r) => r.id != id);
+		setReservation(tmp);
 	};
 
 	useEffect(() => setId(localStorage.getItem('_id')), []);
@@ -258,7 +262,11 @@ export default function Schedule({ initialData }) {
 							</Grid>
 						</Grid>
 						{/* --- End of Header Section --- */}
-						{viewOption ? <MonthCard reservations={reservations} /> : ''}
+						{viewOption ? (
+							<MonthCard reservations={reservations} updateOnCancel={updateOnCancel} />
+						) : (
+							''
+						)}
 					</Paper>
 				</Grid>
 			</Grid>

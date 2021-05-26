@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function Time({ time }) {
+export default function Time({ time, updateOnCancel }) {
 	const classes = useStyles();
 
 	const [id, setId] = useState('');
@@ -94,6 +94,7 @@ export default function Time({ time }) {
 		try {
 			console.log(time);
 			await repo.cancelReservation(time.id);
+			updateOnCancel(time.id);
 		} catch (e) {
 			console.log(e);
 		}

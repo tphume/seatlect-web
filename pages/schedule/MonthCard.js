@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 // GET data
 // initialDatas = data.reservations
 
-export default function MonthCard({ reservations }) {
+export default function MonthCard({ reservations, updateOnCancel }) {
 	const classes = useStyles();
 	const [id, setId] = useState('');
 	const today = new Date();
@@ -62,7 +62,7 @@ export default function MonthCard({ reservations }) {
 	return (
 		<div className={classes.paper}>
 			{Object.keys(dict).map((key, i) => {
-				return <DayCard2 key={i} reservation={dict[key]} />;
+				return <DayCard2 key={i} reservation={dict[key]} updateOnCancel={updateOnCancel} />;
 			})}
 		</div>
 	);

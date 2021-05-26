@@ -149,13 +149,6 @@ export default function CreateScheduleModal({ date, id, onClickClose, onFinishCr
 		setEnd(time + ':' + SECOND);
 	}
 
-	// const handleClose = () => {
-	//   setOpen(false);
-	// };
-	// const handleToggle = () => {
-	//   setOpen(!open);
-	// };
-
 	async function appendItem(e) {
 		e.preventDefault();
 
@@ -172,20 +165,18 @@ export default function CreateScheduleModal({ date, id, onClickClose, onFinishCr
 				var time1 = new Date(startTime);
 				var time2 = new Date(endTime);
 				if (time2 - time1 < 0) {
-					console.log(time2 - time1);
 					throw 'Invalid time';
 				}
 
-				console.log(startTime);
-				console.log(endTime);
 				await repo.createReservation({ name: '', start: startTime, end: endTime });
 			}
-			handleToggle();
 		} catch (e) {
 			setShowRequired(true);
 			setShowText(e);
 			console.log(e);
 		}
+
+		onFinishCreate();
 	}
 
 	return (

@@ -99,10 +99,9 @@ class ReservationRepo {
 
 	async cancelReservation(id) {
 		try {
-			const response = await axios.patch(
-				`${this.url}/${this.endpoint}/${id}/status`,
-				{ status: 0 }
-			);
+			const response = await axios.patch(`${this.url}/${this.endpoint}/${id}/status`, {
+				status: 0
+			});
 		} catch (e) {
 			// TODO add better error handling
 			throw 'Network error';
