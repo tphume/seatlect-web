@@ -275,7 +275,6 @@ export default function PlacementModal({ reservation, onClickClose }) {
 										const rects = objects.slice();
 										setObject(rects);
 									}}
-									//onDrop={}
 									rotation={object.rotation}
 								></FreeStyleObject>
 							);
