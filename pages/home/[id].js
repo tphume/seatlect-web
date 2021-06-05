@@ -158,7 +158,6 @@ export default function Home({ business }) {
 					>
 						<MenuItem value="Restaurant">Restaurant</MenuItem>
 						<MenuItem value="Bar">Bar</MenuItem>
-						<MenuItem value="Theatre">Theatre</MenuItem>
 					</Select>
 					<InputLabel className={classes.label}>Description</InputLabel>
 					<TextField
