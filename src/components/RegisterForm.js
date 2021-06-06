@@ -86,7 +86,7 @@ export default function RegisterForm({ visible, setVisible }) {
 
 			await new Promise((resolve) => setTimeout(resolve, 2000));
 			setVisible(false);
-		} catch (e) {}
+		} catch (e) { }
 
 		setLoading(false);
 	}
@@ -160,7 +160,6 @@ export default function RegisterForm({ visible, setVisible }) {
 				>
 					<MenuItem value="Restaurant">Restaurant</MenuItem>
 					<MenuItem value="Bar">Bar</MenuItem>
-					<MenuItem value="Theatre">Theatre</MenuItem>
 				</Select>
 				<InputLabel className={classes.label}>Description</InputLabel>
 				<TextField

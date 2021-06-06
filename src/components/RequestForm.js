@@ -75,7 +75,7 @@ export default function RequestForm({ visible, setVisible, id, initial }) {
 		try {
 			await repo.createRequest(req);
 			setSuccess(true);
-		} catch (e) {}
+		} catch (e) { }
 
 		setLoading(false);
 	}
@@ -121,7 +121,6 @@ export default function RequestForm({ visible, setVisible, id, initial }) {
 				>
 					<MenuItem value="Restaurant">Restaurant</MenuItem>
 					<MenuItem value="Bar">Bar</MenuItem>
-					<MenuItem value="Theatre">Theatre</MenuItem>
 				</Select>
 				<InputLabel className={classes.label}>Description</InputLabel>
 				<TextField
