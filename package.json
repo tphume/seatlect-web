@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "start-prod": "next start --hostname 0.0.0.0 -p 80",
+    "start-prod": "next start --hostname 0.0.0.0 -p 8000",
     "format": "prettier --write '{pages,src}/**/*.{js,jsx,ts,tsx,css,md,json}' --use-tabs --config ./prettierrc.json"
   },
   "dependencies": {
